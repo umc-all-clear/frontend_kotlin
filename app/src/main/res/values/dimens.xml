@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_user">50dp</dimen>
+    <dimen name="home_cal_else">20dp</dimen>
+    <dimen name="home_cal_date">15dp</dimen>
+    <dimen name="default_side_margin">20dp</dimen>
+    <dimen name="menu_radius">30dp</dimen>
+    <dimen name="default_vertical_margin">10dp</dimen>
+    <dimen name="default_inside_vertical_margin">10dp</dimen>
+</resources>
