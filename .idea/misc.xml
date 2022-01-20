@@ -9,10 +9,12 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_home_calendar.xml" value="0.287109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/menu/main_nav_menu.xml" value="0.287109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/menu/menu.xml" value="0.3828125" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_des.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
