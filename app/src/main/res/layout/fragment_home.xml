@@ -256,7 +256,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintHorizontal_chainStyle="packed"
-                            android:src="@drawable/ic_launcher_background">
+                            android:src="@drawable/icon5">
                         </ImageView>
                         <TextView
                             android:id="@+id/home_friend_more_tv"

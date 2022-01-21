@@ -5,13 +5,13 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="홈"
-        android:icon="@color/white">
+        android:icon="@drawable/icon3">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="홈"
-        android:icon="@color/white">
+        android:icon="@drawable/icon4">
     </item>
     <item
         app:showAsAction="ifRoom"
@@ -23,6 +23,6 @@
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="홈"
-        android:icon="@color/white">
+        android:icon="@drawable/icon5">
     </item>
 </menu>

@@ -3,8 +3,14 @@
     <dimen name="home_user">50dp</dimen>
     <dimen name="home_cal_else">20dp</dimen>
     <dimen name="home_cal_date">15dp</dimen>
+    <dimen name="menu_radius">50dp</dimen>
+    <dimen name="photo_radius">20dp</dimen>
+    <dimen name="comment_radius">10dp</dimen>
     <dimen name="default_side_margin">20dp</dimen>
-    <dimen name="menu_radius">30dp</dimen>
     <dimen name="default_vertical_margin">10dp</dimen>
     <dimen name="default_inside_vertical_margin">10dp</dimen>
+    <dimen name="calendar_des_else_side_margin">42dp</dimen>
+    <dimen name="calendar_des_photo_side_margin">57dp</dimen>
+    <dimen name="calendar_des_side_margin">47dp</dimen>
+    <dimen name="calendar_date_side_margin">25dp</dimen>
 </resources>
