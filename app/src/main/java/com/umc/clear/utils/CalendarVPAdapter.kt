@@ -2,6 +2,7 @@ package com.umc.clear.utils
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,17 @@ class CalendarVPAdapter(val dataList: ArrayList<Int>, val context: Context, val 
     inner class viewHolder(val binding:ItemHomeCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun setRVAdapter() {
 
-            binding.itemCalDate1Rv.layoutManager = CustomLinearLayout(context)
+            binding.itemCalDate1Rv.overScrollMode = View.OVER_SCROLL_NEVER
+            val manager = CustomLinearLayout(context)
+            binding.itemCalDate1Rv.layoutManager = manager
+            val default = (width - (67 * 2)) / 7
+            if (default < 65) {
+                binding.itemCalDate1Rv.addItemDecoration(CustomItem(default))
+            }
+            else {
+                binding.itemCalDate1Rv.addItemDecoration(CustomItem(65))
+
+            }
             binding.itemCalDate1Rv.adapter = CalendarDateRVAdatper(dataList, width)
 
             val arr = ArrayList<Int>()

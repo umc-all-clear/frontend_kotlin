@@ -27,12 +27,13 @@ class CalendarDateRVAdatper(val data: ArrayList<Int>, val width: Int): RecyclerV
     inner class viewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun setting() {
             binding.itemCalDateTv.text = data[0].toString()
-            val par = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            par.setMargins(-10, -10, -10, -10)
-            binding.itemCalDateCv.layoutParams = par
+//            val par = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+//            par.setMargins(-10, -10, -10, -10)
+//            binding.itemCalDateCv.layoutParams = par
             val default = (width - (67* 2)) / 7
             if (default < 65) {
             }
+
         }
     }
 }
