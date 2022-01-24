@@ -7,5 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="menu">#AAECFD</color>
+    <color name="menu">#F1F1F5</color>
+    <color name="transparent">#00000000</color>
+    <color name="calendar_date_no_unselected">#DBDBDB</color>
+    <color name="calendar_date_selected">#007AFF</color>
+    <color name="calendar_date_yes_unselected">#7FB0F7</color>
 </resources>

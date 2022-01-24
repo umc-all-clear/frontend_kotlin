@@ -10,4 +10,12 @@ class CustomLinearLayout(context: Context): LinearLayoutManager(context, Recycle
         return false
     }
 
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView?,
+        state: RecyclerView.State?,
+        position: Int
+    ) {
+        super.smoothScrollToPosition(recyclerView, state, position)
+    }
+
 }

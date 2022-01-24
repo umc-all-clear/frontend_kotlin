@@ -101,7 +101,9 @@
                         app:layout_constraintRight_toLeftOf="@id/home_cal_tue_tv"
                         app:layout_constraintBottom_toTopOf="@id/home_cal_vp"
                         android:text="M"
-                        android:textSize="@dimen/home_cal_else">
+                        android:textSize="@dimen/home_cal_else"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        android:layout_marginLeft="47dp">
                     </TextView>
                     <TextView
                         android:id="@+id/home_cal_tue_tv"
@@ -167,7 +169,8 @@
                         app:layout_constraintLeft_toRightOf="@id/home_cal_sat_tv"
                         app:layout_constraintRight_toRightOf="parent"
                         android:text="S"
-                        android:textSize="@dimen/home_cal_else">
+                        android:textSize="@dimen/home_cal_else"
+                        android:layout_marginRight="47dp">
                     </TextView>
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/home_cal_vp"

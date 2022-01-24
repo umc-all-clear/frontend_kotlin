@@ -92,11 +92,11 @@
                 android:layout_marginRight="@dimen/calendar_des_photo_side_margin"
                 android:layout_marginLeft="@dimen/calendar_des_photo_side_margin"
                 app:cardCornerRadius="@dimen/photo_radius">
+
                 <ImageView
                     android:id="@+id/item_cal_des_after_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/fortest"
                     android:adjustViewBounds="true">
                 </ImageView>
             </androidx.cardview.widget.CardView>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="home_user">50dp</dimen>
-    <dimen name="home_cal_else">20dp</dimen>
+    <dimen name="home_cal_else">25dp</dimen>
     <dimen name="home_cal_date">15dp</dimen>
     <dimen name="menu_radius">50dp</dimen>
     <dimen name="photo_radius">20dp</dimen>

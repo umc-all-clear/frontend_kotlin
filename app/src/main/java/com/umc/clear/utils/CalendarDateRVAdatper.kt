@@ -1,23 +1,37 @@
 package com.umc.clear.utils
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 
-class CalendarDateRVAdatper(val data: ArrayList<Int>, val width: Int): RecyclerView.Adapter<CalendarDateRVAdatper.viewHolder>() {
+class CalendarDateRVAdatper(val data: ArrayList<Int>): RecyclerView.Adapter<CalendarDateRVAdatper.viewHolder>() {
+
+    interface onclickListener {
+        fun onClick()
+    }
+
+    lateinit var clickListener: onclickListener
+
+    fun setListener(listen: onclickListener) {
+        clickListener = listen
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): CalendarDateRVAdatper.viewHolder {
         val binding: ItemHomeCalendarDateBinding = ItemHomeCalendarDateBinding.inflate(
             LayoutInflater.from(parent.context), parent, false)
+
         return viewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CalendarDateRVAdatper.viewHolder, position: Int) {
-        holder.setting()
+        holder.setting(position)
     }
 
     override fun getItemCount(): Int {
@@ -25,15 +39,15 @@ class CalendarDateRVAdatper(val data: ArrayList<Int>, val width: Int): RecyclerV
     }
 
     inner class viewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
-        fun setting() {
+        fun setting(position: Int) {
             binding.itemCalDateTv.text = data[0].toString()
-//            val par = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-//            par.setMargins(-10, -10, -10, -10)
-//            binding.itemCalDateCv.layoutParams = par
-            val default = (width - (67* 2)) / 7
-            if (default < 65) {
+            var pos = IntArray(2)
+            binding.itemCalDateTv.doOnLayout {
+                if (position == 0) {
+                    binding.itemCalDateIv.getLocationInWindow(pos)
+                    PrefApp.pref.putString("calxPos", pos[0].toString())
+                }
             }
-
         }
     }
 }
