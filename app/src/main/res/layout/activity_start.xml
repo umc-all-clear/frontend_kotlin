@@ -46,7 +46,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.cardview.widget.CardView
-        android:id="@+id/start_default_login_cv"
+        android:id="@+id/start_default_go_login_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +58,7 @@
         app:cardCornerRadius="52dp"
         android:backgroundTint="@color/purple_200">
         <TextView
-            android:id="@+id/start_default_login_tv"
+            android:id="@+id/start_default_go_login_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
