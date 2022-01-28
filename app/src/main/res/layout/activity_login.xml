@@ -55,12 +55,12 @@
         app:layout_constraintTop_toBottomOf="@id/login_id_et"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/login_auto_login_cb"
+        app:layout_constraintBottom_toTopOf="@id/login_auto_login_iv"
         android:hint="비밀번호를 입력해주세요."
         app:layout_constraintVertical_weight="1">
     </EditText>
-    <CheckBox
-        android:id="@+id/login_auto_login_cb"
+    <ImageView
+        android:id="@+id/login_auto_login_iv"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/login_pw_et"
@@ -68,32 +68,32 @@
         app:layout_constraintRight_toLeftOf="@id/login_auto_login_tv"
         app:layout_constraintBottom_toTopOf="@id/login_1_sp"
         app:layout_constraintVertical_weight="0.4">
-    </CheckBox>
+    </ImageView>
     <TextView
         android:id="@+id/login_auto_login_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/login_pw_et"
-        app:layout_constraintLeft_toRightOf="@id/login_auto_login_cb"
-        app:layout_constraintRight_toLeftOf="@id/login_id_save_cb"
+        app:layout_constraintLeft_toRightOf="@id/login_auto_login_iv"
+        app:layout_constraintRight_toLeftOf="@id/login_id_save_iv"
         app:layout_constraintBottom_toTopOf="@id/login_1_sp"
         android:text="자동 로그인">
     </TextView>
-    <CheckBox
-        android:id="@+id/login_id_save_cb"
+    <ImageView
+        android:id="@+id/login_id_save_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/login_pw_et"
         app:layout_constraintLeft_toRightOf="@id/login_auto_login_tv"
         app:layout_constraintRight_toLeftOf="@id/login_id_save_tv"
         app:layout_constraintBottom_toTopOf="@id/login_1_sp">
-    </CheckBox>
+    </ImageView>
     <TextView
         android:id="@+id/login_id_save_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/login_pw_et"
-        app:layout_constraintLeft_toRightOf="@id/login_id_save_cb"
+        app:layout_constraintLeft_toRightOf="@id/login_id_save_iv"
         app:layout_constraintBottom_toTopOf="@id/login_1_sp"
         android:text="아이디 저장">
     </TextView>
@@ -101,7 +101,7 @@
         android:id="@+id/login_1_sp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/login_auto_login_cb"
+        app:layout_constraintTop_toBottomOf="@id/login_auto_login_iv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintVertical_weight="3.5">
@@ -124,6 +124,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_2_sp"
         android:text="로그인"
+        android:gravity="center"
         app:layout_constraintVertical_weight="0.8">
     </TextView>
     <TextView
