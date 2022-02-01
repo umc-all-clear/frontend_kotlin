@@ -42,18 +42,8 @@ class HomeFragment: Fragment() {
     }
 
     private fun init() {
-        val arr = ArrayList<Int>()
-        arr.add(1)
-        arr.add(2)
-        arr.add(3)
-        arr.add(1)
-        arr.add(2)
-        arr.add(3)
-        arr.add(3)
 
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        binding.homeCalVp.adapter = CalendarVPAdapter(arr, context)
+        binding.homeCalVp.adapter = CalendarVPAdapter(context)
         binding.homeCalVp.currentItem = 1000
 
         binding.homeCalVp.doOnLayout {

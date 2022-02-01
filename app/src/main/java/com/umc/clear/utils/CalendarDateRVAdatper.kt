@@ -8,7 +8,7 @@ import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 
-class CalendarDateRVAdatper(val data: ArrayList<Int>): RecyclerView.Adapter<CalendarDateRVAdatper.viewHolder>() {
+class CalendarDateRVAdatper(val data: Pair<Int, Int>): RecyclerView.Adapter<CalendarDateRVAdatper.viewHolder>() {
 
     interface onclickListener {
         fun onClick()
@@ -35,12 +35,20 @@ class CalendarDateRVAdatper(val data: ArrayList<Int>): RecyclerView.Adapter<Cale
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return if (data.first == 0) {
+            7
+        }
+        else {
+            data.first
+        }
     }
 
     inner class viewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun setting(position: Int) {
-            binding.itemCalDateTv.text = data[0].toString()
+            for (i in data.second until data.second+itemCount) {
+                binding.itemCalDateTv.text = i.toString()
+            }
+
             var pos = IntArray(2)
             binding.itemCalDateTv.doOnLayout {
                 if (position == 0) {
