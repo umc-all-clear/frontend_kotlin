@@ -35,19 +35,12 @@ class CalendarDateRVAdatper(val data: Pair<Int, Int>): RecyclerView.Adapter<Cale
     }
 
     override fun getItemCount(): Int {
-        return if (data.first == 0) {
-            7
-        }
-        else {
-            data.first
-        }
+        return 7
     }
 
     inner class viewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun setting(position: Int) {
-            for (i in data.second until data.second+itemCount) {
-                binding.itemCalDateTv.text = i.toString()
-            }
+            binding.itemCalDateTv.text = (data.second + position).toString()
 
             var pos = IntArray(2)
             binding.itemCalDateTv.doOnLayout {

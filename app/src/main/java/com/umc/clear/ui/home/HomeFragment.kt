@@ -1,39 +1,47 @@
 package com.umc.clear.ui.home
 
+import android.app.Activity
 import android.content.Context
-import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginStart
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnLayout
+import androidx.core.view.updatePadding
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.viewpager2.widget.ViewPager2
+import com.umc.clear.R
 import com.umc.clear.databinding.FragmentHomeBinding
 import com.umc.clear.ui.MainActivity
 import com.umc.clear.utils.CalendarVPAdapter
-import android.view.ViewGroup.MarginLayoutParams
-import androidx.core.view.doOnLayout
-import androidx.core.view.updatePadding
 import com.umc.clear.utils.PrefApp
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 
 class HomeFragment: Fragment() {
-    lateinit var binding: FragmentHomeBinding
     lateinit var context: MainActivity
-
+    lateinit var dBinding: FragmentHomeBinding
+    lateinit var vpHeight: Height
+    val liveChange = MutableLiveData<Boolean>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        dBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         init()
-        return binding.root
+        dBinding.root.doOnLayout {
+            PrefApp.glob.setElseHeight(dBinding.homeCalMonTv.height + dBinding.homeCalTv.height)
+        }
+
+
+        return dBinding.root
     }
 
     override fun onAttach(context: Context) {
@@ -41,22 +49,73 @@ class HomeFragment: Fragment() {
         this.context = context as MainActivity
     }
 
+    interface Height {
+        fun height()
+    }
+
+    fun seth(h: Height) {
+        vpHeight = h
+    }
+
     private fun init() {
 
-        binding.homeCalVp.adapter = CalendarVPAdapter(context)
-        binding.homeCalVp.currentItem = 1000
+        val cal = Calendar.getInstance()
+        dBinding.homeCalTv.text = cal.get(Calendar.YEAR).toString() + "년 " + (cal.get(Calendar.MONTH) + 1).toString() + "월"
+        val adapter = CalendarVPAdapter(this)
+        dBinding.homeCalVp.adapter = adapter
 
-        binding.homeCalVp.doOnLayout {
+        dBinding.homeCalVp.doOnAttach {
+            dBinding.homeCalVp.setCurrentItem(1000, false)
+        }
+
+
+
+        dBinding.homeCalVp.doOnLayout {
 
             val rvpos = PrefApp.pref.getString("calxPos").toInt()
-            val dpi = PrefApp.pref.getString("dpi").toFloat()
             var pos = IntArray(2)
-            binding.homeCalMonTv.getLocationInWindow(pos)
+            dBinding.homeCalMonTv.getLocationInWindow(pos)
 
-            val rpos = rvpos - pos[0]
-            binding.homeCalMonTv.updatePadding(rvpos, 0, 0, 0)
-            binding.homeCalSunTv.updatePadding(0, 0, rvpos + 20, 0)
+            dBinding.homeCalMonTv.updatePadding(rvpos, 0, 0, 0)
+            dBinding.homeCalSunTv.updatePadding(0, 0, rvpos + 20, 0)
+
+
         }
+
+            dBinding.homeCalVp.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+
+                    val cal = Calendar.getInstance()
+                    if (position < 1000) {
+                        cal.add(Calendar.MONTH, -(1000 - position))
+                    } else if (position > 1000) {
+                        cal.add(Calendar.MONTH, position - 1000)
+                    }
+                    val year = cal.get(Calendar.YEAR)
+                    val month = cal.get(Calendar.MONTH) + 1
+                    dBinding.homeCalTv.text = year.toString() + "년 " + month.toString() + "월"
+
+                    dBinding.apply {
+                        lifecycleOwner = viewLifecycleOwner
+                        height = this@HomeFragment
+
+                        if (position != PrefApp.glob.getCalPage()) {
+                            PrefApp.glob.setCalPage(dBinding.homeCalVp.currentItem)
+                            vpHeight.height()
+                            liveChange.value = true
+                        } else {
+                            liveChange.value = false
+                        }
+                    }
+                }
+            })
+
     }
 
 

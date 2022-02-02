@@ -7,6 +7,7 @@ class PrefUtil(context: Context) {
     val prefName = "deviceInfo"
     val pref: SharedPreferences = context.getSharedPreferences(prefName, 0)
 
+
     fun getString(key: String): String {
         return pref.getString(key, "").toString()
     }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_1_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_1_cv"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,12 +19,13 @@
         android:overScrollMode="never"
         tools:listitem="@layout/item_home_calendar_date"
         android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
+        app:layout_constraintVertical_weight="1">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_1_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_1_rv"
@@ -32,7 +34,8 @@
         android:layout_marginLeft="@dimen/calendar_des_side_margin"
         android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:layout_marginBottom="20dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintVertical_weight="1">
         <FrameLayout
             android:id="@+id/item_cal_des_1_fl"
             android:layout_width="match_parent"
@@ -43,7 +46,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_2_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_2_cv"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +62,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_2_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_2_rv"
@@ -79,7 +82,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_3_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal"
@@ -94,7 +97,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_3_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_3_rv"
@@ -114,22 +117,22 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_4_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
+        android:nestedScrollingEnabled="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/item_cal_des_4_cv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_des_3_cv"
-        app:layout_constraintBottom_toTopOf="@id/item_cal_des_4_cv"
-        android:orientation="horizontal"
-        tools:listitem="@layout/item_home_calendar_date"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        tools:listitem="@layout/item_home_calendar_date">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_4_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_4_rv"
@@ -149,7 +152,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_5_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_des_4_cv"
@@ -164,7 +167,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_5_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_5_rv"
@@ -184,7 +187,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_6_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_des_5_cv"
@@ -196,11 +199,10 @@
         android:layout_marginLeft="@dimen/calendar_des_side_margin"
         android:layout_marginRight="@dimen/calendar_des_side_margin">
     </androidx.recyclerview.widget.RecyclerView>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_6_cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_6_rv"
