@@ -1,19 +1,15 @@
-package com.umc.clear.ui.home
+package com.umc.clear.ui.home.view
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
-import androidx.core.view.doOnNextLayout
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarBinding
-import com.umc.clear.ui.MainActivity
 import com.umc.clear.utils.CalendarDateRVAdatper
 import com.umc.clear.utils.CustomItem
 import com.umc.clear.utils.CustomLinearLayout

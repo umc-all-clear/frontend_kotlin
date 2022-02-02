@@ -1,18 +1,13 @@
 package com.umc.clear.ui
 
-import android.content.Context
 import android.graphics.Point
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import android.view.LayoutInflater
 import com.umc.clear.databinding.ActivityMainBinding
-import com.umc.clear.ui.home.HomeFragment
-import com.umc.clear.ui.rank.RankFragment
+import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
-import com.umc.clear.utils.PrefUtil
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding

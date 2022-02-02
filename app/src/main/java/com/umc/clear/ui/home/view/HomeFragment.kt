@@ -1,17 +1,13 @@
-package com.umc.clear.ui.home
+package com.umc.clear.ui.home.view
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
-import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.viewpager2.widget.ViewPager2
 import com.umc.clear.R
@@ -20,7 +16,6 @@ import com.umc.clear.ui.MainActivity
 import com.umc.clear.utils.CalendarVPAdapter
 import com.umc.clear.utils.PrefApp
 import java.util.*
-import kotlin.concurrent.thread
 
 
 class HomeFragment: Fragment() {
