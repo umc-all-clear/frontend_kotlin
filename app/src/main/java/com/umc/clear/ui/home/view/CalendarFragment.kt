@@ -46,7 +46,7 @@ class CalendarFragment(val calList: ArrayList<Int>, val context: FragmentActivit
     }
 
     fun getHeight() {
-            binding.root.doOnLayout {
+        binding.root.doOnLayout {
                 var vpTotalHeight = binding.itemCalDes1Fl.height +
                         binding.itemCalDes2Fl.height +
                         binding.itemCalDes3Fl.height +
@@ -62,7 +62,6 @@ class CalendarFragment(val calList: ArrayList<Int>, val context: FragmentActivit
 
                 PrefApp.glob.setCalHeight(vpTotalHeight)
             }
-
     }
 
     private fun setRVAdapter() {
