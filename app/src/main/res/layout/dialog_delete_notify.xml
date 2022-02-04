@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/dialog_notify_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dialog_notify_cancel_tv"
+            android:text="알림을 전부 삭제하시겠습니까?"
+            android:gravity="center">
+        </TextView>
+        <TextView
+            android:id="@+id/dialog_notify_cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dialog_notify_title_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/dialog_notify_confirm_tv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="취소">
+        </TextView>
+        <TextView
+            android:id="@+id/dialog_notify_confirm_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/dialog_notify_title_tv"
+            app:layout_constraintLeft_toRightOf="@id/dialog_notify_cancel_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="삭제하기">
+        </TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
