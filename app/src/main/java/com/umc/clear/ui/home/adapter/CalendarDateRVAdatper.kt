@@ -1,12 +1,11 @@
-package com.umc.clear.utils
+package com.umc.clear.ui.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
+import com.umc.clear.utils.PrefApp
 
 class CalendarDateRVAdatper(val data: Pair<Int, Int>): RecyclerView.Adapter<CalendarDateRVAdatper.viewHolder>() {
 
@@ -23,14 +22,14 @@ class CalendarDateRVAdatper(val data: Pair<Int, Int>): RecyclerView.Adapter<Cale
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CalendarDateRVAdatper.viewHolder {
+    ): viewHolder {
         val binding: ItemHomeCalendarDateBinding = ItemHomeCalendarDateBinding.inflate(
             LayoutInflater.from(parent.context), parent, false)
 
         return viewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CalendarDateRVAdatper.viewHolder, position: Int) {
+    override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.setting(position)
     }
 

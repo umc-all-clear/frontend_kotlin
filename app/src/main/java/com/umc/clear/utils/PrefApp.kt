@@ -11,6 +11,6 @@ class PrefApp : Application() {
     override fun onCreate() {
         super.onCreate()
         pref = PrefUtil(applicationContext)
-        glob = GlobalVariable(applicationContext)
+        glob = GlobalVariable()
     }
 }

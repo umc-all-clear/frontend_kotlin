@@ -8,7 +8,6 @@ import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarBinding
-import com.umc.clear.utils.CalendarDateRVAdatper
 import com.umc.clear.utils.CustomItem
 import com.umc.clear.utils.CustomLinearLayout
 import com.umc.clear.utils.PrefApp
@@ -17,6 +16,9 @@ import kotlin.collections.ArrayList
 
 class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     lateinit var binding: ItemHomeCalendarBinding
+    var flHeight = 0
+    var firstCall = true
+
     var calList = ArrayList<Int>()
 
     override fun onCreateViewHolder(
@@ -39,28 +41,20 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
     inner class ViewHolder(val binding: ItemHomeCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun init(pos: Int) {
             setDate(pos)
-            getHeight()
             setFL()
             setRVAdapter()
         }
     }
 
-    fun getHeight() {
-        binding.root.doOnLayout {
-            var vpTotalHeight = binding.itemCalDes1Fl.height +
-                    binding.itemCalDes2Fl.height +
-                    binding.itemCalDes3Fl.height +
-                    binding.itemCalDes4Fl.height +
-                    binding.itemCalDes5Fl.height +
-                    binding.itemCalDes6Fl.height +
-                    binding.itemCalDate1Rv.height +
-                    binding.itemCalDate2Rv.height +
-                    binding.itemCalDate3Rv.height +
-                    binding.itemCalDate4Rv.height +
-                    binding.itemCalDate5Rv.height +
-                    binding.itemCalDate6Rv.height
-
-            PrefApp.glob.setCalHeight(vpTotalHeight)
+    fun setHeight(month: Int) {
+        if (month == calList[1]) {
+            if (binding.itemCalDate5Rv.visibility == View.GONE) {
+                PrefApp.glob.setCalHeight(4)
+            } else if (binding.itemCalDate6Rv.visibility == View.GONE) {
+                PrefApp.glob.setCalHeight(5)
+            } else {
+                PrefApp.glob.setCalHeight(6)
+            }
         }
     }
 
@@ -68,6 +62,10 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes1Fl, true)
+        if (firstCall) {
+            flHeight = binding.itemCalDes1Fl.height
+        }
+        binding.itemCalDes1Fl.visibility = View.GONE
 
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes2Fl, true)
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes3Fl, true)
@@ -119,10 +117,15 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
             }
         })
         binding.itemCalDate1Rv.adapter = adapter1
+        if (firstCall) {
+            binding.root.doOnLayout {
+                PrefApp.glob.setRvHeight(binding.itemCalDate1Rv.height)
+                firstCall = false
+            }
+        }
 
 
         binding.itemCalDate2Rv.addItemDecoration(CustomItem(siz))
-
         binding.itemCalDate2Rv.adapter = CalendarDateRVAdatper(rvList[1])
 
 
@@ -162,7 +165,8 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
 
     fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 
-    fun setDate(position: Int) {//pos 1000 == currentTime
+    fun setDate(position: Int) {//pos 1000 == currentTime]
+        calList.clear()
         val cal = Calendar.getInstance()
         if (position < 1000) {
             cal.add(Calendar.MONTH, -(1000 - position))
@@ -170,6 +174,8 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
         else if (position > 1000) {
             cal.add(Calendar.MONTH, position - 1000)
         }
+        cal.set(Calendar.DATE, 1)
+
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH) + 1
         val weekday = cal.get(Calendar.DAY_OF_WEEK)
@@ -188,7 +194,7 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
 
     private fun calLine(total: Int, w: Int):Pair<Int, Int> {
         var firstGap = 0
-        var line = if (w == 1) {
+        var line = if (w == 1) {//일요일이면 그 줄에 1개 들어감
             firstGap = 1
             if ((total  - 1) % 7 == 0) {
                 (total - 1)/ 7 + 1

@@ -6,27 +6,25 @@ import android.view.ViewGroup
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
 import androidx.core.view.updatePadding
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.databinding.ItemHomeHeaderBinding
 import com.umc.clear.databinding.ItemHomeRankBinding
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val fragment: Fragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    lateinit var vpHeight: Height
-    interface Height {
-        fun height()
-    }
-
-    fun seth(h: Height) {
-        vpHeight = h
-    }
-
-    val liveChange = MutableLiveData<Boolean>()
+    val liveVpChange = MutableLiveData<Boolean>()
+    val liveCvChange = MutableLiveData<Boolean>()
+    var firstCall = true
     override fun getItemViewType(position: Int): Int {
         return dataList[0]
     }
@@ -34,15 +32,15 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
         return when(viewType) {
             1-> {
                 val binding = ItemHomeHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                headerHolder(binding)
+                HeaderHolder(binding)
             }
             2-> {
-                val binding = ItemHomeCalendarFrameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                calFrameHolder(binding)
+                val binding = DataBindingUtil.inflate<ItemHomeCalendarFrameBinding>(LayoutInflater.from(parent.context), R.layout.item_home_calendar_frame, parent, false)
+                CalFrameHolder(binding)
             }
             else-> {
                 val binding = ItemHomeRankBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                rankHolder(binding)
+                RankHolder(binding)
             }
         }
 
@@ -51,13 +49,13 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(dataList[0]) {
             1-> {
-                (holder as HomeRVAdapter.headerHolder).init()
+                (holder as HomeRVAdapter.HeaderHolder).init()
             }
             2-> {
-                (holder as HomeRVAdapter.calFrameHolder).init()
+                (holder as HomeRVAdapter.CalFrameHolder).init()
             }
             else-> {
-                (holder as HomeRVAdapter.rankHolder).init()
+                (holder as HomeRVAdapter.RankHolder).init()
             }
         }
     }
@@ -66,20 +64,23 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
         return 1
     }
 
-    inner class headerHolder(private val binding: ItemHomeHeaderBinding)
+    inner class HeaderHolder(private val binding: ItemHomeHeaderBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun init() {
 //                binding.homeUserInfoTv.text = dataList[1].toString()
             }
     }
 
-    inner class calFrameHolder(private val binding: ItemHomeCalendarFrameBinding)
+    inner class CalFrameHolder(private val binding: ItemHomeCalendarFrameBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun init() {
+                binding.root.doOnLayout {
+                    PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
+                }
+
                 val adapter = CalendarRVAdapter(context, dataList)
                 binding.homeCalVp.adapter = adapter
 
-                adapter.getHeight()
                 binding.homeCalVp.doOnLayout {
                     val rvpos = PrefApp.pref.getString("calxPos").toInt()
                     var pos = IntArray(2)
@@ -93,21 +94,53 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                     binding.homeCalVp.setCurrentItem(1000, false)
                 }
 
-                binding.apply {
-                        lifecycleOwner = fragment.viewLifecycleOwner
-                        height = fragment as HomeFragment
+                binding.homeCalVp.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
 
-                        if (position != PrefApp.glob.getCalPage()) {
-                            PrefApp.glob.setCalPage(binding.homeCalVp.currentItem)
-                            liveChange.value = true
-                        } else {
-                            liveChange.value = false
+                        if (binding.homeCalVp.scrollState == ViewPager2.SCROLL_STATE_SETTLING || firstCall) {
+
+
+                            binding.apply {
+
+                                val cal = Calendar.getInstance()
+                                if (position < 1000) {
+                                    cal.add(Calendar.MONTH, -(1000 - position))
+                                } else if (position > 1000) {
+                                    cal.add(Calendar.MONTH, position - 1000)
+                                }
+                                val year = cal.get(Calendar.YEAR)
+                                val month = cal.get(Calendar.MONTH) + 1
+                                binding.homeCalTv.text =
+                                    year.toString() + "년 " + month.toString() + "월"
+
+
+                                lifecycleOwner = fragment.viewLifecycleOwner
+                                height = this@HomeRVAdapter
+
+                                if (!firstCall) {
+                                    adapter.setHeight(month)
+                                }
+                                firstCall = false
+                                if (position != PrefApp.glob.getCalPage()) {
+                                    adapter.setHeight(month)
+                                    PrefApp.glob.setCalPage(position)
+                                    liveCvChange.value = true
+                                    liveVpChange.value = true
+                                } else {
+                                    liveCvChange.value = false
+                                    liveVpChange.value = false
+                                }
+                            }
                         }
                     }
+
+                })
             }
     }
 
-    inner class rankHolder(private val binding: ItemHomeRankBinding)
+    inner class RankHolder(private val binding: ItemHomeRankBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun init() {
             }

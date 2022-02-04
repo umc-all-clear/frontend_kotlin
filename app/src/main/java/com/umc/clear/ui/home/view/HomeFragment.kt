@@ -14,7 +14,6 @@ import com.umc.clear.R
 import com.umc.clear.databinding.FragmentHomeBinding
 import com.umc.clear.ui.MainActivity
 import com.umc.clear.ui.home.adapter.HomeRVAdapter
-import com.umc.clear.utils.CalendarVPAdapter
 import com.umc.clear.utils.PrefApp
 import java.util.*
 
@@ -23,7 +22,6 @@ class HomeFragment: Fragment() {
     lateinit var context: MainActivity
     lateinit var binding: FragmentHomeBinding
     lateinit var vpHeight: Height
-    val liveChange = MutableLiveData<Boolean>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="height"
-            type="com.umc.clear.ui.home.view.HomeFragment">
+            type="com.umc.clear.ui.home.adapter.HomeRVAdapter">
         </variable>
     </data>
 <androidx.cardview.widget.CardView
@@ -11,7 +11,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_cal_cv"
     android:layout_width="match_parent"
-    change_height="@{height.liveChange, default = wrap_content}"
+    change_all_height="@{height.liveCvChange, default = true}"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/menu_radius"
     android:layout_marginBottom="@dimen/default_vertical_margin">
@@ -133,7 +133,8 @@
         </TextView>
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_cal_vp"
-            android:layout_width="wrap_content"
+            change_cal_height="@{height.liveVpChange, default = true}"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/home_cal_mon_tv"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -142,7 +143,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:listitem="@layout/item_home_calendar">
-        </androidx.viewpager2.widget.ViewPager2>>
+        </androidx.viewpager2.widget.ViewPager2>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 </layout>
