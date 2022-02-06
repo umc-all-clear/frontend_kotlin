@@ -21,7 +21,7 @@ import java.util.*
 class HomeFragment: Fragment() {
     lateinit var context: MainActivity
     lateinit var binding: FragmentHomeBinding
-    lateinit var vpHeight: Height
+//    lateinit var vpHeight: Height
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +31,7 @@ class HomeFragment: Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val arr = ArrayList<Int>()
         arr.add(2)
-        binding.homeRv.adapter = HomeRVAdapter(context, arr, this)
+        binding.homeRv.adapter = HomeRVAdapter(context, arr, this as HomeFragment)
         //init()
 //        dBinding.root.doOnLayout {
 //            PrefApp.glob.setElseHeight(dBinding.homeCalMonTv.height + dBinding.homeCalTv.height)
@@ -45,14 +45,14 @@ class HomeFragment: Fragment() {
         super.onAttach(context)
         this.context = context as MainActivity
     }
-
-    interface Height {
-        fun height()
-    }
-
-    fun seth(h: Height) {
-        vpHeight = h
-    }
+//
+//    interface Height {
+//        fun height()
+//    }
+//
+//    fun seth(h: Height) {
+//        vpHeight = h
+//    }
 
 //    private fun init() {
 //

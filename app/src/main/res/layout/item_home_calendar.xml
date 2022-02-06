@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_constraintVertical_chainStyle="packed">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_cal_date_1_rv"
         android:layout_width="match_parent"

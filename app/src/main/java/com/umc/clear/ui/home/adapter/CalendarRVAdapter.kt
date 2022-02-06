@@ -5,28 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
+import com.umc.clear.databinding.FragmentHomeBinding
 import com.umc.clear.databinding.ItemHomeCalendarBinding
+import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.CustomItem
 import com.umc.clear.utils.CustomLinearLayout
 import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
-    lateinit var binding: ItemHomeCalendarBinding
+class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     var flHeight = 0
     var firstCall = true
 
-    var calList = ArrayList<Int>()
+    var calList = ArrayList<ArrayList<Int>>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): CalendarRVAdapter.ViewHolder {
-        binding = ItemHomeCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
+        val binding = ItemHomeCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        if (firstCall) {
+            for (i in 1..2000) {
+                calList.add(ArrayList())
+            }
+        }
         return ViewHolder(binding)
     }
 
@@ -35,51 +41,54 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
     }
 
     override fun getItemCount(): Int {
-        return Int.MAX_VALUE
+        return 2000
     }
 
     inner class ViewHolder(val binding: ItemHomeCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun init(pos: Int) {
             setDate(pos)
-            setFL()
-            setRVAdapter()
+            setFL(pos, binding)
+            setRVAdapter(pos,binding)
         }
     }
 
-    fun setHeight(month: Int) {
-        if (month == calList[1]) {
-            if (binding.itemCalDate5Rv.visibility == View.GONE) {
-                PrefApp.glob.setCalHeight(4)
-            } else if (binding.itemCalDate6Rv.visibility == View.GONE) {
-                PrefApp.glob.setCalHeight(5)
-            } else {
-                PrefApp.glob.setCalHeight(6)
-            }
+    fun setHeight(pos: Int, month: Int) {
+         if (month == calList[pos][1]) {
+             PrefApp.glob.setCalHeight(calList[pos][4])
+//            if (binding.itemCalDate5Rv.visibility == View.GONE) {
+//                PrefApp.glob.setCalHeight(4)
+//            } else if (binding.itemCalDate6Rv.visibility == View.GONE) {
+//                PrefApp.glob.setCalHeight(5)
+//            } else {
+//                PrefApp.glob.setCalHeight(6)
+//            }
         }
     }
 
-    fun setFL() {
+    fun setFL(pos: Int, binding: ItemHomeCalendarBinding) {
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes1Fl, true)
         if (firstCall) {
-            flHeight = binding.itemCalDes1Fl.height
+            binding.itemCalDes1Cv.visibility = View.VISIBLE
+            flHeight = binding.itemCalDes1Cv.height
         }
-        binding.itemCalDes1Fl.visibility = View.GONE
+
+        binding.itemCalDes1Cv.visibility = View.GONE
 
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes2Fl, true)
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes3Fl, true)
         inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes4Fl, true)
-        if (calList[4] > 4) {
+        if (calList[pos][4] > 4) {
             inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes5Fl, true)
         }
-        if (calList[4] > 5) {
+        if (calList[pos][4] > 5) {
             inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes6Fl, true)
         }
 
     }
 
-    private fun setRVAdapter() {
+    fun setRVAdapter(pos: Int, binding: ItemHomeCalendarBinding) {
         binding.itemCalDate1Rv.layoutManager = CustomLinearLayout(context)
         binding.itemCalDate1Rv.setHasFixedSize(true)
         binding.itemCalDate2Rv.layoutManager = CustomLinearLayout(context)
@@ -88,14 +97,16 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
         binding.itemCalDate3Rv.setHasFixedSize(true)
         binding.itemCalDate4Rv.layoutManager = CustomLinearLayout(context)
         binding.itemCalDate4Rv.setHasFixedSize(true)
-        if (calList[4] > 4) {
+        if (calList[pos][4] > 4) {
+            binding.itemCalDate5Rv.visibility = View.VISIBLE
             binding.itemCalDate5Rv.layoutManager = CustomLinearLayout(context)
             binding.itemCalDate5Rv.setHasFixedSize(true)
         }
         else {
             binding.itemCalDate5Rv.visibility = View.GONE
         }
-        if (calList[4] > 5) {
+        if (calList[pos][4] > 5) {
+            binding.itemCalDate6Rv.visibility = View.VISIBLE
             binding.itemCalDate6Rv.layoutManager = CustomLinearLayout(context)
             binding.itemCalDate6Rv.setHasFixedSize(true)
         }
@@ -107,16 +118,18 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
         val dpi = PrefApp.pref.getString("dpi").toFloat()
         val siz = (width - (dpTopx(67, dpi) * 2)) / 7
 
-        var rvList = getRVList()
+        val rvList = getRVList(pos)
 
         binding.itemCalDate1Rv.addItemDecoration(CustomItem(siz))
-        val adapter1 = CalendarDateRVAdatper(rvList[0])
-        adapter1.setListener(object : CalendarDateRVAdatper.onclickListener {
-            override fun onClick() {
-                binding.itemCalDes1Fl.visibility = View.VISIBLE
+        val adapter1 = CalendarDateRVAdapter(rvList[0], context)
+        adapter1.setListener(object : CalendarDateRVAdapter.onclickListener {
+            override fun onClick(date: Int) {
+                ////해당월 기반 데이터 서버호출
+                binding.itemCalDes1Cv.visibility = View.VISIBLE
             }
         })
         binding.itemCalDate1Rv.adapter = adapter1
+
         if (firstCall) {
             binding.root.doOnLayout {
                 PrefApp.glob.setRvHeight(binding.itemCalDate1Rv.height)
@@ -124,38 +137,82 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
             }
         }
 
-
         binding.itemCalDate2Rv.addItemDecoration(CustomItem(siz))
-        binding.itemCalDate2Rv.adapter = CalendarDateRVAdatper(rvList[1])
-
+        val adapter2 = CalendarDateRVAdapter(rvList[1], context)
+        adapter2.setListener(object : CalendarDateRVAdapter.onclickListener {
+            override fun onClick(date: Int) {
+                ////해당월 기반 데이터 서버호출
+                binding.itemCalDes2Cv.visibility = View.VISIBLE
+            }
+        })
+        binding.itemCalDate2Rv.adapter = adapter2
 
         binding.itemCalDate3Rv.addItemDecoration(CustomItem(siz))
-        binding.itemCalDate3Rv.adapter = CalendarDateRVAdatper(rvList[2])
+        val adapter3 = CalendarDateRVAdapter(rvList[2], context)
+        adapter3.setListener(object : CalendarDateRVAdapter.onclickListener {
+            override fun onClick(date: Int) {
+                ////해당월 기반 데이터 서버호출
+                binding.itemCalDes3Cv.visibility = View.VISIBLE
+            }
+        })
+        binding.itemCalDate3Rv.adapter = adapter3
 
         binding.itemCalDate4Rv.addItemDecoration(CustomItem(siz))
-        binding.itemCalDate4Rv.adapter = CalendarDateRVAdatper(rvList[3])
+        val adapter4 = CalendarDateRVAdapter(rvList[3], context)
+        adapter4.setListener(object : CalendarDateRVAdapter.onclickListener {
+            override fun onClick(date: Int) {
+                ////해당월 기반 데이터 서버호출
+                binding.itemCalDes4Cv.visibility = View.VISIBLE
+            }
+        })
+        binding.itemCalDate4Rv.adapter = adapter4
 
-        if (calList[4] > 4) {
+        if (calList[pos][4] > 4) {
             binding.itemCalDate5Rv.addItemDecoration(CustomItem(siz))
-            binding.itemCalDate5Rv.adapter = CalendarDateRVAdatper(rvList[4])
+            val adapter5 = CalendarDateRVAdapter(rvList[4], context)
+            adapter5.setListener(object : CalendarDateRVAdapter.onclickListener {
+                override fun onClick(date: Int) {
+                    ////해당월 기반 데이터 서버호출
+                    binding.itemCalDes5Cv.visibility = View.VISIBLE
+                }
+            })
+            binding.itemCalDate5Rv.adapter = adapter5
 
         }
-        if (calList[4] > 5) {
+        if (calList[pos][4] > 5) {
             binding.itemCalDate6Rv.addItemDecoration(CustomItem(siz))
-            binding.itemCalDate6Rv.adapter = CalendarDateRVAdatper(rvList[5])
-
+            val adapter6 = CalendarDateRVAdapter(rvList[5], context)
+            adapter6.setListener(object : CalendarDateRVAdapter.onclickListener {
+                override fun onClick(date: Int) {
+                    ////해당월 기반 데이터 서버호출
+                    binding.itemCalDes6Cv.visibility = View.VISIBLE
+                }
+            })
+            binding.itemCalDate6Rv.adapter = adapter6
         }
     }
 
-    private fun getRVList():ArrayList<Pair<Int, Int>> {
-        var rvList = ArrayList<Pair<Int, Int>>()
+    private fun getRVList(pos: Int):ArrayList<ArrayList<Int>> {
+        var rvList = ArrayList<ArrayList<Int>>()
 
-        var p: Pair<Int, Int> = Pair(calList[5], 1)
-        rvList.add(p)
-        var twoStart = calList[5] + 1
-        for (i in 2..calList[4]) {
-            p = Pair(0, twoStart)
-            rvList.add(p)
+        var tmpList = ArrayList<Int>()
+        tmpList.add(calList[pos][5])
+        tmpList.add(1)
+        tmpList.add(calList[pos][4])
+        tmpList.add(calList[pos][2])
+
+        rvList.add(tmpList)
+
+        var twoStart = calList[pos][5] + 1
+        for (i in 2..calList[pos][4]) {
+            var tempList = ArrayList<Int>()
+            tempList.clear()
+            tempList.add(0)
+            tempList.add(twoStart)
+            tempList.add(calList[pos][4])
+            tempList.add(calList[pos][2])
+
+            rvList.add(tempList)
             twoStart += 7
         }
         return rvList
@@ -165,8 +222,8 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
 
     fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 
-    fun setDate(position: Int) {//pos 1000 == currentTime]
-        calList.clear()
+    fun setDate(position: Int) {//pos 1000 == currentTime
+
         val cal = Calendar.getInstance()
         if (position < 1000) {
             cal.add(Calendar.MONTH, -(1000 - position))
@@ -184,12 +241,15 @@ class CalendarRVAdapter(val context: Context, val dataList: ArrayList<Int>): Rec
 
         val lineAndGap = calLine(totalDate, weekday)
 
-        calList.add(year)
-        calList.add(month)
-        calList.add(totalDate)
-        calList.add(weekday)
-        calList.add(lineAndGap.first)
-        calList.add(lineAndGap.second)
+        var tmpCal = ArrayList<Int>()
+        tmpCal.add(year)
+        tmpCal.add(month)
+        tmpCal.add(totalDate)
+        tmpCal.add(weekday)
+        tmpCal.add(lineAndGap.first)
+        tmpCal.add(lineAndGap.second)
+
+        calList[position] = tmpCal
     }
 
     private fun calLine(total: Int, w: Int):Pair<Int, Int> {

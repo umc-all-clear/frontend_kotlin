@@ -1,6 +1,7 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.doOnAttach
@@ -20,11 +21,12 @@ import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val fragment: Fragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val fragment: HomeFragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val liveVpChange = MutableLiveData<Boolean>()
     val liveCvChange = MutableLiveData<Boolean>()
     var firstCall = true
+
     override fun getItemViewType(position: Int): Int {
         return dataList[0]
     }
@@ -49,13 +51,13 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(dataList[0]) {
             1-> {
-                (holder as HomeRVAdapter.HeaderHolder).init()
+                (holder as HomeRVAdapter.HeaderHolder).bind()
             }
             2-> {
-                (holder as HomeRVAdapter.CalFrameHolder).init()
+                (holder as HomeRVAdapter.CalFrameHolder).bind()
             }
             else-> {
-                (holder as HomeRVAdapter.RankHolder).init()
+                (holder as HomeRVAdapter.RankHolder).bind()
             }
         }
     }
@@ -66,19 +68,19 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 
     inner class HeaderHolder(private val binding: ItemHomeHeaderBinding)
         : RecyclerView.ViewHolder(binding.root) {
-            fun init() {
+            fun bind() {
 //                binding.homeUserInfoTv.text = dataList[1].toString()
             }
     }
 
     inner class CalFrameHolder(private val binding: ItemHomeCalendarFrameBinding)
         : RecyclerView.ViewHolder(binding.root) {
-            fun init() {
+            fun bind() {
                 binding.root.doOnLayout {
                     PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
                 }
 
-                val adapter = CalendarRVAdapter(context, dataList)
+                val adapter = CalendarRVAdapter(context, fragment)
                 binding.homeCalVp.adapter = adapter
 
                 binding.homeCalVp.doOnLayout {
@@ -93,6 +95,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                 binding.homeCalVp.doOnAttach {
                     binding.homeCalVp.setCurrentItem(1000, false)
                 }
+
 
                 binding.homeCalVp.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
@@ -119,12 +122,12 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                                 lifecycleOwner = fragment.viewLifecycleOwner
                                 height = this@HomeRVAdapter
 
-                                if (!firstCall) {
-                                    adapter.setHeight(month)
-                                }
+//                                if (!firstCall) {
+//                                    adapter.setHeight(position, month)
+//                                }
                                 firstCall = false
                                 if (position != PrefApp.glob.getCalPage()) {
-                                    adapter.setHeight(month)
+                                    adapter.setHeight(position, month)
                                     PrefApp.glob.setCalPage(position)
                                     liveCvChange.value = true
                                     liveVpChange.value = true
@@ -142,7 +145,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 
     inner class RankHolder(private val binding: ItemHomeRankBinding)
         : RecyclerView.ViewHolder(binding.root) {
-            fun init() {
+            fun bind() {
             }
 
     }
