@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/item_cal_des_empty_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_cal_des_empty_des_tv"
+        android:text="date">
+    </TextView>
+    <TextView
+        android:id="@+id/item_cal_des_empty_des_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_cal_des_empty_date_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/item_cal_des_empty_close_iv"
+        android:text="오늘은 등록한 사진이 없습니다.\n요청 페이지에서 사진을 등록하고 평가를 받아보세요!">
+    </TextView>
+    <ImageView
+        android:id="@+id/item_cal_des_empty_close_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_cal_des_empty_des_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </ImageView>
+</androidx.constraintlayout.widget.ConstraintLayout>

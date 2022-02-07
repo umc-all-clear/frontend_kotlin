@@ -5,6 +5,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import com.umc.clear.databinding.ActivityMainBinding
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
@@ -35,12 +38,28 @@ class MainActivity : AppCompatActivity() {
 
         val home = HomeFragment()
 
-
+        setFullScreen()
         setDevInfo(wid)
 
         val trans = supportFragmentManager.beginTransaction()
         trans.add(binding.mainFl.id, home)
         trans.commit()
+    }
+
+    private fun setFullScreen() {
+        supportActionBar?.hide()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+
+            val ctrl = window.insetsController
+
+        } else {
+            window.decorView.systemUiVisibility = (
+                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }
     }
 
     fun setDevInfo(px: Int) {

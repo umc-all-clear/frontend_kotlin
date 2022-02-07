@@ -8,20 +8,23 @@ import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
-import com.umc.clear.databinding.FragmentHomeBinding
 import com.umc.clear.databinding.ItemHomeCalendarBinding
-import com.umc.clear.ui.home.view.HomeFragment
+import com.umc.clear.databinding.ItemHomeCalendarDesContentBinding
+import com.umc.clear.ui.home.view.CalendarDescriptionContent
 import com.umc.clear.utils.CustomItem
 import com.umc.clear.utils.CustomLinearLayout
 import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
+class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     var flHeight = 0
     var firstCall = true
+    var firstContentFrameCall = true
+    var firstEmptyFrameCall = true
 
     var calList = ArrayList<ArrayList<Int>>()
+    lateinit var desItem: Fragment
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -47,14 +50,13 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
     inner class ViewHolder(val binding: ItemHomeCalendarBinding): RecyclerView.ViewHolder(binding.root) {
         fun init(pos: Int) {
             setDate(pos)
-            setFL(pos, binding)
             setRVAdapter(pos,binding)
         }
     }
 
-    fun setHeight(pos: Int, month: Int) {
+    fun setHeight(pos: Int, month: Int, frame: Int) {
          if (month == calList[pos][1]) {
-             PrefApp.glob.setCalHeight(calList[pos][4])
+             PrefApp.glob.setCalHeight(calList[pos][4], frame)
 //            if (binding.itemCalDate5Rv.visibility == View.GONE) {
 //                PrefApp.glob.setCalHeight(4)
 //            } else if (binding.itemCalDate6Rv.visibility == View.GONE) {
@@ -65,29 +67,105 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
         }
     }
 
-    fun setFL(pos: Int, binding: ItemHomeCalendarBinding) {
+    fun setFL(pos: Int, binding: ItemHomeCalendarBinding, line:Int, data: Boolean) {
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes1Fl, true)
-        if (firstCall) {
-            binding.itemCalDes1Cv.visibility = View.VISIBLE
-            flHeight = binding.itemCalDes1Cv.height
+        if (line == 1) {
+            if (data) {
+                val item = CalendarDescriptionContent()
+                par.fragment.goTrans(item, binding.itemCalDes1Fl.id)
+                desItem = item
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes1Fl, true)
+            }
         }
+        else if (line == 2) {
+            if (data) {
+                inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes2Fl, true)
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes2Fl, true)
+            }
+        }
+        else if (line == 3) {
+            if (data) {
+                inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes3Fl, true)
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes3Fl, true)
+            }
+        }
+        else if (line == 4) {
+            if (data) {
+                inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes4Fl, true)
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes4Fl, true)
+            }
+        }
+        else if (line == 5) {
+            if (data) {
+                inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes5Fl, true)
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes5Fl, true)
+            }
+        }
+        else if (line == 6) {
+            if (data) {
+                inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes6Fl, true)
+            }
+            else {
+                inflater.inflate(R.layout.item_home_calendar_des_empty, binding.itemCalDes6Fl, true)
+            }
+        }
+//
+//
+//        inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes2Fl, true)
+//        inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes3Fl, true)
+//        inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes4Fl, true)
+//        if (calList[pos][4] > 4) {
+//            inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes5Fl, true)
+//        }
+//        if (calList[pos][4] > 5) {
+//            inflater.inflate(R.layout.item_home_calendar_des_content, binding.itemCalDes6Fl, true)
+//        }
 
-        binding.itemCalDes1Cv.visibility = View.GONE
 
-        inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes2Fl, true)
-        inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes3Fl, true)
-        inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes4Fl, true)
-        if (calList[pos][4] > 4) {
-            inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes5Fl, true)
-        }
-        if (calList[pos][4] > 5) {
-            inflater.inflate(R.layout.item_home_calendar_des, binding.itemCalDes6Fl, true)
-        }
+
 
     }
 
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        holder.binding.itemCalDes1Cv.visibility = View.GONE
+        holder.binding.itemCalDes2Cv.visibility = View.GONE
+        holder.binding.itemCalDes3Cv.visibility = View.GONE
+        holder.binding.itemCalDes4Cv.visibility = View.GONE
+        holder.binding.itemCalDes5Cv.visibility = View.GONE
+        holder.binding.itemCalDes6Cv.visibility = View.GONE
+    }
+
+    fun setFlHeight(h: Int, f: Boolean) {
+        if (firstContentFrameCall) {
+            PrefApp.glob.setFlHeight(h, f)
+            firstContentFrameCall = false
+        }
+        else if (firstEmptyFrameCall) {
+            PrefApp.glob.setFlHeight(h, f)
+            firstEmptyFrameCall = false
+        }
+    }
+
+    fun closeAllCv(binding: ItemHomeCalendarBinding) {
+        binding.itemCalDes1Cv.visibility = View.GONE
+        binding.itemCalDes2Cv.visibility = View.GONE
+        binding.itemCalDes3Cv.visibility = View.GONE
+        binding.itemCalDes4Cv.visibility = View.GONE
+        binding.itemCalDes5Cv.visibility = View.GONE
+        binding.itemCalDes6Cv.visibility = View.GONE
+
+    }
     fun setRVAdapter(pos: Int, binding: ItemHomeCalendarBinding) {
         binding.itemCalDate1Rv.layoutManager = CustomLinearLayout(context)
         binding.itemCalDate1Rv.setHasFixedSize(true)
@@ -125,7 +203,22 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
         adapter1.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
+                var data = true
+                closeAllCv(binding)
                 binding.itemCalDes1Cv.visibility = View.VISIBLE
+                setFL(pos, binding, 1, data)
+                binding.itemCalDes1Fl.doOnLayout {
+                    if (data) {
+                        setFlHeight(binding.itemCalDes1Cv.height+100, true)
+                        setHeight(pos, calList[pos][1], 2)
+                        par.liveChange()
+                    }
+                    else {
+                        setFlHeight(binding.itemCalDes1Cv.height+100, false)
+                        setHeight(pos, calList[pos][1], 1)
+                        par.liveChange()
+                    }
+                }
             }
         })
         binding.itemCalDate1Rv.adapter = adapter1
@@ -142,7 +235,21 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
         adapter2.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
+                var data = true
+                closeAllCv(binding)
                 binding.itemCalDes2Cv.visibility = View.VISIBLE
+                setFL(pos, binding, 2, data)
+                binding.itemCalDes2Cv.doOnLayout {
+                    if (data) {
+                        setFlHeight(binding.itemCalDes2Cv.height + 100, true)
+                        setHeight(pos, calList[pos][1], 2)
+                        par.liveChange()
+                    } else {
+                        setFlHeight(binding.itemCalDes2Cv.height + 100, false)
+                        setHeight(pos, calList[pos][1], 1)
+                        par.liveChange()
+                    }
+                }
             }
         })
         binding.itemCalDate2Rv.adapter = adapter2
@@ -152,7 +259,21 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
         adapter3.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
+                var data = true
+                closeAllCv(binding)
                 binding.itemCalDes3Cv.visibility = View.VISIBLE
+                setFL(pos, binding, 3, data)
+                binding.itemCalDes3Cv.doOnLayout {
+                    if (data) {
+                        setFlHeight(binding.itemCalDes3Cv.height + 100, true)
+                        setHeight(pos, calList[pos][1], 2)
+                        par.liveChange()
+                    } else {
+                        setFlHeight(binding.itemCalDes3Cv.height + 100, false)
+                        setHeight(pos, calList[pos][1], 1)
+                        par.liveChange()
+                    }
+                }
             }
         })
         binding.itemCalDate3Rv.adapter = adapter3
@@ -162,7 +283,21 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
         adapter4.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
+                var data = true
+                closeAllCv(binding)
                 binding.itemCalDes4Cv.visibility = View.VISIBLE
+                setFL(pos, binding, 4, data)
+                binding.itemCalDes4Cv.doOnLayout {
+                    if (data) {
+                        setFlHeight(binding.itemCalDes4Cv.height + 100, true)
+                        setHeight(pos, calList[pos][1], 2)
+                        par.liveChange()
+                    } else {
+                        setFlHeight(binding.itemCalDes4Cv.height + 100, false)
+                        setHeight(pos, calList[pos][1], 1)
+                        par.liveChange()
+                    }
+                }
             }
         })
         binding.itemCalDate4Rv.adapter = adapter4
@@ -173,7 +308,21 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
             adapter5.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
+                    var data = true
+                    closeAllCv(binding)
                     binding.itemCalDes5Cv.visibility = View.VISIBLE
+                    setFL(pos, binding, 5, data)
+                    binding.itemCalDes5Cv.doOnLayout {
+                        if (data) {
+                            setFlHeight(binding.itemCalDes5Cv.height + 100, true)
+                            setHeight(pos, calList[pos][1], 2)
+                            par.liveChange()
+                        } else {
+                            setFlHeight(binding.itemCalDes5Cv.height + 100, false)
+                            setHeight(pos, calList[pos][1], 1)
+                            par.liveChange()
+                        }
+                    }
                 }
             })
             binding.itemCalDate5Rv.adapter = adapter5
@@ -185,7 +334,21 @@ class CalendarRVAdapter(val context: Context, val fragment: HomeFragment): Recyc
             adapter6.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
+                    var data = true
+                    closeAllCv(binding)
                     binding.itemCalDes6Cv.visibility = View.VISIBLE
+                    setFL(pos, binding, 6, data)
+                    binding.itemCalDes6Cv.doOnLayout {
+                        if (data) {
+                            setFlHeight(binding.itemCalDes6Cv.height + 100, true)
+                            setHeight(pos, calList[pos][1], 2)
+                            par.liveChange()
+                        } else {
+                            setFlHeight(binding.itemCalDes6Cv.height + 100, false)
+                            setHeight(pos, calList[pos][1], 1)
+                            par.liveChange()
+                        }
+                    }
                 }
             })
             binding.itemCalDate6Rv.adapter = adapter6

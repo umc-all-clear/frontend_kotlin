@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
+import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -28,7 +29,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     var firstCall = true
 
     override fun getItemViewType(position: Int): Int {
-        return dataList[0]
+        return dataList[position]
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -49,7 +50,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(dataList[0]) {
+        when(dataList[position]) {
             1-> {
                 (holder as HomeRVAdapter.HeaderHolder).bind()
             }
@@ -63,24 +64,31 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return 3
     }
 
     inner class HeaderHolder(private val binding: ItemHomeHeaderBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun bind() {
-//                binding.homeUserInfoTv.text = dataList[1].toString()
+                binding.homeUserInfoTv.text = "username"
+
+                var param = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+                param.setMargins(0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()), 0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()))
+                binding.root.layoutParams = param
             }
     }
 
+
+
     inner class CalFrameHolder(private val binding: ItemHomeCalendarFrameBinding)
         : RecyclerView.ViewHolder(binding.root) {
+
             fun bind() {
                 binding.root.doOnLayout {
                     PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
                 }
 
-                val adapter = CalendarRVAdapter(context, fragment)
+                val adapter = CalendarRVAdapter(context, this@HomeRVAdapter)
                 binding.homeCalVp.adapter = adapter
 
                 binding.homeCalVp.doOnLayout {
@@ -127,7 +135,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 //                                }
                                 firstCall = false
                                 if (position != PrefApp.glob.getCalPage()) {
-                                    adapter.setHeight(position, month)
+                                    adapter.setHeight(position, month, 0)
                                     PrefApp.glob.setCalPage(position)
                                     liveCvChange.value = true
                                     liveVpChange.value = true
@@ -146,7 +154,29 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     inner class RankHolder(private val binding: ItemHomeRankBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun bind() {
+                var param = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+                param.setMargins(0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()), 0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()))
+                binding.root.layoutParams = param
+
+                val cal = Calendar.getInstance()
+
+                val month = cal.get(Calendar.MONTH) + 1
+
+                binding.homeFriendTv.text = month.toString() + "월의 1등"
+
+                ///1등 가져오기
             }
 
     }
+
+    fun liveChange() {
+        liveCvChange.value = true
+        liveVpChange.value = true
+    }
+
+    fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
+
+    fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
+
+
 }

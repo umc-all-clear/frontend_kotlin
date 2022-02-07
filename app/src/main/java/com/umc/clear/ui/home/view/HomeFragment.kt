@@ -30,8 +30,10 @@ class HomeFragment: Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val arr = ArrayList<Int>()
+    arr.add(1)
         arr.add(2)
-        binding.homeRv.adapter = HomeRVAdapter(context, arr, this as HomeFragment)
+    arr.add(3)
+        binding.homeRv.adapter = HomeRVAdapter(context, arr, this)
         //init()
 //        dBinding.root.doOnLayout {
 //            PrefApp.glob.setElseHeight(dBinding.homeCalMonTv.height + dBinding.homeCalTv.height)
@@ -44,6 +46,12 @@ class HomeFragment: Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.context = context as MainActivity
+    }
+
+    fun goTrans(frag: Fragment, id: Int) {
+        val trans = this.childFragmentManager.beginTransaction()
+        trans.add(id, frag)
+        trans.commit()
     }
 //
 //    interface Height {
@@ -116,7 +124,5 @@ class HomeFragment: Fragment() {
 //    }
 
 
-    fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
-    fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 
 }

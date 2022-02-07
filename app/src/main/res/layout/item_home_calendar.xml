@@ -17,9 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never"
-        tools:listitem="@layout/item_home_calendar_date"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        tools:listitem="@layout/item_home_calendar_date">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_1_cv"
@@ -30,10 +28,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_1_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_2_rv"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintVertical_weight="1"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_1_fl"
@@ -54,9 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_cal_des_1_cv"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_2_cv"
@@ -67,9 +59,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_2_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_3_rv"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_2_fl"
@@ -89,9 +78,7 @@
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_3_cv"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_3_cv"
@@ -102,9 +89,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_3_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_4_rv"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
         android:visibility="gone">
         <FrameLayout
         android:id="@+id/item_cal_des_3_fl"
@@ -117,8 +101,6 @@
         android:id="@+id/item_cal_date_4_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:nestedScrollingEnabled="false"
         android:orientation="horizontal"
         android:overScrollMode="never"
@@ -137,9 +119,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_4_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_5_rv"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_4_fl"
@@ -159,9 +138,7 @@
         android:orientation="horizontal"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_5_cv"
@@ -172,9 +149,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_5_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_6_rv"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_5_fl"
@@ -194,9 +168,7 @@
         android:orientation="horizontal"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin">
+        android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
         android:id="@+id/item_cal_des_6_cv"
@@ -207,9 +179,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_6_rv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="@dimen/menu_radius"
-        android:layout_marginLeft="@dimen/calendar_des_side_margin"
-        android:layout_marginRight="@dimen/calendar_des_side_margin"
-        android:layout_marginBottom="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_6_fl"

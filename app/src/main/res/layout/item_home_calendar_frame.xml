@@ -28,6 +28,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/home_cal_mon_tv"
             app:layout_constraintStart_toStartOf="@id/home_cal_mon_tv"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="top"
             android:text="month"
             android:textSize="@dimen/home_cal_else">
         </TextView>
@@ -38,7 +41,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/home_cal_next_iv"
             app:layout_constraintBottom_toTopOf="@id/home_cal_mon_tv"
-            android:src="@drawable/ic_launcher_background">
+            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="30dp">
         </ImageView>
         <ImageView
             android:id="@+id/home_cal_next_iv"
@@ -49,7 +53,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/home_cal_mon_tv"
             app:layout_constraintEnd_toEndOf="@id/home_cal_sun_tv"
-            android:src="@drawable/ic_launcher_background">
+            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="30dp">
         </ImageView>
         <TextView
             android:id="@+id/home_cal_mon_tv"
@@ -61,8 +66,10 @@
             app:layout_constraintBottom_toTopOf="@id/home_cal_vp"
             android:text="M"
             android:textSize="@dimen/home_cal_else"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:layout_marginLeft="47dp">
+            android:gravity="center">
         </TextView>
         <TextView
             android:id="@+id/home_cal_tue_tv"
@@ -73,7 +80,9 @@
             app:layout_constraintRight_toLeftOf="@id/home_cal_wed_tv"
             app:layout_constraintBottom_toTopOf="@id/home_cal_vp"
             android:text="T"
-            android:textSize="@dimen/home_cal_else">
+            android:textSize="@dimen/home_cal_else"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <TextView
             android:id="@+id/home_cal_wed_tv"
@@ -84,7 +93,9 @@
             app:layout_constraintLeft_toRightOf="@id/home_cal_tue_tv"
             app:layout_constraintRight_toLeftOf="@id/home_cal_thur_tv"
             android:text="W"
-            android:textSize="@dimen/home_cal_else">
+            android:textSize="@dimen/home_cal_else"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <TextView
             android:id="@+id/home_cal_thur_tv"
@@ -95,7 +106,9 @@
             app:layout_constraintLeft_toRightOf="@id/home_cal_wed_tv"
             app:layout_constraintRight_toLeftOf="@id/home_cal_fri_tv"
             android:text="T"
-            android:textSize="@dimen/home_cal_else">
+            android:textSize="@dimen/home_cal_else"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <TextView
             android:id="@+id/home_cal_fri_tv"
@@ -106,7 +119,9 @@
             app:layout_constraintLeft_toRightOf="@id/home_cal_thur_tv"
             app:layout_constraintRight_toLeftOf="@id/home_cal_sat_tv"
             android:text="F"
-            android:textSize="@dimen/home_cal_else">
+            android:textSize="@dimen/home_cal_else"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <TextView
             android:id="@+id/home_cal_sat_tv"
@@ -117,7 +132,9 @@
             app:layout_constraintRight_toLeftOf="@id/home_cal_sun_tv"
             app:layout_constraintLeft_toRightOf="@id/home_cal_fri_tv"
             android:text="S"
-            android:textSize="@dimen/home_cal_else">
+            android:textSize="@dimen/home_cal_else"
+            android:gravity="center"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <TextView
             android:id="@+id/home_cal_sun_tv"
@@ -129,7 +146,9 @@
             app:layout_constraintRight_toRightOf="parent"
             android:text="S"
             android:textSize="@dimen/home_cal_else"
-            android:layout_marginRight="47dp">
+            android:gravity="center"
+            android:layout_marginRight="25dp"
+            app:layout_constraintHorizontal_weight="0.7">
         </TextView>
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_cal_vp"
@@ -140,6 +159,9 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="@dimen/calendar_des_side_margin"
+            android:layout_marginRight="@dimen/calendar_des_side_margin"
+            android:layout_marginBottom="30dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:listitem="@layout/item_home_calendar">

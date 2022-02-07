@@ -9,20 +9,37 @@ class GlobalVariable() : Application() {
     private var calPage = 1000
 
     private var rvHeight = 0
-    private var flHeight = 0
+    private var flEmptyHeight = 0
+    private var flContentHeight = 0
 
     fun getAllHeight(): Int {
-        return calHeight + elseHeight
+        return calHeight + elseHeight + dpTopx(80, PrefApp.pref.getString("dpi").toFloat())
     }
 
     fun getCalHeight(): Int {
         return calHeight
     }
 
-    fun setCalHeight(h: Int) {
-        this.calHeight = h * rvHeight
+    fun setCalHeight(h: Int, frame: Int) {
+        this.calHeight = if (frame == 0) {
+            h * rvHeight
+        }
+        else if (frame == 1) {
+            h*rvHeight + flEmptyHeight + dpTopx(30, PrefApp.pref.getString("dpi").toFloat())
+        }
+        else {
+            h * rvHeight + flContentHeight + dpTopx(30, PrefApp.pref.getString("dpi").toFloat())
+        }
     }
 
+    fun setFlHeight(h: Int, type: Boolean) {
+        if (type) {
+            this.flContentHeight = h
+        }
+        else {
+            this.flEmptyHeight = h
+        }
+    }
     fun setElseHeight(h: Int) {
         this.elseHeight = h
     }
@@ -42,4 +59,7 @@ class GlobalVariable() : Application() {
     fun setRvHeight(h: Int) {
         this.rvHeight = h
     }
+
+    fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
+    fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 }
