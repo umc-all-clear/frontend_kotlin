@@ -1,6 +1,8 @@
 package com.umc.clear.utils
 
+import android.util.Log
 import android.view.View
+import androidx.core.view.doOnLayout
 import androidx.databinding.BindingAdapter
 
 object BindingAdapter {
@@ -9,7 +11,10 @@ object BindingAdapter {
     fun setAllHeight(view: View, isTrue: Boolean) {
         if (isTrue) {
             view.layoutParams = view.layoutParams.apply {
-                this.height = PrefApp.glob.getAllHeight()
+                view.doOnLayout {
+                    this.height = PrefApp.glob.getAllHeight()
+                    Log.d("height", this.height.toString())
+                }
             }
         }
     }
@@ -19,7 +24,10 @@ object BindingAdapter {
     fun setCalHeight(view: View, isTrue: Boolean) {
         if (isTrue) {
             view.layoutParams = view.layoutParams.apply {
-                this.height = PrefApp.glob.getCalHeight()
+                view.doOnLayout {
+                    this.height = PrefApp.glob.getCalHeight()
+                    Log.d("height", this.height.toString())
+                }
             }
         }
     }

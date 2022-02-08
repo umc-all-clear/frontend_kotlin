@@ -12,7 +12,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/menu">
+        android:background="@drawable/calendar_background">
         <ImageView
             android:id="@+id/home_friend_iv"
             android:layout_width="30dp"

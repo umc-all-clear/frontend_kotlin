@@ -17,6 +17,8 @@ import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.databinding.ItemHomeHeaderBinding
 import com.umc.clear.databinding.ItemHomeRankBinding
+import com.umc.clear.ui.dialog.AddFriendFragment
+import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
 import java.util.*
@@ -27,6 +29,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     val liveVpChange = MutableLiveData<Boolean>()
     val liveCvChange = MutableLiveData<Boolean>()
     var firstCall = true
+    var vpButtonCall = false
 
     override fun getItemViewType(position: Int): Int {
         return dataList[position]
@@ -75,6 +78,11 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                 var param = binding.root.layoutParams as ViewGroup.MarginLayoutParams
                 param.setMargins(0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()), 0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()))
                 binding.root.layoutParams = param
+
+                binding.homeUserInfoAddIv.setOnClickListener {
+                    SetupDialog(fragment).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")
+
+                }
             }
     }
 
@@ -84,6 +92,16 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
         : RecyclerView.ViewHolder(binding.root) {
 
             fun bind() {
+
+                binding.homeCalNextIv.setOnClickListener {
+                    vpButtonCall = true
+                    binding.homeCalVp.setCurrentItem(binding.homeCalVp.currentItem + 1, false)
+                }
+                binding.homeCalPrevIv.setOnClickListener {
+                    vpButtonCall = true
+                    binding.homeCalVp.setCurrentItem(binding.homeCalVp.currentItem - 1, false)
+                }
+
                 binding.root.doOnLayout {
                     PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
                 }
@@ -107,11 +125,23 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 
                 binding.homeCalVp.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                        if (vpButtonCall) {
+                            vpButtonCall = false
+                            onPageSelected(position)
+                        }
+                    }
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
 
-                        if (binding.homeCalVp.scrollState == ViewPager2.SCROLL_STATE_SETTLING || firstCall) {
-
+                        if (vpButtonCall) {
+                            return
+                        }
 
                             binding.apply {
 
@@ -145,7 +175,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                                 }
                             }
                         }
-                    }
+
 
                 })
             }
@@ -170,8 +200,8 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     }
 
     fun liveChange() {
-        liveCvChange.value = true
-        liveVpChange.value = true
+        liveCvChange.postValue(true)
+        liveVpChange.postValue(true)
     }
 
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()

@@ -48,12 +48,12 @@ class HomeFragment: Fragment() {
         this.context = context as MainActivity
     }
 
-    fun goTrans(frag: Fragment, id: Int) {
+    fun goTrans(id: Int, frag: Fragment) {
         val trans = this.childFragmentManager.beginTransaction()
         trans.add(id, frag)
         trans.commit()
     }
-//
+
 //    interface Height {
 //        fun height()
 //    }

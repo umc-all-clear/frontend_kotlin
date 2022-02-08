@@ -33,8 +33,17 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setting(position)
-        holder.itemView.setOnClickListener{
-            clickListener.onClick(data[1] + position)
+        holder.itemView.setOnClickListener {
+            if (data[0] == 0) {
+            if (data[1] + position <= data[3]) {
+                clickListener.onClick(data[1] + position)
+            }
+        }
+        else {
+            if (position >= 7 - data[0]) {
+                clickListener.onClick(position - 6 + data[0])
+            }
+        }
         }
     }
 
@@ -44,6 +53,7 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): Rec
 
     inner class ViewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun setting(position: Int) {
+
             if (data[0] == 0) {
                 if (data[1] + position <= data[3]) {
                     binding.itemCalDateTv.text = (data[1] + position).toString()

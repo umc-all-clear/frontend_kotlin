@@ -11,7 +11,16 @@ class GlobalVariable() : Application() {
     private var rvHeight = 0
     private var flEmptyHeight = 0
     private var flContentHeight = 0
-
+//
+//    private var firstContentFrameCall = true
+//    private var firstEmptyFrameCall = true
+//
+//    fun setFirstCall(type: Int) {
+//        if (type == 1) {
+//            firstEmptyFrameCall = false
+//        }
+//        else (type == 2)
+//    }
     fun getAllHeight(): Int {
         return calHeight + elseHeight + dpTopx(80, PrefApp.pref.getString("dpi").toFloat())
     }
@@ -28,7 +37,7 @@ class GlobalVariable() : Application() {
             h*rvHeight + flEmptyHeight + dpTopx(30, PrefApp.pref.getString("dpi").toFloat())
         }
         else {
-            h * rvHeight + flContentHeight + dpTopx(30, PrefApp.pref.getString("dpi").toFloat())
+            h * rvHeight + flContentHeight
         }
     }
 

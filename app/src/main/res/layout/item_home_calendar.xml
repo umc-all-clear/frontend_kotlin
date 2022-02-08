@@ -17,6 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         tools:listitem="@layout/item_home_calendar_date">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
@@ -48,6 +50,8 @@
         app:layout_constraintTop_toBottomOf="@+id/item_cal_des_1_cv"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
@@ -78,6 +82,8 @@
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_3_cv"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
@@ -108,6 +114,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_des_3_cv"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         tools:listitem="@layout/item_home_calendar_date">
     </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
@@ -137,6 +145,8 @@
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_5_cv"
         android:orientation="horizontal"
         tools:listitem="@layout/item_home_calendar_date"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:nestedScrollingEnabled="false"
         android:overScrollMode="never">
     </androidx.recyclerview.widget.RecyclerView>
@@ -165,6 +175,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cal_des_5_cv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_des_6_cv"
+        android:layout_marginLeft="@dimen/calendar_des_side_margin"
+        android:layout_marginRight="@dimen/calendar_des_side_margin"
         android:orientation="horizontal"
         tools:listitem="@layout/item_home_calendar_date"
         android:nestedScrollingEnabled="false"

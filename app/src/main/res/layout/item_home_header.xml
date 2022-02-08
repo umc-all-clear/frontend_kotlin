@@ -28,4 +28,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/ic_launcher_background">
     </ImageView>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/item_home_header_setup">
+    </ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>
