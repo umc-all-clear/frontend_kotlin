@@ -21,6 +21,7 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/activity_start.xml" value="0.162109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_add_friend.xml" value="0.1671875" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_delete_friend.xml" value="0.170703125" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup_list.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup_profile.xml" value="0.1671875" />
@@ -31,7 +32,7 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_home_calendar_empty.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_rank.xml" value="0.287109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_dialog_setup_list.xml" value="0.1671875" />
-        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_friend_list.xml" value="0.1484375" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_friend_list.xml" value="0.2" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_home_calendar.xml" value="0.170703125" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_home_calendar_date.xml" value="0.2" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_home_calendar_des.xml" value="0.2" />

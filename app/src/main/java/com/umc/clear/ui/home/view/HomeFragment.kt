@@ -21,7 +21,10 @@ import java.util.*
 class HomeFragment: Fragment() {
     lateinit var context: MainActivity
     lateinit var binding: FragmentHomeBinding
-//    lateinit var vpHeight: Height
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

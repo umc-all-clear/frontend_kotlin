@@ -10,19 +10,19 @@
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="홈"
+        android:title="친구"
         android:icon="@drawable/icon4">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="홈"
+        android:title="신청"
         android:icon="@drawable/ic_launcher_foreground">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="홈"
+        android:title="알림"
         android:icon="@drawable/icon5">
     </item>
 </menu>

@@ -23,6 +23,7 @@ import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val fragment: HomeFragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -109,14 +110,19 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                 val adapter = CalendarRVAdapter(context, this@HomeRVAdapter)
                 binding.homeCalVp.adapter = adapter
 
-                binding.homeCalVp.doOnLayout {
+                thread (start = true) {
+                    while (binding.homeCalMonTv.height == 0) {
+
+                    }
                     val rvpos = PrefApp.pref.getString("calxPos").toInt()
                     var pos = IntArray(2)
                     binding.homeCalMonTv.getLocationInWindow(pos)
 
-                    binding.homeCalMonTv.updatePadding(rvpos, 0, 0, 0)
-                    binding.homeCalSunTv.updatePadding(0, 0, rvpos + 20, 0)
+                    binding.homeCalMonTv.updatePadding(left = rvpos + pos[0] - dpTopx(15, PrefApp.pref.getString("dpi").toFloat()))
+                    binding.homeCalSunTv.updatePadding(right = rvpos + pos[0])
+
                 }
+
 
                 binding.homeCalVp.doOnAttach {
                     binding.homeCalVp.setCurrentItem(1000, false)

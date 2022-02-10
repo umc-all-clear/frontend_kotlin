@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 import com.umc.clear.utils.PrefApp
+import kotlin.concurrent.thread
 
 class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
 
@@ -70,11 +71,15 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): Rec
                 }
             }
             var pos = IntArray(2)
-            binding.itemCalDateTv.doOnLayout {
+
+            thread (start = true) {
+                while (binding.itemCalDateTv.height == 0) {
+                }
                 if (position == 0) {
                     binding.itemCalDateIv.getLocationInWindow(pos)
                     PrefApp.pref.putString("calxPos", pos[0].toString())
                 }
+
             }
         }
 

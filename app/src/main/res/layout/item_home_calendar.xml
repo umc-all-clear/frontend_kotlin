@@ -30,6 +30,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_1_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_2_rv"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_1_fl"

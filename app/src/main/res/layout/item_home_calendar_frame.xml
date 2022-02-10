@@ -41,8 +41,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/home_cal_next_iv"
             app:layout_constraintBottom_toTopOf="@id/home_cal_mon_tv"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_marginTop="30dp">
+            android:src="@drawable/item_home_calendar_frame_prev"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp">
         </ImageView>
         <ImageView
             android:id="@+id/home_cal_next_iv"
@@ -53,7 +54,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/home_cal_mon_tv"
             app:layout_constraintEnd_toEndOf="@id/home_cal_sun_tv"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/item_home_calendar_frame_next"
             android:layout_marginTop="30dp">
         </ImageView>
         <TextView
