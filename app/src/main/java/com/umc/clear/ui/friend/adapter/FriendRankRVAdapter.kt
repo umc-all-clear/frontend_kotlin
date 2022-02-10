@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
 import com.umc.clear.data.local.FriendDao
 import com.umc.clear.data.local.FriendDatabase
+import com.umc.clear.data.local.Pair2
 import com.umc.clear.databinding.FragmentFriendBinding
 import com.umc.clear.databinding.ItemFriendListBinding
 import com.umc.clear.ui.friend.view.FriendFragment
+import kotlin.concurrent.thread
 
-class FriendRankRVAdapter(val mainAct: Context): RecyclerView.Adapter<FriendRankRVAdapter.ViewHolder>() {
+class FriendRankRVAdapter(val mainAct: Context, val parBinding: FragmentFriendBinding): RecyclerView.Adapter<FriendRankRVAdapter.ViewHolder>() {
 
     lateinit var onlistener: onListener
     var isSelectMode = false
-    var selectedData = ArrayList<Boolean>()
+    var selectedData = ArrayList<Pair2>()
     val db = FriendDatabase.getInstance(mainAct)!!
     var firstCall = true
 
@@ -37,11 +39,11 @@ class FriendRankRVAdapter(val mainAct: Context): RecyclerView.Adapter<FriendRank
 
         if (firstCall) {
             for (i in 1..db.friendDao().getAll().size - 3) {
-                selectedData.add(false)
-                Log.d("creat", "Asdf")
+                selectedData.add(Pair2(false, "a"))
             }
             firstCall = false
         }
+
         return ViewHolder(binding)
     }
 
@@ -62,7 +64,7 @@ class FriendRankRVAdapter(val mainAct: Context): RecyclerView.Adapter<FriendRank
             binding.itemFriRateTv.text = list[pos + 3].avgRate
             binding.itemFriRankTv.text = (pos + 3).toString()
             binding.itemFriCheckIv.setImageResource(
-                if(selectedData[pos]) {
+                if(selectedData[pos].isChecked) {
                 R.drawable.dialog_add_friend_check_selected
             }
             else {
@@ -70,19 +72,42 @@ class FriendRankRVAdapter(val mainAct: Context): RecyclerView.Adapter<FriendRank
             })
 
             binding.itemFriCheckIv.setOnClickListener {
-                Log.d("arr", selectedData.toString())
-                if (!selectedData[pos]) {
+                if (!selectedData[pos].isChecked) {
                     binding.itemFriCheckIv.setImageResource(R.drawable.dialog_add_friend_check)
                 }
                 else {
                     binding.itemFriCheckIv.setImageResource(R.drawable.dialog_add_friend_check_selected)
                 }
-                selectedData[pos] = onlistener.onClick(selectedData[pos], pos)
+                selectedData[pos].isChecked = onlistener.onClick(selectedData[pos].isChecked, pos)
+            }
+
+            parBinding.friendDelIv.setOnClickListener {
+                if (!isSelectMode) {
+                    isSelectMode = true
+                    parBinding.friendRank1CheckIv.visibility = View.VISIBLE
+                    parBinding.friendRank2CheckIv.visibility = View.VISIBLE
+                    parBinding.friendRank3CheckIv.visibility = View.VISIBLE
+
+                    parBinding.friendDelIv.setImageResource(R.drawable.fragment_friend_go_back_to_norm)
+                    parBinding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
+                    binding.itemFriCheckIv.visibility = View.VISIBLE
+                }
+                else {
+                    isSelectMode = false
+                    parBinding.friendRank1CheckIv.visibility = View.GONE
+                    parBinding.friendRank2CheckIv.visibility = View.GONE
+                    parBinding.friendRank3CheckIv.visibility = View.GONE
+
+                    parBinding.friendDelIv.setImageResource(R.drawable.fragment_friend_del)
+                    parBinding.friendSetupIv.setImageResource(R.drawable.item_home_header_setup)
+                    binding.itemFriCheckIv.visibility = View.GONE
+                }
+                notifyDataSetChanged()
             }
         }
     }
 
-    fun getDelList(): ArrayList<Boolean>{
+    fun getDelList(): ArrayList<Pair2>{
         return selectedData
     }
 }

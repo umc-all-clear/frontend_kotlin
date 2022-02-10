@@ -3,26 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         app:showAsAction="ifRoom"
-        android:enabled="true"
         android:title="홈"
-        android:icon="@drawable/icon3">
+        android:icon="@drawable/navi_home_selector">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="친구"
-        android:icon="@drawable/icon4">
+        android:icon="@drawable/nav_friend_selector">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="신청"
-        android:icon="@drawable/ic_launcher_foreground">
+        android:icon="@drawable/nav_admission_selector">
     </item>
     <item
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="알림"
-        android:icon="@drawable/icon5">
+        android:icon="@drawable/nav_notify_selector">
     </item>
 </menu>

@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.View
 import com.umc.clear.databinding.ActivityMainBinding
 import com.umc.clear.ui.friend.view.FriendFragment
 import com.umc.clear.ui.home.view.HomeFragment
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
             dis?.getRealSize(size)
             wid = size.x.toInt()
         }
+
+        binding.mainNaviNv.itemIconTintList = null
+
         home = HomeFragment()
         friend = FriendFragment()
 

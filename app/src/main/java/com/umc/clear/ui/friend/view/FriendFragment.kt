@@ -10,15 +10,20 @@ import androidx.fragment.app.Fragment
 import com.umc.clear.R
 import com.umc.clear.data.entities.Friend
 import com.umc.clear.data.local.FriendDatabase
+import com.umc.clear.data.local.Pair2
 import com.umc.clear.databinding.FragmentFriendBinding
 import com.umc.clear.databinding.FragmentRankBinding
+import com.umc.clear.ui.dialog.DeleteFriendDialog
+import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.ui.friend.adapter.FriendRankRVAdapter
+import com.umc.clear.utils.PrefApp
 
 class FriendFragment: Fragment() {
     lateinit var binding: FragmentFriendBinding
     lateinit var mainContext: Context
-    var top3Checked = ArrayList<Boolean>()
-    var otherChecked = ArrayList<Boolean>()
+    var top3Checked = ArrayList<Pair2>()
+    var otherChecked = ArrayList<Pair2>()
+    var isSelectMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +33,32 @@ class FriendFragment: Fragment() {
         binding = FragmentFriendBinding.inflate(inflater, container, false)
 
         for (i in 1..3) {
-            top3Checked.add(false)
+            val a = Pair2(false, "a")
+            top3Checked.add(a)
         }
+
         init()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (PrefApp.glob.getDel()) {
+            PrefApp.glob.setDel(false)
+            val db = FriendDatabase.getInstance(mainContext)!!
+            val list = db.friendDao().getAll()
+            top3Checked.clear()
+            for (i in 0..2) {
+                top3Checked.add(Pair2(false, list[i].mail))
+            }
+
+            otherChecked.clear()
+            for (i in 1..otherChecked.size - 3) {
+                otherChecked.add(Pair2(false, list[i+2].mail))
+            }
+            binding.friendRankOtherRv.adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -76,7 +103,7 @@ class FriendFragment: Fragment() {
         db.friendDao().ins(al)
 
 
-        val rvAdapter = FriendRankRVAdapter(mainContext)
+        val rvAdapter = FriendRankRVAdapter(mainContext, binding)
         rvAdapter.setOnListen(object : FriendRankRVAdapter.onListener{
             override fun onClick(stat: Boolean, pos: Int):Boolean {
                 rvAdapter.notifyItemChanged(pos)
@@ -94,37 +121,61 @@ class FriendFragment: Fragment() {
             if (binding.friendRank1CheckIv.tag == "selected") {
                 binding.friendRank1CheckIv.setImageResource(R.drawable.dialog_add_friend_check)
                 binding.friendRank1CheckIv.setTag("unselected")
-                top3Checked[0] = false
+                top3Checked[0].isChecked = false
             }
             else {
                 binding.friendRank1CheckIv.setImageResource(R.drawable.dialog_add_friend_check_selected)
                 binding.friendRank1CheckIv.setTag("selected")
-                top3Checked[0] = true
+                top3Checked[0].isChecked = true
             }
         }
         binding.friendRank2CheckIv.setOnClickListener {
             if (binding.friendRank2CheckIv.tag == "selected") {
                 binding.friendRank2CheckIv.setImageResource(R.drawable.dialog_add_friend_check)
                 binding.friendRank2CheckIv.setTag("unselected")
-                top3Checked[1] = false
+                top3Checked[1].isChecked = false
             }
             else {
                 binding.friendRank2CheckIv.setImageResource(R.drawable.dialog_add_friend_check_selected)
                 binding.friendRank2CheckIv.setTag("selected")
-                top3Checked[1] = true
+                top3Checked[1].isChecked = true
             }
         }
         binding.friendRank3CheckIv.setOnClickListener {
             if (binding.friendRank3CheckIv.tag == "selected") {
                 binding.friendRank3CheckIv.setImageResource(R.drawable.dialog_add_friend_check)
                 binding.friendRank3CheckIv.setTag("unselected")
-                top3Checked[2] = false
+                top3Checked[2].isChecked = false
             }
             else {
                 binding.friendRank3CheckIv.setImageResource(R.drawable.dialog_add_friend_check_selected)
                 binding.friendRank3CheckIv.setTag("selected")
-                top3Checked[2] = true
+                top3Checked[2].isChecked = true
             }
         }
+
+        binding.friendMoreIv.setOnClickListener {
+            SetupDialog(this).show(childFragmentManager.beginTransaction(), "SetupDialog")
+        }
+
+//        binding.friendDelIv.setOnClickListener {
+//            isSelectMode = true
+//            binding.friendRank1CheckIv.visibility = View.VISIBLE
+//            binding.friendRank2CheckIv.visibility = View.VISIBLE
+//            binding.friendRank3CheckIv.visibility = View.VISIBLE
+//
+//            binding.friendDelIv.setImageResource(R.drawable.fragment_friend_go_back_to_norm)
+//            binding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
+//        }
+        binding.friendSetupIv.setOnClickListener {
+            if(isSelectMode) {
+                isSelectMode = false
+                DeleteFriendDialog(top3Checked, otherChecked, mainContext).show(childFragmentManager.beginTransaction(), "DeleteFriendDialog")
+            }
+            else {
+                SetupDialog(this).show(childFragmentManager.beginTransaction(), "SetupDialog")
+            }
+        }
+
     }
 }

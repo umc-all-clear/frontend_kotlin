@@ -14,7 +14,7 @@ import com.umc.clear.ui.home.view.CalendarDescriptionFragment
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
 
-class SetupDialog(val fragment: HomeFragment): DialogFragment() {
+class SetupDialog(val fragment: Fragment): DialogFragment() {
     lateinit var binding: DialogSetupBinding
 
     override fun onCreateView(

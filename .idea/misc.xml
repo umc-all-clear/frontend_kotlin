@@ -17,6 +17,10 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_gray_boarder.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_red_boarder.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_top_round.xml" value="0.2569444444444444" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/nav_admission_selector.xml" value="0.179" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/nav_friend_selector.xml" value="0.179" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/nav_notify_selector.xml" value="0.179" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/navi_home_selector.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/activity_login.xml" value="0.162109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/activity_start.xml" value="0.162109375" />
@@ -26,6 +30,7 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup_list.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup_profile.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/dialog_setup_unregister.xml" value="0.1671875" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_admission.xml" value="0.170703125" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_friend.xml" value="0.1671875" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_home.xml" value="0.176" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/fragment_home_calendar_des.xml" value="0.1671875" />

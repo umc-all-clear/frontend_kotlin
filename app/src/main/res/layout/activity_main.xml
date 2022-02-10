@@ -23,6 +23,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_fl"
-        app:menu="@menu/main_nav_menu">
+        app:menu="@menu/main_nav_menu"
+        app:labelVisibilityMode="unlabeled"
+        app:itemBackground="@color/white">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,7 @@ interface FriendDao {
 
     @Query("SELECT * FROM FriendTable")
     fun getAll(): List<Friend>
+
+    @Query("DELETE FROM FriendTable WHERE mail = :mail")
+    fun del(mail: String)
 }

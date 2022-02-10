@@ -11,6 +11,8 @@ class GlobalVariable() : Application() {
     private var rvHeight = 0
     private var flEmptyHeight = 0
     private var flContentHeight = 0
+
+    private var isDelete = false
 //
 //    private var firstContentFrameCall = true
 //    private var firstEmptyFrameCall = true
@@ -69,6 +71,13 @@ class GlobalVariable() : Application() {
         this.rvHeight = h
     }
 
+    fun getDel():Boolean {
+        return isDelete
+    }
+
+    fun setDel(data: Boolean) {
+        isDelete = data
+    }
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
     fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 }

@@ -36,7 +36,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:padding="20dp">
+            android:padding="10dp">
             <androidx.cardview.widget.CardView
                 android:id="@+id/item_fri_des_profile_cv"
                 android:layout_width="wrap_content"
@@ -59,8 +59,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/item_fri_des_profile_cv"
-                app:layout_constraintRight_toLeftOf="@id/item_fri_rate_tv"
-                app:layout_constraintBottom_toTopOf="@id/item_fri_mail_tv"
+                app:layout_constraintStart_toStartOf="@id/item_fri_mail_tv"
                 android:text="name"
                 android:textSize="23dp">
             </TextView>
@@ -70,8 +69,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/item_fri_name_tv"
                 app:layout_constraintLeft_toRightOf="@id/item_fri_des_profile_cv"
-                app:layout_constraintRight_toLeftOf="@id/item_fri_rate_tv"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="15dp"
                 android:text="name@gmail.com"
                 android:textSize="12dp">
             </TextView>
@@ -92,7 +91,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/item_rate_star_one">
+                android:src="@drawable/item_rate_star_one"
+                android:layout_marginRight="10dp">
             </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -125,7 +125,8 @@
         android:layout_marginRight="-10dp"
         android:src="@drawable/dialog_add_friend_check"
         android:elevation="2dp"
-        app:layout_constraintHorizontal_weight="1">
+        app:layout_constraintHorizontal_weight="1"
+        android:visibility="gone">
     </ImageView>
     <Space
         android:id="@+id/item_fri_up_right_sp"
