@@ -65,6 +65,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_2_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_3_rv"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_2_fl"
@@ -97,6 +99,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_3_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_4_rv"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
         android:id="@+id/item_cal_des_3_fl"
@@ -129,6 +133,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_4_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_5_rv"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_4_fl"
@@ -161,6 +167,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_5_rv"
         app:layout_constraintBottom_toTopOf="@id/item_cal_date_6_rv"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_5_fl"
@@ -193,6 +201,8 @@
         app:layout_constraintTop_toBottomOf="@id/item_cal_date_6_rv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cardCornerRadius="@dimen/menu_radius"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone">
         <FrameLayout
             android:id="@+id/item_cal_des_6_fl"

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import com.umc.clear.databinding.ActivityMainBinding
+import com.umc.clear.ui.admission.view.AdmissionFragment
 import com.umc.clear.ui.friend.view.FriendFragment
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var home: HomeFragment
     lateinit var friend: FriendFragment
+    lateinit var admis: AdmissionFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,9 +43,11 @@ class MainActivity : AppCompatActivity() {
 
         home = HomeFragment()
         friend = FriendFragment()
+        admis = AdmissionFragment()
 
         supportFragmentManager.beginTransaction().add(binding.mainFl.id, home).commit()
         supportFragmentManager.beginTransaction().add(binding.mainFl.id, friend).hide(friend).commit()
+        supportFragmentManager.beginTransaction().add(binding.mainFl.id, admis).hide(admis).commit()
 
         initListener()
         supportActionBar?.hide()
@@ -64,13 +68,21 @@ class MainActivity : AppCompatActivity() {
         when (pos) {
             1-> {
                 fragMang.hide(friend)
+                fragMang.hide(admis)
 
                 fragMang.show(home).commit()
             }
             2-> {
                 fragMang.hide(home)
+                fragMang.hide(admis)
 
                 fragMang.show(friend).commit()
+            }
+            3-> {
+                fragMang.hide(home)
+                fragMang.hide(friend)
+
+                fragMang.show(admis).commit()
             }
         }
 
@@ -82,8 +94,14 @@ class MainActivity : AppCompatActivity() {
             if (it.title == "홈") {
                 1
             }
-            else {
+            else if (it.title == "친구") {
                 2
+            }
+            else if (it.title == "신청"){
+                3
+            }
+            else {
+                4
             }
             )
             true
