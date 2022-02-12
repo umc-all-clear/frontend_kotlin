@@ -8,8 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f8f8fa"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
     <ImageView
         android:id="@+id/dialog_setup_exit_iv"
         android:layout_width="40dp"

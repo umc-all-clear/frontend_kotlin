@@ -59,16 +59,27 @@
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/layout/item_home_rank.xml" value="0.2" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/menu/main_nav_menu.xml" value="0.287109375" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/menu/menu.xml" value="0.3828125" />
-        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/activity_login.xml" value="0.176" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/activity_signin.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/activity_start.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/dialog_add_friend.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/dialog_delete_friend.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/dialog_setup.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/fragment_friend.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/fragment_home.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/fragment_notify.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_admission_admis_page.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_admission_waiting_page_content.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_admission_waiting_page_date.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_friend_list.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_date.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_des.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_des_comm.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_des_img.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_calendar_frame.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_header.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_home_rank.xml" value="0.18072916666666666" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_notify_content.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cjw30/Desktop/clear/app/src/main/res/layout/item_notify_date.xml" value="0.25364583333333335" />
       </map>

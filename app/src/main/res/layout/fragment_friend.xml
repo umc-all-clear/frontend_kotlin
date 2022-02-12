@@ -18,12 +18,12 @@
             app:layout_constraintRight_toLeftOf="@id/friend_more_iv"
             app:layout_constraintBottom_toTopOf="@id/friend_top_cl"
             android:text="내이름"
-            android:textSize="40dp">
+            android:textSize="30dp">
         </TextView>
         <ImageView
             android:id="@+id/friend_more_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             app:layout_constraintLeft_toRightOf="@id/friend_myname_tv"
             app:layout_constraintTop_toTopOf="@id/friend_myname_tv"
             app:layout_constraintBottom_toBottomOf="@id/friend_myname_tv"
@@ -32,17 +32,18 @@
         </ImageView>
         <ImageView
             android:id="@+id/friend_del_iv"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
             app:layout_constraintRight_toLeftOf="@id/friend_setup_iv"
             app:layout_constraintBottom_toBottomOf="@id/friend_myname_tv"
             app:layout_constraintTop_toTopOf="@id/friend_myname_tv"
-            android:src="@drawable/fragment_friend_del">
+            android:src="@drawable/fragment_friend_del"
+            android:layout_marginRight="10dp">
         </ImageView>
         <ImageView
             android:id="@+id/friend_setup_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             app:layout_constraintBottom_toBottomOf="@id/friend_myname_tv"
             app:layout_constraintTop_toTopOf="@id/friend_myname_tv"
             app:layout_constraintRight_toRightOf="parent"
@@ -86,7 +87,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_1_img_cv"
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_name_tv"
-                app:cardCornerRadius="100dp">
+                app:cardCornerRadius="100dp"
+                app:layout_constraintHorizontal_chainStyle="spread">
                 <ImageView
                     android:id="@+id/friend_rank_2_img_iv"
                     android:layout_width="80dp"
@@ -277,7 +279,8 @@
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_3_name_tv"
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_1_img_cv"
                 app:layout_constraintRight_toRightOf="parent"
-                app:cardCornerRadius="100dp">
+                app:cardCornerRadius="100dp"
+                app:layout_constraintHorizontal_chainStyle="spread">
                 <ImageView
                     android:id="@+id/friend_rank_3_img_iv"
                     android:layout_width="80dp"
@@ -351,7 +354,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constrainedHeight="true"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            android:layout_marginBottom="40dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/friend_rank_other_rv"
                 android:layout_width="match_parent"
