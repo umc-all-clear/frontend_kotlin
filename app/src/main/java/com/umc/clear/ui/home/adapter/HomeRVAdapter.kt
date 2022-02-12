@@ -81,7 +81,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                 binding.root.layoutParams = param
 
                 binding.homeUserInfoAddIv.setOnClickListener {
-                    SetupDialog(fragment).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")
+                    SetupDialog(fragment, context).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")
 
                 }
             }
@@ -94,6 +94,12 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 
             fun bind() {
 
+                binding.homeCalVp.isUserInputEnabled = false
+
+                binding.homeCalMonTv.post {
+                    PrefApp.glob.setRvHeight(binding.homeCalMonTv.width)
+                    binding.homeCalMonTv.height = PrefApp.glob.getRvHeight()
+                }
                 binding.homeCalNextIv.setOnClickListener {
                     vpButtonCall = true
                     binding.homeCalVp.setCurrentItem(binding.homeCalVp.currentItem + 1, false)
@@ -107,19 +113,21 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                     PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
                 }
 
-                val adapter = CalendarRVAdapter(context, this@HomeRVAdapter)
+                val adapter = CalendarRVAdapter(context, this@HomeRVAdapter, binding)
                 binding.homeCalVp.adapter = adapter
 
+
                 thread (start = true) {
-                    while (binding.homeCalMonTv.height == 0) {
-
+                    while (binding.homeCalMonTv.width == 0) {
                     }
-                    val rvpos = PrefApp.pref.getString("calxPos").toInt()
-                    var pos = IntArray(2)
-                    binding.homeCalMonTv.getLocationInWindow(pos)
 
-                    binding.homeCalMonTv.updatePadding(left = rvpos + pos[0] - dpTopx(15, PrefApp.pref.getString("dpi").toFloat()))
-                    binding.homeCalSunTv.updatePadding(right = rvpos + pos[0])
+                    binding.homeCalMonTv.height = binding.homeCalMonTv.width
+//                    val rvpos = PrefApp.pref.getString("calxPos").toInt()
+//                    var pos = IntArray(2)
+//                    binding.homeCalMonTv.getLocationInWindow(pos)
+//
+//                    binding.homeCalMonTv.updatePadding(left = rvpos + pos[0] - dpTopx(15, PrefApp.pref.getString("dpi").toFloat()))
+//                    binding.homeCalSunTv.updatePadding(right = rvpos + pos[0])
 
                 }
 
@@ -175,6 +183,8 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                                     PrefApp.glob.setCalPage(position)
                                     liveCvChange.value = true
                                     liveVpChange.value = true
+                                    liveCvChange.value = false
+                                    liveVpChange.value = false
                                 } else {
                                     liveCvChange.value = false
                                     liveVpChange.value = false
@@ -200,6 +210,9 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
 
                 binding.homeFriendTv.text = month.toString() + "월의 1등"
 
+                binding.homeFriendMoreTv.setOnClickListener {
+                    fragment.goFriend()
+                }
                 ///1등 가져오기
             }
 
@@ -208,6 +221,8 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     fun liveChange() {
         liveCvChange.postValue(true)
         liveVpChange.postValue(true)
+        liveCvChange.postValue(false)
+        liveVpChange.postValue(false)
     }
 
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()

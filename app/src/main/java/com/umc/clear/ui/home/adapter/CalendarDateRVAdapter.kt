@@ -1,16 +1,18 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
+import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.utils.PrefApp
 import kotlin.concurrent.thread
 
-class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
+class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
 
     interface onclickListener {
         fun onClick(date: Int)
@@ -72,14 +74,11 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context): Rec
             }
             var pos = IntArray(2)
 
-            thread (start = true) {
-                while (binding.itemCalDateTv.height == 0) {
+            parBinding.homeCalMonTv.post {
+                while (PrefApp.glob.getRvHeight() == 0) {
                 }
-                if (position == 0) {
-                    binding.itemCalDateIv.getLocationInWindow(pos)
-                    PrefApp.pref.putString("calxPos", pos[0].toString())
-                }
-
+                binding.itemCalDateTv.width = PrefApp.glob.getRvHeight()
+                binding.itemCalDateTv.height = PrefApp.glob.getRvHeight()
             }
         }
 

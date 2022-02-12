@@ -1,8 +1,10 @@
 package com.umc.clear.ui.start
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.clear.databinding.ActivityStartBinding
+import com.umc.clear.ui.signup.SignupActivity
 
 class StartActivity: AppCompatActivity() {
     lateinit var binding: ActivityStartBinding
@@ -17,6 +19,8 @@ class StartActivity: AppCompatActivity() {
 
     fun initListener() {
         binding.startDefaultGoLoginCv.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -14,7 +14,7 @@ import com.umc.clear.ui.home.view.CalendarDescriptionFragment
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
 
-class SetupDialog(val fragment: Fragment): DialogFragment() {
+class SetupDialog(val fragment: Fragment, val mainCont: Context): DialogFragment() {
     lateinit var binding: DialogSetupBinding
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class SetupDialog(val fragment: Fragment): DialogFragment() {
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
         val fl = childFragmentManager?.beginTransaction()
-        val item = AddFriendFragment()
+        val item = AddFriendFragment(mainCont)
         fl?.add(binding.dialogSetupContentFl.id, item)
         fl?.commit()
 

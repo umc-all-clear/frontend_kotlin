@@ -2,26 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/nav_home"
         app:showAsAction="ifRoom"
         android:title="홈"
+        android:checked="true"
         android:icon="@drawable/navi_home_selector">
     </item>
     <item
+        android:id="@+id/nav_friend"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="친구"
+        android:checked="false"
         android:icon="@drawable/nav_friend_selector">
     </item>
     <item
+        android:id="@+id/nav_admission"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="신청"
+        android:checked="false"
         android:icon="@drawable/nav_admission_selector">
     </item>
     <item
+        android:id="@+id/nav_notify"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:title="알림"
+        android:checked="false"
         android:icon="@drawable/nav_notify_selector">
     </item>
 </menu>

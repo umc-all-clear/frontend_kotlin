@@ -144,7 +144,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:text="버튼을 눌러 청소한 후 사진을 추가해주세요."
-                        android:textSize="17dp">
+                        android:textSize="12dp">
                     </TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -176,7 +176,8 @@
                     android:id="@+id/item_admis_comm_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#f8f8fa">
+                    android:background="#f8f8fa"
+                    android:padding="10dp">
                 </EditText>
             </androidx.cardview.widget.CardView>
             <ImageView
@@ -187,7 +188,8 @@
                 app:layout_constraintTop_toBottomOf="@id/item_admis_comm_cv"
                 app:layout_constraintRight_toRightOf="parent"
                 android:src="@drawable/fragment_admission_go_admission"
-                android:layout_marginRight="25dp">
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="20dp">
             </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

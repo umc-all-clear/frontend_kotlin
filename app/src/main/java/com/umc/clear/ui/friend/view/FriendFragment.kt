@@ -3,6 +3,7 @@ package com.umc.clear.ui.friend.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,7 @@ import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.ui.friend.adapter.FriendRankRVAdapter
 import com.umc.clear.utils.PrefApp
 
-class FriendFragment: Fragment() {
+class FriendFragment(): Fragment() {
     lateinit var binding: FragmentFriendBinding
     lateinit var mainContext: Context
     var top3Checked = ArrayList<Pair2>()
@@ -65,6 +66,7 @@ class FriendFragment: Fragment() {
         super.onAttach(context)
         mainContext = context
     }
+
     fun init() {
         val db = FriendDatabase.getInstance(mainContext)!!
         var al = Friend("a", "b", "ba")
@@ -113,9 +115,6 @@ class FriendFragment: Fragment() {
         binding.friendRankOtherRv.adapter = rvAdapter
 
 
-        binding.friendDelIv.setOnClickListener {
-            otherChecked = rvAdapter.getDelList()
-        }
 
         binding.friendRank1CheckIv.setOnClickListener {
             if (binding.friendRank1CheckIv.tag == "selected") {
@@ -155,25 +154,62 @@ class FriendFragment: Fragment() {
         }
 
         binding.friendMoreIv.setOnClickListener {
-            SetupDialog(this).show(childFragmentManager.beginTransaction(), "SetupDialog")
+            SetupDialog(this,mainContext).show(childFragmentManager.beginTransaction(), "SetupDialog")
         }
 
-//        binding.friendDelIv.setOnClickListener {
-//            isSelectMode = true
-//            binding.friendRank1CheckIv.visibility = View.VISIBLE
-//            binding.friendRank2CheckIv.visibility = View.VISIBLE
-//            binding.friendRank3CheckIv.visibility = View.VISIBLE
-//
-//            binding.friendDelIv.setImageResource(R.drawable.fragment_friend_go_back_to_norm)
-//            binding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
-//        }
-        binding.friendSetupIv.setOnClickListener {
-            if(isSelectMode) {
-                isSelectMode = false
-                DeleteFriendDialog(top3Checked, otherChecked, mainContext).show(childFragmentManager.beginTransaction(), "DeleteFriendDialog")
+        binding.friendDelCv.setOnClickListener {
+            if (!isSelectMode) {
+                isSelectMode = true
+                binding.friendRank1CheckIv.visibility = View.VISIBLE
+                binding.friendRank2CheckIv.visibility = View.VISIBLE
+                binding.friendRank3CheckIv.visibility = View.VISIBLE
+
+                binding.friendDelTv.text = "돌아가기"
+                binding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
             }
             else {
-                SetupDialog(this).show(childFragmentManager.beginTransaction(), "SetupDialog")
+                isSelectMode = false
+                binding.friendRank1CheckIv.visibility = View.GONE
+                binding.friendRank2CheckIv.visibility = View.GONE
+                binding.friendRank3CheckIv.visibility = View.GONE
+
+                binding.friendDelTv.text = "친구삭제"
+                binding.friendSetupIv.setImageResource(R.drawable.item_home_header_setup)
+            }
+            rvAdapter.notifyDataSetChanged()
+        }
+
+        binding.friendDelTv.setOnClickListener {
+            if (!isSelectMode) {
+                isSelectMode = true
+                binding.friendRank1CheckIv.visibility = View.VISIBLE
+                binding.friendRank2CheckIv.visibility = View.VISIBLE
+                binding.friendRank3CheckIv.visibility = View.VISIBLE
+
+                binding.friendDelTv.text = "돌아가기"
+                binding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
+            }
+            else {
+                isSelectMode = false
+                binding.friendRank1CheckIv.visibility = View.GONE
+                binding.friendRank2CheckIv.visibility = View.GONE
+                binding.friendRank3CheckIv.visibility = View.GONE
+
+                binding.friendDelTv.text = "친구삭제"
+                binding.friendSetupIv.setImageResource(R.drawable.item_home_header_setup)
+            }
+            rvAdapter.notifyDataSetChanged()
+
+        }
+
+        binding.friendSetupIv.setOnClickListener {
+            if(isSelectMode) {//삭제일때
+                isSelectMode = false
+                otherChecked = rvAdapter.getDelList()
+                DeleteFriendDialog(top3Checked, otherChecked, mainContext).show(childFragmentManager.beginTransaction(), "DeleteFriendDialog")
+            }
+            else {//설정일때
+                SetupDialog(this, mainContext).show(childFragmentManager.beginTransaction(), "SetupDialog")
             }
         }
 

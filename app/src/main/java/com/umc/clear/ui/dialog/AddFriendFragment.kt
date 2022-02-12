@@ -1,5 +1,6 @@
 package com.umc.clear.ui.dialog
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -7,11 +8,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.umc.clear.R
 import com.umc.clear.databinding.DialogAddFriendBinding
 
-class AddFriendFragment: Fragment() {
+class AddFriendFragment(val mainCont: Context): Fragment() {
     lateinit var binding: DialogAddFriendBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +66,10 @@ class AddFriendFragment: Fragment() {
 
                 binding.dialogAddFriendDesTv.visibility = View.VISIBLE
             }
+        }
+
+        binding.dialogAddFriendMymailDupIv.setOnClickListener {
+            Toast.makeText(mainCont, "이메일이 복사되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         binding.dialogAddFriendAddTv.setOnClickListener {

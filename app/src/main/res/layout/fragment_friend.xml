@@ -30,16 +30,30 @@
             android:src="@drawable/item_home_header_add_friend"
             android:layout_marginLeft="20dp">
         </ImageView>
-        <ImageView
-            android:id="@+id/friend_del_iv"
-            android:layout_width="50dp"
-            android:layout_height="20dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/friend_del_cv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintRight_toLeftOf="@id/friend_setup_iv"
             app:layout_constraintBottom_toBottomOf="@id/friend_myname_tv"
             app:layout_constraintTop_toTopOf="@id/friend_myname_tv"
             android:src="@drawable/fragment_friend_del"
-            android:layout_marginRight="10dp">
-        </ImageView>
+            android:layout_marginRight="10dp"
+            app:cardCornerRadius="20dp"
+            android:backgroundTint="#f8f8fa">
+            <TextView
+                android:id="@+id/friend_del_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="친구삭제"
+                android:textSize="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="#f8f8fa">
+            </TextView>
+        </androidx.cardview.widget.CardView>
         <ImageView
             android:id="@+id/friend_setup_iv"
             android:layout_width="20dp"
@@ -355,7 +369,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constrainedHeight="true"
             app:cardCornerRadius="20dp"
-            android:layout_marginBottom="40dp">
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/friend_rank_other_rv"
                 android:layout_width="match_parent"
@@ -363,7 +379,6 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 tools:listitem="@layout/item_friend_list"
-                android:paddingTop="25dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:background="#f8f8fa"

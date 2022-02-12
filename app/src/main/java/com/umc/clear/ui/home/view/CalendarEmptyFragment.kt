@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.clear.databinding.FragmentHomeCalendarEmptyBinding
+import com.umc.clear.ui.home.adapter.HomeRVAdapter
 import java.util.*
 
-class CalendarEmptyFragment(val date: ArrayList<Int>): Fragment() {
+class CalendarEmptyFragment(val date: ArrayList<Int>, val parFrag: HomeRVAdapter): Fragment() {
     lateinit var binding: FragmentHomeCalendarEmptyBinding
 
     override fun onCreateView(

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.databinding.ItemHomeCalendarBinding
+import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.ui.home.view.CalendarDescriptionFragment
 import com.umc.clear.ui.home.view.CalendarEmptyFragment
 import com.umc.clear.utils.CustomItem
@@ -16,7 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
+class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     var flHeight = 0
     var firstCall = true
     var firstContentFrameCall = true
@@ -60,13 +61,28 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
                     //input data
                 }
             }
+            setHeight(pos, calList[pos][1], 0)
             setRVAdapter(pos,binding)
+            par.liveChange()
+            par.liveChange()
         }
     }
 
     fun setHeight(pos: Int, month: Int, frame: Int) {
          if (month == calList[pos][1]) {
-             PrefApp.glob.setCalHeight(calList[pos][4], frame)
+             if (firstCall) {
+
+                 parBinding.homeCalMonTv.post {
+                     while (PrefApp.glob.getRvHeight() == 0) {
+
+                     }
+                     PrefApp.glob.setCalHeight(calList[pos][4], frame)
+                 }
+                 firstCall = false
+             }
+             else {
+                 PrefApp.glob.setCalHeight(calList[pos][4], frame)
+         }
 //            if (binding.itemCalDate5Rv.visibility == View.GONE) {
 //                PrefApp.glob.setCalHeight(4)
 //            } else if (binding.itemCalDate6Rv.visibility == View.GONE) {
@@ -81,72 +97,72 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
 
         if (line == 1) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes1Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes1Fl.id, item)
                 desEmptyFragmentItem = item
             }
         }
         else if (line == 2) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes2Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes2Fl.id, item)
                 desEmptyFragmentItem = item
             }
         }
         else if (line == 3) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes3Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes3Fl.id, item)
                 desEmptyFragmentItem = item
             }
         }
         else if (line == 4) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes4Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes4Fl.id, item)
                 desEmptyFragmentItem = item
             }
         }
         else if (line == 5) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes5Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes5Fl.id, item)
                 desEmptyFragmentItem = item
             }
         }
         else if (line == 6) {
             if (data) {
-                val item = CalendarDescriptionFragment(date)
+                val item = CalendarDescriptionFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes6Fl.id, item)
                 desFragmentItem = item
             }
             else {
-                val item = CalendarEmptyFragment(date)
+                val item = CalendarEmptyFragment(date, par)
                 par.fragment.goTrans(binding.itemCalDes6Fl.id, item)
                 desEmptyFragmentItem = item
             }
@@ -236,7 +252,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
         val rvList = getRVList(pos)
 
         binding.itemCalDate1Rv.addItemDecoration(CustomItem(siz))
-        val adapter1 = CalendarDateRVAdapter(rvList[0], context)
+        val adapter1 = CalendarDateRVAdapter(rvList[0], context, parBinding)
         adapter1.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -248,12 +264,9 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
                 tmpArr.add(calList[pos][0])
                 tmpArr.add(calList[pos][1])
                 setFL(pos, binding, 1, data, tmpArr)
-                thread (start = true) {
-
-                    while(binding.itemCalDes1Fl.height == 0) {
-                    }
+                binding.itemCalDes1Fl.post {
                     if (data) {
-                        setFlHeight(binding.itemCalDes1Cv.height, true)
+                        setFlHeight(binding.itemCalDes1Fl.height, true)
                         setHeight(pos, calList[pos][1], 2)
                         par.liveChange()
                     }
@@ -268,15 +281,9 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
 
         binding.itemCalDate1Rv.adapter = adapter1
 
-        if (firstCall) {
-            binding.root.doOnLayout {
-                PrefApp.glob.setRvHeight(binding.itemCalDate1Rv.height)
-                firstCall = false
-            }
-        }
 
         binding.itemCalDate2Rv.addItemDecoration(CustomItem(siz))
-        val adapter2 = CalendarDateRVAdapter(rvList[1], context)
+        val adapter2 = CalendarDateRVAdapter(rvList[1], context, parBinding)
         adapter2.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -307,7 +314,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
         binding.itemCalDate2Rv.adapter = adapter2
 
         binding.itemCalDate3Rv.addItemDecoration(CustomItem(siz))
-        val adapter3 = CalendarDateRVAdapter(rvList[2], context)
+        val adapter3 = CalendarDateRVAdapter(rvList[2], context, parBinding)
         adapter3.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -338,7 +345,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
         binding.itemCalDate3Rv.adapter = adapter3
 
         binding.itemCalDate4Rv.addItemDecoration(CustomItem(siz))
-        val adapter4 = CalendarDateRVAdapter(rvList[3], context)
+        val adapter4 = CalendarDateRVAdapter(rvList[3], context, parBinding)
         adapter4.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -370,7 +377,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
 
         if (calList[pos][4] > 4) {
             binding.itemCalDate5Rv.addItemDecoration(CustomItem(siz))
-            val adapter5 = CalendarDateRVAdapter(rvList[4], context)
+            val adapter5 = CalendarDateRVAdapter(rvList[4], context, parBinding)
             adapter5.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
@@ -403,7 +410,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter): RecyclerV
         }
         if (calList[pos][4] > 5) {
             binding.itemCalDate6Rv.addItemDecoration(CustomItem(siz))
-            val adapter6 = CalendarDateRVAdapter(rvList[5], context)
+            val adapter6 = CalendarDateRVAdapter(rvList[5], context, parBinding)
             adapter6.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출

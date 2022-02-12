@@ -62,7 +62,7 @@ class FriendRankRVAdapter(val mainAct: Context, val parBinding: FragmentFriendBi
             binding.itemFriNameTv.text = list[pos + 3].name
             binding.itemFriMailTv.text = list[pos + 3].mail
             binding.itemFriRateTv.text = list[pos + 3].avgRate
-            binding.itemFriRankTv.text = (pos + 3).toString()
+            binding.itemFriRankTv.text = (pos + 4).toString()
             binding.itemFriCheckIv.setImageResource(
                 if(selectedData[pos].isChecked) {
                 R.drawable.dialog_add_friend_check_selected
@@ -81,29 +81,6 @@ class FriendRankRVAdapter(val mainAct: Context, val parBinding: FragmentFriendBi
                 selectedData[pos].isChecked = onlistener.onClick(selectedData[pos].isChecked, pos)
             }
 
-            parBinding.friendDelIv.setOnClickListener {
-                if (!isSelectMode) {
-                    isSelectMode = true
-                    parBinding.friendRank1CheckIv.visibility = View.VISIBLE
-                    parBinding.friendRank2CheckIv.visibility = View.VISIBLE
-                    parBinding.friendRank3CheckIv.visibility = View.VISIBLE
-
-                    parBinding.friendDelIv.setImageResource(R.drawable.fragment_friend_go_back_to_norm)
-                    parBinding.friendSetupIv.setImageResource(R.drawable.fragment_friend_go_del)
-                    binding.itemFriCheckIv.visibility = View.VISIBLE
-                }
-                else {
-                    isSelectMode = false
-                    parBinding.friendRank1CheckIv.visibility = View.GONE
-                    parBinding.friendRank2CheckIv.visibility = View.GONE
-                    parBinding.friendRank3CheckIv.visibility = View.GONE
-
-                    parBinding.friendDelIv.setImageResource(R.drawable.fragment_friend_del)
-                    parBinding.friendSetupIv.setImageResource(R.drawable.item_home_header_setup)
-                    binding.itemFriCheckIv.visibility = View.GONE
-                }
-                notifyDataSetChanged()
-            }
         }
     }
 

@@ -15,13 +15,13 @@
         app:layout_constraintRight_toLeftOf="@id/admis_more_iv"
         app:layout_constraintBottom_toTopOf="@id/admis_admission_cv"
         android:text="내이름"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:layout_marginBottom="40dp">
     </TextView>
     <ImageView
         android:id="@+id/admis_more_iv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         app:layout_constraintLeft_toRightOf="@id/admis_name_tv"
         app:layout_constraintTop_toTopOf="@id/admis_name_tv"
         app:layout_constraintBottom_toBottomOf="@id/admis_name_tv"
@@ -30,8 +30,8 @@
     </ImageView>
     <ImageView
         android:id="@+id/admis_setup_iv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         app:layout_constraintBottom_toBottomOf="@id/admis_name_tv"
         app:layout_constraintTop_toTopOf="@id/admis_name_tv"
         app:layout_constraintRight_toRightOf="parent"

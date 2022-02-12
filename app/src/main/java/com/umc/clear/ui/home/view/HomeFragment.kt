@@ -57,6 +57,10 @@ class HomeFragment: Fragment() {
         trans.commit()
     }
 
+    fun goFriend() {
+        context.setFragment(2)
+    }
+
 //    interface Height {
 //        fun height()
 //    }

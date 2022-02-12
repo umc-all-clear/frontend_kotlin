@@ -39,7 +39,7 @@ class GlobalVariable() : Application() {
             h*rvHeight + flEmptyHeight + dpTopx(30, PrefApp.pref.getString("dpi").toFloat())
         }
         else {
-            h * rvHeight + flContentHeight
+            h * rvHeight * 3 + flContentHeight
         }
     }
 

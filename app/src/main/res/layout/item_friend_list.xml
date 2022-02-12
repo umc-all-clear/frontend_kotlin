@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent"
-    android:paddingBottom="20dp">
+    android:background="@color/transparent">
     <TextView
         android:id="@+id/item_fri_rank_tv"
         android:layout_width="0dp"
@@ -27,7 +26,9 @@
         app:layout_constraintLeft_toRightOf="@id/item_fri_rank_tv"
         app:layout_constraintRight_toLeftOf="@id/item_fri_down_sp"
         app:cardCornerRadius="60dp"
-        app:layout_constraintHorizontal_weight="11">
+        app:layout_constraintHorizontal_weight="11"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_fri_des_cl"
             android:layout_width="match_parent"

@@ -4,8 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginRight="20dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/item_cal_date_iv"
         android:layout_width="20dp"
@@ -13,18 +12,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/item_cal_date_tv"
         android:src="@drawable/item_calendar_circle_enable_no"
         android:visibility="gone">
     </ImageView>
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/item_cal_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/item_cal_date_iv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textSize="15dp">
-    </androidx.appcompat.widget.AppCompatTextView>
+        android:textSize="15dp"
+        android:gravity="center">
+    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

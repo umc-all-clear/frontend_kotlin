@@ -15,7 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_cal_des_cl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#f8f8fa">
             <TextView
                 android:id="@+id/calendar_des_date_tv"
                 android:layout_width="wrap_content"
@@ -24,15 +25,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/calendar_before_tv"
                 android:text="date"
-                android:layout_marginLeft="@dimen/calendar_des_else_side_margin">
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp">
             </TextView>
             <TextView
                 android:id="@+id/calendar_des_rank_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/calendar_des_date_tv"
                 app:layout_constraintRight_toLeftOf="@id/calendar_rank_iv"
-                app:layout_constraintBottom_toTopOf="@id/calendar_before_tv"
+                app:layout_constraintBottom_toBottomOf="@id/calendar_des_date_tv"
                 android:layout_marginRight="@dimen/calendar_des_else_side_margin"
                 android:text="score">
             </TextView>
@@ -52,7 +54,8 @@
                 app:layout_constraintBottom_toTopOf="@id/calendar_des_before_rv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="@dimen/calendar_des_else_side_margin"
-                android:text="before">
+                android:text="before"
+                android:layout_marginTop="20dp">
             </TextView>
             <androidx.viewpager2.integration.testapp.NestedScrollableHost
                 android:id="@+id/calendar_des_before_rv"
@@ -164,14 +167,15 @@
             </androidx.viewpager2.integration.testapp.NestedScrollableHost>
             <ImageView
                 android:id="@+id/calendar_des_close_iv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/calendar_des_feed_rv"
-                android:layout_marginRight="@dimen/calendar_des_else_side_margin"
+                app:layout_constraintEnd_toEndOf="@id/calendar_des_rank_tv"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="@dimen/calendar_des_else_side_margin"
-                android:src="@mipmap/ic_launcher">
+                android:src="@drawable/item_home_calendar_des_cancel">
             </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 package com.umc.clear.ui.admission.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.clear.R
 import com.umc.clear.databinding.FragmentAdmissionBinding
+import com.umc.clear.ui.MainActivity
 import com.umc.clear.ui.admission.adapter.AdmissionContentVPAdapter
+import com.umc.clear.ui.dialog.SetupDialog
 
 class AdmissionFragment: Fragment() {
     lateinit var binding: FragmentAdmissionBinding
+    lateinit var mainCont: Context
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +24,13 @@ class AdmissionFragment: Fragment() {
         binding = FragmentAdmissionBinding.inflate(inflater, container, false)
 
         init()
+
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainCont = context as MainActivity
     }
 
     fun init() {
@@ -28,6 +38,7 @@ class AdmissionFragment: Fragment() {
         a.add(1)
         a.add(2)
         binding.admisContentVp.adapter = AdmissionContentVPAdapter(a)
+        binding.admisContentVp.isUserInputEnabled = false
 
         binding.admisWaitingCv.setOnClickListener {
             if (binding.admisContentVp.currentItem == 0) {
@@ -56,6 +67,14 @@ class AdmissionFragment: Fragment() {
 
                 binding.admisContentVp.currentItem = 0
             }
+        }
+
+        binding.admisSetupIv.setOnClickListener {
+            SetupDialog(this, mainCont).show(this.childFragmentManager.beginTransaction(), "SetupDialog")
+        }
+
+        binding.admisMoreIv.setOnClickListener {
+            SetupDialog(this, mainCont).show(this.childFragmentManager.beginTransaction(), "SetupDialog")
         }
     }
 }

@@ -1,15 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dialog_setup_list_rv"
+    <ImageView
+        android:id="@+id/setup_edit_profile_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/setup_bar_1_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/setup_edit_profile_tv"
+        android:src="@drawable/dialog_setup_edit_profile">
+    </ImageView>
+    <TextView
+        android:id="@+id/setup_edit_profile_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/setup_edit_profile_iv"
+        app:layout_constraintBottom_toBottomOf="@id/setup_edit_profile_iv"
+        app:layout_constraintLeft_toRightOf="@id/setup_edit_profile_iv"
+        app:layout_constraintRight_toLeftOf="@id/setup_edit_profile_go_iv"
+        android:text="프로필 변경">
+    </TextView>
+    <ImageView
+        android:id="@+id/setup_edit_profile_go_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/setup_edit_profile_iv"
+        app:layout_constraintBottom_toBottomOf="@id/setup_edit_profile_iv"
+        app:layout_constraintLeft_toRightOf="@id/setup_edit_profile_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/dialog_setup_go_menu">
+    </ImageView>
+
+    <Space
+        android:id="@+id/setup_bar_1_sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/setup_edit_profile_iv"
+        app:layout_constraintBottom_toTopOf="@id/setup_signout_iv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/black">
+    </Space>
+
+    <ImageView
+        android:id="@+id/setup_signout_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/setup_bar_1_sp"
+        app:layout_constraintBottom_toTopOf="@id/setup_bar_2_sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/setup_signout_tv"
+        android:src="@drawable/dialog_setup_signout">
+    </ImageView>
+    <TextView
+        android:id="@+id/setup_signout_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/setup_signout_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/setup_signout_iv"
+        app:layout_constraintLeft_toRightOf="@id/setup_signout_iv"
+        app:layout_constraintRight_toLeftOf="@id/setup_signout_go_iv"
+        android:text="계정 로그아웃">
+    </TextView>
+    <ImageView
+        android:id="@+id/setup_signout_go_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/setup_signout_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/setup_signout_iv"
+        app:layout_constraintLeft_toRightOf="@id/setup_signout_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/dialog_setup_go_menu">
+    </ImageView>
+
+    <Space
+        android:id="@+id/setup_bar_2_sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/setup_signout_iv"
+        app:layout_constraintBottom_toTopOf="@id/setup_exit_iv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/black">
+    </Space>
+
+    <ImageView
+        android:id="@+id/setup_exit_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/setup_bar_2_sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/setup_exit_tv"
+        android:src="@drawable/dialog_setup_disconn">
+    </ImageView>
+    <TextView
+        android:id="@+id/setup_exit_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintLeft_toRightOf="@id/setup_exit_iv"
+        app:layout_constraintRight_toLeftOf="@id/setup_exit_go_iv"
+        android:text="계정 탈퇴하기"
+        android:textColor="#ff3120">
+    </TextView>
+    <ImageView
+        android:id="@+id/setup_exit_go_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/setup_exit_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/dialog_setup_go_menu">
+    </ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>

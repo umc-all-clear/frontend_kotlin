@@ -10,10 +10,11 @@ import com.umc.clear.R
 import com.umc.clear.databinding.FragmentHomeCalendarDesBinding
 import com.umc.clear.ui.home.adapter.DescriptionCommRVAdapter
 import com.umc.clear.ui.home.adapter.DescriptionImgRVAdapter
+import com.umc.clear.ui.home.adapter.HomeRVAdapter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarDescriptionFragment(val date: ArrayList<Int>): Fragment() {
+class CalendarDescriptionFragment(val date: ArrayList<Int>, val parFrag: HomeRVAdapter): Fragment() {
     lateinit var binding: FragmentHomeCalendarDesBinding
 
     override fun onCreateView(
@@ -113,6 +114,11 @@ class CalendarDescriptionFragment(val date: ArrayList<Int>): Fragment() {
                 binding.calendarDesComRvv.currentItem = position
             }
         })
+
+        binding.calendarDesCloseIv.setOnClickListener {
+            binding.root.visibility = View.GONE
+            parFrag.liveChange()
+        }
     }
 
     fun getDay(day: Int): String {
