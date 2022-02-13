@@ -10,18 +10,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.umc.clear.R
 import com.umc.clear.data.entities.Friend
+import com.umc.clear.data.entities.GetFriendsRank
+import com.umc.clear.data.entities.ReqFriendsRank
+import com.umc.clear.data.entities.ReqLogin
 import com.umc.clear.data.local.FriendDatabase
 import com.umc.clear.data.local.Pair2
+import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.FragmentFriendBinding
 import com.umc.clear.databinding.FragmentRankBinding
 import com.umc.clear.ui.dialog.DeleteFriendDialog
 import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.ui.friend.adapter.FriendRankRVAdapter
 import com.umc.clear.utils.PrefApp
+import java.util.*
+import kotlin.collections.ArrayList
 
-class FriendFragment(): Fragment() {
+class FriendFragment(): Fragment(), FriendView {
     lateinit var binding: FragmentFriendBinding
     lateinit var mainContext: Context
+    lateinit var rvAdapter: FriendRankRVAdapter
     var top3Checked = ArrayList<Pair2>()
     var otherChecked = ArrayList<Pair2>()
     var isSelectMode = false
@@ -47,18 +54,35 @@ class FriendFragment(): Fragment() {
 
         if (PrefApp.glob.getDel()) {
             PrefApp.glob.setDel(false)
-            val db = FriendDatabase.getInstance(mainContext)!!
-            val list = db.friendDao().getAll()
-            top3Checked.clear()
-            for (i in 0..2) {
-                top3Checked.add(Pair2(false, list[i].mail))
-            }
 
-            otherChecked.clear()
-            for (i in 1..otherChecked.size - 3) {
-                otherChecked.add(Pair2(false, list[i+2].mail))
-            }
-            binding.friendRankOtherRv.adapter?.notifyDataSetChanged()
+            val serv = RetroService
+            serv.setfData(this)
+
+            val cal = Calendar.getInstance()
+
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH) + 1
+            val weekday = cal.get(Calendar.DAY_OF_WEEK)
+            PrefApp.pref.setPrefname("user")
+            PrefApp.pref.getString("email")
+            var req = ReqFriendsRank(
+                PrefApp.pref.getString("index").toInt(),
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH) + 1
+            )
+            RetroService.reqRank(req)
+//
+//            val db = FriendDatabase.getInstance(mainContext)!!
+//            val list = db.friendDao().getAll()
+//            top3Checked.clear()
+//            for (i in 0..2) {
+//                top3Checked.add(Pair2(false, list[i].mail))
+//            }
+//
+//            otherChecked.clear()
+//            for (i in 1..otherChecked.size - 3) {
+//                otherChecked.add(Pair2(false, list[i+2].mail))
+//            }
         }
     }
 
@@ -105,7 +129,7 @@ class FriendFragment(): Fragment() {
         db.friendDao().ins(al)
 
 
-        val rvAdapter = FriendRankRVAdapter(mainContext, binding)
+        rvAdapter = FriendRankRVAdapter(mainContext, binding)
         rvAdapter.setOnListen(object : FriendRankRVAdapter.onListener{
             override fun onClick(stat: Boolean, pos: Int):Boolean {
                 rvAdapter.notifyItemChanged(pos)
@@ -213,5 +237,12 @@ class FriendFragment(): Fragment() {
             }
         }
 
+    }
+
+    override fun onRankGetSuccess(data: GetFriendsRank) {
+        rvAdapter.notifyDataSetChanged()
+    }
+
+    override fun onRankGetFailure(code: String) {
     }
 }

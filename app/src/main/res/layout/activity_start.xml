@@ -4,22 +4,29 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/start_cl"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/start_default_go_login_tv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <ImageView
             android:id="@+id/start_logo_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/start_title_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/ic_launcher_background">
+            android:src="@drawable/logo"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
         </ImageView>
         <TextView
             android:id="@+id/start_title_tv"
@@ -29,9 +36,10 @@
             app:layout_constraintBottom_toTopOf="@id/start_des_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="35dp"
             android:text="나만의 청소 메이트, 클리어"
-            android:textSize="15dp"
-            android:textStyle="bold">
+            android:textSize="16dp"
+            android:fontFamily="@font/notosanskr_bold">
         </TextView>
         <TextView
             android:id="@+id/start_des_tv"
@@ -40,32 +48,31 @@
             app:layout_constraintTop_toBottomOf="@id/start_title_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:text="친구들과 함꼐 청소를 즐겨보세요"
-            android:textSize="10dp">
+            android:textSize="12dp"
+            android:textColor="#9f9f9f"
+            android:fontFamily="@font/notosanskr_regular">
         </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/start_default_go_login_cv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginBottom="78dp"
-        app:cardCornerRadius="52dp"
-        android:backgroundTint="@color/purple_200">
         <TextView
             android:id="@+id/start_default_go_login_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:padding="10dp"
+            android:layout_marginBottom="35dp"
             android:text="아이디 직접 입력"
-            android:textSize="16dp"
-            android:layout_gravity="center">
+            android:textSize="17dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/notosanskr_regular"
+            android:layout_gravity="center"
+            android:background="@drawable/item_start_id_boarder">
         </TextView>
-    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.umc.clear.ui.admission.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +46,10 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>): RecyclerView.Adapter<
     inner class AdmissionHolder(val binding: ItemAdmissionAdmisPageBinding): RecyclerView.ViewHolder(binding.root) {
         fun init() {
 
+//            binding.itemAdmisBeforeDesIv.setOnClickListener {
+//                val intent = Intent(Intent.ACTION_GET_CONTENT)
+//                intent.setType("image/*")
+//            }
         }
     }
 

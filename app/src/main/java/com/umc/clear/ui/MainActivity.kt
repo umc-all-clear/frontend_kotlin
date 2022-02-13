@@ -61,15 +61,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setDevInfo(px: Int) {
+        PrefApp.pref.setPrefname("deviceInfo")
         PrefApp.pref.putString("dpi", resources.displayMetrics.density.toString())
         PrefApp.pref.putString("widPx", px.toString())
     }
 
     fun setFragment(pos: Int) {
-//        if (friend == null) {
-//            friend = FriendFragment()
-//            supportFragmentManager.beginTransaction().add(binding.mainFl.id, friend).commit()
-//        }
         val fragMang = supportFragmentManager.beginTransaction()
         when (pos) {
             1-> {

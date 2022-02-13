@@ -23,7 +23,7 @@ class AdmissionFragment: Fragment() {
     ): View? {
         binding = FragmentAdmissionBinding.inflate(inflater, container, false)
 
-        init()
+        initListener()
 
         return binding.root
     }
@@ -33,7 +33,7 @@ class AdmissionFragment: Fragment() {
         mainCont = context as MainActivity
     }
 
-    fun init() {
+    fun initListener() {
         val a = ArrayList<Int>()
         a.add(1)
         a.add(2)

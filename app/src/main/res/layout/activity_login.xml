@@ -2,27 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="20dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp">
     <ImageView
         android:id="@+id/login_go_back_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/login_des_tv"
         app:layout_constraintRight_toLeftOf="@id/login_title_tv"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintVertical_weight="0.4">
+        android:src="@drawable/item_siginup_go_back"
+        app:layout_constraintVertical_weight="0.4"
+        android:layout_marginTop="20dp">
     </ImageView>
     <TextView
         android:id="@+id/login_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/login_go_back_iv"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_go_back_iv"
+        app:layout_constraintBottom_toBottomOf="@+id/login_go_back_iv"
         android:text="로그인"
-        android:textSize="23dp">
+        android:fontFamily="@font/notosanskr_regular"
+        android:textSize="22dp"
+        android:layout_marginLeft="10dp">
     </TextView>
     <TextView
         android:id="@+id/login_des_tv"
@@ -32,8 +39,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/login_id_et"
         android:text="나만의\n청소메이트,\n클리어"
-        android:textSize="30dp"
-        android:textStyle="bold"
+        android:textSize="35dp"
+        android:fontFamily="@font/notosanskr_bold"
         android:gravity="fill_vertical"
         app:layout_constraintVertical_weight="4">
     </TextView>
@@ -46,8 +53,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/login_pw_et"
         android:hint="아이디 또는 이메일을 입력해주세요"
-        app:layout_constraintVertical_weight="1">
+        android:fontFamily="@font/notosanskr_regular"
+        android:textSize="15dp"
+        android:inputType="text"
+        app:layout_constraintVertical_weight="0.8"
+        android:background="#f1f1f5">
     </EditText>
+        <ImageView
+            android:id="@+id/login_id_del_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toTopOf="@id/login_id_et"
+            app:layout_constraintBottom_toBottomOf="@id/login_id_et"
+            app:layout_constraintRight_toRightOf="@id/login_id_et"
+            android:layout_margin="10dp"
+            android:src="@drawable/item_signup_del_text"
+            android:visibility="gone">
+        </ImageView>
     <EditText
         android:id="@+id/login_pw_et"
         android:layout_width="match_parent"
@@ -57,45 +79,71 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/login_auto_login_iv"
         android:hint="비밀번호를 입력해주세요."
-        app:layout_constraintVertical_weight="1">
+        android:fontFamily="@font/notosanskr_regular"
+        android:textSize="15dp"
+        android:inputType="textPassword"
+        app:layout_constraintVertical_weight="0.8"
+        android:background="#f1f1f5"
+        android:layout_marginTop="15dp">
     </EditText>
+        <ImageView
+            android:id="@+id/login_pw_del_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toTopOf="@id/login_pw_et"
+            app:layout_constraintBottom_toBottomOf="@id/login_pw_et"
+            app:layout_constraintRight_toRightOf="@id/login_pw_et"
+            android:layout_margin="10dp"
+            android:src="@drawable/item_signup_del_text"
+            android:visibility="gone">
+        </ImageView>
     <ImageView
         android:id="@+id/login_auto_login_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         app:layout_constraintTop_toBottomOf="@id/login_pw_et"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/login_auto_login_tv"
         app:layout_constraintBottom_toTopOf="@id/login_1_sp"
-        app:layout_constraintVertical_weight="0.4">
+        app:layout_constraintVertical_weight="0.4"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/item_calendar_circle_disable">
     </ImageView>
     <TextView
         android:id="@+id/login_auto_login_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/login_pw_et"
+        app:layout_constraintTop_toTopOf="@id/login_auto_login_iv"
         app:layout_constraintLeft_toRightOf="@id/login_auto_login_iv"
         app:layout_constraintRight_toLeftOf="@id/login_id_save_iv"
-        app:layout_constraintBottom_toTopOf="@id/login_1_sp"
-        android:text="자동 로그인">
+        app:layout_constraintBottom_toBottomOf="@id/login_auto_login_iv"
+        android:text="자동 로그인"
+        android:textSize="17dp"
+        android:fontFamily="@font/notosanskr_regular">
     </TextView>
     <ImageView
         android:id="@+id/login_id_save_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/login_pw_et"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="@id/login_auto_login_iv"
         app:layout_constraintLeft_toRightOf="@id/login_auto_login_tv"
         app:layout_constraintRight_toLeftOf="@id/login_id_save_tv"
-        app:layout_constraintBottom_toTopOf="@id/login_1_sp">
+        app:layout_constraintBottom_toBottomOf="@id/login_auto_login_iv"
+        android:src="@drawable/item_calendar_circle_disable"
+        android:layout_marginLeft="40dp">
     </ImageView>
     <TextView
         android:id="@+id/login_id_save_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/login_pw_et"
+        app:layout_constraintBottom_toBottomOf="@id/login_auto_login_iv"
         app:layout_constraintLeft_toRightOf="@id/login_id_save_iv"
-        app:layout_constraintBottom_toTopOf="@id/login_1_sp"
-        android:text="아이디 저장">
+        app:layout_constraintTop_toTopOf="@id/login_auto_login_iv"
+        android:layout_marginLeft="10dp"
+        android:text="아이디 저장"
+        android:textSize="17dp"
+        android:fontFamily="@font/notosanskr_regular">
     </TextView>
     <Space
         android:id="@+id/login_1_sp"
@@ -125,7 +173,11 @@
         app:layout_constraintTop_toBottomOf="@id/login_2_sp"
         android:text="로그인"
         android:gravity="center"
-        app:layout_constraintVertical_weight="0.8">
+        android:fontFamily="@font/notosanskr_bold"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintVertical_weight="0.5"
+        android:background="@drawable/item_grad_blue">
     </TextView>
     <TextView
         android:id="@+id/login_go_signup_des_tv"
@@ -136,6 +188,9 @@
         app:layout_constraintTop_toBottomOf="@id/login_go_login_tv"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="아직 회원이 아니신가요?"
+        android:textSize="15dp"
+        android:textColor="#767676"
+        android:fontFamily="@font/notosanskr_regular"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintVertical_weight="1"
         android:gravity="center_vertical">
@@ -148,7 +203,12 @@
         app:layout_constraintLeft_toRightOf="@id/login_go_signup_des_tv"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="5dp"
         android:text="회원가입 >"
+        android:textSize="15dp"
+        android:textColor="#191919"
+        android:fontFamily="@font/notosanskr_regular"
         app:layout_constraintHorizontal_chainStyle="packed">
     </TextView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
