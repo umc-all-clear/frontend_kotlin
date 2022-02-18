@@ -32,6 +32,7 @@ class SetupDialog(val fragment: Fragment, val mainCont: Context): DialogFragment
     override fun onResume() {
         super.onResume()
 
+        PrefApp.pref.setPrefname("deviceInfo")
         val w = PrefApp.pref.getString("widPx").toInt() - 100
         val h = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.window?.setLayout(w, h)

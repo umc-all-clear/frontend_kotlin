@@ -1,4 +1,4 @@
-package com.umc.clear.data.local
+package com.umc.clear.utils
 
 data class Pair2 (
     var isChecked: Boolean,

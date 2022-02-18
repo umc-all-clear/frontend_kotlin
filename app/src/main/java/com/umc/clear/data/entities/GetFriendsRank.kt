@@ -1,7 +1,7 @@
 package com.umc.clear.data.entities
 
 
-class GetFriendsRank (
+data class GetFriendsRank (
     var isSuccess: Boolean? = false,
     var code: Int? = 0,
     var message: String? = null,

@@ -107,7 +107,7 @@
                     android:id="@+id/friend_rank_2_img_iv"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_launcher_background">
+                    android:src="@drawable/fragment_admission_profile">
                 </ImageView>
             </androidx.cardview.widget.CardView>
             <ImageView
@@ -203,7 +203,7 @@
                     android:id="@+id/friend_rank_1_img_iv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/ic_launcher_background">
+                    android:src="@drawable/fragment_admission_profile">
                 </ImageView>
             </androidx.cardview.widget.CardView>
             <ImageView
@@ -299,7 +299,7 @@
                     android:id="@+id/friend_rank_3_img_iv"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_launcher_background">
+                    android:src="@drawable/fragment_admission_profile">
                 </ImageView>
             </androidx.cardview.widget.CardView>
             <ImageView

@@ -1,6 +1,7 @@
 package com.umc.clear.ui
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        supportActionBar?.hide()
+
         var wid = 0
 
         val met = DisplayMetrics()
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             dis?.getRealSize(size)
             wid = size.x.toInt()
         }
-
+        setDevInfo(wid)
         binding.mainNaviNv.itemIconTintList = null
 
         home = HomeFragment()
@@ -56,8 +59,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(binding.mainFl.id, noti).hide(noti).commit()
 
         initListener()
-        supportActionBar?.hide()
-        setDevInfo(wid)
     }
 
     fun setDevInfo(px: Int) {

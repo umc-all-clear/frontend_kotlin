@@ -20,4 +20,13 @@ interface RetroServiceInterface {
         @Query("year") year: Int,
         @Query("month") month: Int
     ): Call<GetFriendsRank>
+
+    @GET("/friends/relation?")
+    fun conn(
+        @Query("user1") user1: String,
+        @Query("user2") user2: String
+    ): Call<GetConn>
+
+    @POST("/friends/create")
+    fun addFriend(@Body req: ReqFriendConn): Call<GetFriendConn>
 }

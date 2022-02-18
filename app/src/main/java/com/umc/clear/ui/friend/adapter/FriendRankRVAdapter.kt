@@ -1,19 +1,14 @@
 package com.umc.clear.ui.friend.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.R
-import com.umc.clear.data.local.FriendDao
 import com.umc.clear.data.local.FriendDatabase
-import com.umc.clear.data.local.Pair2
+import com.umc.clear.utils.Pair2
 import com.umc.clear.databinding.FragmentFriendBinding
 import com.umc.clear.databinding.ItemFriendListBinding
-import com.umc.clear.ui.friend.view.FriendFragment
-import kotlin.concurrent.thread
 
 class FriendRankRVAdapter(val mainAct: Context, val parBinding: FragmentFriendBinding): RecyclerView.Adapter<FriendRankRVAdapter.ViewHolder>() {
 

@@ -30,10 +30,10 @@ class AdmissionWaitingRVAdapter(val data: ArrayList<Int>): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(data[position]) {
             1-> {
-                (holder as AdmissionWaitingRVAdapter.ContentHolder).init()
+                (holder as AdmissionWaitingRVAdapter.ContentHolder).init(position)
             }
             else-> {
-                (holder as AdmissionWaitingRVAdapter.DateHolder).init()
+                (holder as AdmissionWaitingRVAdapter.DateHolder).init(position)
             }
         }
     }
@@ -43,13 +43,12 @@ class AdmissionWaitingRVAdapter(val data: ArrayList<Int>): RecyclerView.Adapter<
     }
 
     inner class ContentHolder(val binding: ItemAdmissionWaitingPageContentBinding): RecyclerView.ViewHolder(binding.root) {
-        fun init() {
-
+        fun init(pos: Int) {
         }
     }
 
     inner class DateHolder(val binding: ItemAdmissionWaitingPageDateBinding): RecyclerView.ViewHolder(binding.root) {
-        fun init() {
+        fun init(pos: Int) {
 
         }
     }

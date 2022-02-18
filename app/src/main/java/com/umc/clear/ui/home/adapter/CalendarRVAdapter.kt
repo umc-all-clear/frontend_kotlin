@@ -1,6 +1,7 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -245,6 +246,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
             binding.itemCalDate6Rv.visibility = View.GONE
         }
 
+        PrefApp.pref.setPrefname("deviceInfo")
         val width = PrefApp.pref.getString("widPx").toInt()
         val dpi = PrefApp.pref.getString("dpi").toFloat()
         val siz = (width - (dpTopx(67, dpi) * 2)) / 7

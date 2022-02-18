@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.umc.clear.data.local.FriendDatabase
-import com.umc.clear.data.local.Pair2
+import com.umc.clear.utils.Pair2
 import com.umc.clear.databinding.DialogDeleteFriendBinding
 import com.umc.clear.utils.PrefApp
 

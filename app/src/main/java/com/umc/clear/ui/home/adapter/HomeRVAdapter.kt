@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.umc.clear.R
+import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.databinding.ItemHomeHeaderBinding
 import com.umc.clear.databinding.ItemHomeRankBinding
@@ -76,9 +77,8 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
             fun bind() {
                 binding.homeUserInfoTv.text = "username"
 
-                var param = binding.root.layoutParams as ViewGroup.MarginLayoutParams
-                param.setMargins(0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()), 0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()))
-                binding.root.layoutParams = param
+                PrefApp.pref.setPrefname("user")
+                binding.homeUserInfoTv.text = PrefApp.pref.getString("nic")
 
                 binding.homeUserInfoAddIv.setOnClickListener {
                     SetupDialog(fragment, context).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")

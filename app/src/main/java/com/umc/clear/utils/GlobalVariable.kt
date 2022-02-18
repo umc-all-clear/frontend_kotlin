@@ -12,7 +12,7 @@ class GlobalVariable() : Application() {
     private var flEmptyHeight = 0
     private var flContentHeight = 0
 
-    private var isDelete = false
+    private var isDelete = true
 //
 //    private var firstContentFrameCall = true
 //    private var firstEmptyFrameCall = true

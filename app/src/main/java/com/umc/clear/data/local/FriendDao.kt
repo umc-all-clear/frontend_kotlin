@@ -16,4 +16,7 @@ interface FriendDao {
 
     @Query("DELETE FROM FriendTable WHERE mail = :mail")
     fun del(mail: String)
+
+    @Query("DELETE FROM FriendTable")
+    fun delAll()
 }

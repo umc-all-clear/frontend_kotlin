@@ -2,6 +2,8 @@ package com.umc.clear.data.remote
 
 import android.util.Log
 import com.umc.clear.data.entities.*
+import com.umc.clear.ui.dialog.AddFriendView
+import com.umc.clear.ui.dialog.SetFriendView
 import com.umc.clear.ui.friend.view.FriendView
 import com.umc.clear.ui.login.LoginView
 import com.umc.clear.ui.signup.SignupView
@@ -17,6 +19,8 @@ object RetroService {
     lateinit var SignupData: SignupView
     lateinit var loginData: LoginView
     lateinit var rankData: FriendView
+    lateinit var connData: AddFriendView
+    lateinit var friendData: SetFriendView
 
     fun makeRetrofit(): Retrofit {
         val clientBuilder = OkHttpClient.Builder()
@@ -111,6 +115,61 @@ object RetroService {
 
             override fun onFailure(call: Call<GetFriendsRank>, t: Throwable) {
             }
+        })
+    }
+
+    fun setfcData(data: AddFriendView) {
+        connData = data
+    }
+
+    fun reqConn(req: ReqConn) {
+        val retro = makeRetrofit()
+        val service = retro.create(RetroServiceInterface::class.java)
+
+        val call = service.conn(req.user1, req.user2)
+
+        connData.onConnGetLoading()
+
+        call.enqueue(object : retrofit2.Callback<GetConn> {
+            override fun onResponse(call: Call<GetConn>, response: Response<GetConn>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.code == 200) {
+                        connData.onConnGetSuccess(response.body()!!)
+                    }
+                    else
+                    {
+                        connData.onConnGetFailure(response.body()!!.code.toString())
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetConn>, t: Throwable) {
+            }
+        })
+    }
+
+    fun setfsData(data: SetFriendView) {
+        friendData = data
+    }
+
+    fun reqFriendConn(req: ReqFriendConn) {
+        val retro = makeRetrofit()
+        val service = retro.create(RetroServiceInterface::class.java)
+
+        val call = service.addFriend(req)
+
+        call.enqueue(object : retrofit2.Callback<GetFriendConn> {
+            override fun onResponse(call: Call<GetFriendConn>, response: Response<GetFriendConn>) {
+                if (response.isSuccessful) {
+                    friendData.onFriendConnGetSuccess(response.body()!!)
+                } else {
+                    friendData.onFriendConnGetFailure(response.body()!!.code.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<GetFriendConn>, t: Throwable) {
+            }
+
         })
     }
 }
