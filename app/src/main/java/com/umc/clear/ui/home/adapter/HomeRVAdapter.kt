@@ -1,37 +1,40 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnLayout
-import androidx.core.view.marginBottom
-import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.umc.clear.R
+import com.umc.clear.data.entities.GetConn
+import com.umc.clear.data.entities.GetFriendsRank
+import com.umc.clear.data.entities.ReqConn
+import com.umc.clear.data.entities.ReqFriendsRank
 import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.databinding.ItemHomeHeaderBinding
 import com.umc.clear.databinding.ItemHomeRankBinding
-import com.umc.clear.ui.dialog.AddFriendFragment
+import com.umc.clear.ui.dialog.AddFriendView
 import com.umc.clear.ui.dialog.SetupDialog
+import com.umc.clear.ui.friend.view.FriendView
 import com.umc.clear.ui.home.view.HomeFragment
 import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val fragment: HomeFragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fragment: HomeFragment):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val liveVpChange = MutableLiveData<Boolean>()
     val liveCvChange = MutableLiveData<Boolean>()
     var firstCall = true
     var vpButtonCall = false
+    var tempNic = ""
+    var tempScore = ""
 
     override fun getItemViewType(position: Int): Int {
         return dataList[position]
@@ -75,16 +78,19 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     inner class HeaderHolder(private val binding: ItemHomeHeaderBinding)
         : RecyclerView.ViewHolder(binding.root) {
             fun bind() {
+
                 binding.homeUserInfoTv.text = "username"
 
                 PrefApp.pref.setPrefname("user")
                 binding.homeUserInfoTv.text = PrefApp.pref.getString("nic")
 
                 binding.homeUserInfoAddIv.setOnClickListener {
-                    SetupDialog(fragment, context).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")
+                    SetupDialog(fragment, mainCont).show(fragment.childFragmentManager.beginTransaction(), "SetupDialog")
 
                 }
             }
+
+
     }
 
 
@@ -113,7 +119,7 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                     PrefApp.glob.setElseHeight(binding.homeCalMonTv.height + binding.homeCalTv.height)
                 }
 
-                val adapter = CalendarRVAdapter(context, this@HomeRVAdapter, binding)
+                val adapter = CalendarRVAdapter(mainCont, this@HomeRVAdapter, binding)
                 binding.homeCalVp.adapter = adapter
 
 
@@ -198,9 +204,12 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
     }
 
     inner class RankHolder(private val binding: ItemHomeRankBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+        : RecyclerView.ViewHolder(binding.root), FriendView, AddFriendView {
             fun bind() {
+                setRank()
+
                 var param = binding.root.layoutParams as ViewGroup.MarginLayoutParams
+                PrefApp.pref.setPrefname("deviceInfo")
                 param.setMargins(0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()), 0, dpTopx(40, PrefApp.pref.getString("dpi").toFloat()))
                 binding.root.layoutParams = param
 
@@ -215,6 +224,57 @@ class HomeRVAdapter(val context: Context, val dataList: ArrayList<Int>, val frag
                 }
                 ///1등 가져오기
             }
+
+        fun setRank() {
+            val cal = Calendar.getInstance()
+
+            PrefApp.pref.setPrefname("user")
+            PrefApp.pref.getString("email")
+            var req = ReqFriendsRank(
+                PrefApp.pref.getString("index").toInt(),
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH) + 1
+            )
+
+            val conn = RetroService
+            conn.setfData(this)
+            conn.reqRank(req)
+        }
+
+        override fun onRankGetFailure(code: String) {
+        }
+
+        override fun onRankGetSuccess(data: GetFriendsRank) {
+            val friendArr = data.result
+
+            if (friendArr?.size != 0) {
+
+                val conn = RetroService
+                conn.setfcData(this)
+
+                PrefApp.pref.setPrefname("user")
+                conn.reqConn(
+                    ReqConn(
+                        PrefApp.pref.getString("email"),
+                        friendArr?.get(0)?.friendEmail!!
+                    )
+                )
+            }
+            else {
+                binding.homeFriendNameTv.text = "친구가 없음..."
+            }
+        }
+
+        override fun onConnGetSuccess(data: GetConn) {
+            binding.homeFriendNameTv.text = data.result?.get(0)?.friendNickname
+            binding.homeFriendMailTv.text = data.result?.get(0)?.friendEmail
+        }
+
+        override fun onConnGetFailure(code: String) {
+        }
+
+        override fun onConnGetLoading() {
+        }
 
     }
 

@@ -17,4 +17,9 @@ class PrefUtil(val context: Context) {
     fun putString(key: String, string: String) {
         pref.edit().putString(key, string).apply()
     }
+
+    fun delUserInfo() {
+        setPrefname("user")
+        pref.edit().clear()
+    }
 }

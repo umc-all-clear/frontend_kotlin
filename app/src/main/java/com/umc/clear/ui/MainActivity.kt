@@ -61,6 +61,19 @@ class MainActivity : AppCompatActivity() {
         initListener()
     }
 
+    override fun onDestroy() {
+        PrefApp.pref.setPrefname("user")
+        if (PrefApp.pref.getString("autoLogin") == "0" || PrefApp.pref.getString("saveId") == "0") {
+            PrefApp.pref.delUserInfo()
+        }
+        if (PrefApp.pref.getString("saveId") == "1") {
+            val id = PrefApp.pref.getString("email")
+            PrefApp.pref.delUserInfo()
+            PrefApp.pref.putString("saveId", "1")
+            PrefApp.pref.putString("email", id)
+        }
+    }
+
     fun setDevInfo(px: Int) {
         PrefApp.pref.setPrefname("deviceInfo")
         PrefApp.pref.putString("dpi", resources.displayMetrics.density.toString())

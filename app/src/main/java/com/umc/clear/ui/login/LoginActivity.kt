@@ -30,6 +30,13 @@ class LoginActivity: AppCompatActivity(), LoginView {
         supportActionBar?.hide()
 
         initListener()
+
+        PrefApp.pref.setPrefname("user")
+        if (PrefApp.pref.getString("saveId") == "1") {
+            binding.loginIdEt.setText(PrefApp.pref.getString("email"))
+            saveId = true
+            binding.loginIdSaveIv.setImageResource(R.drawable.dialog_add_friend_check_selected)
+        }
     }
 
     private fun initListener() {
@@ -96,6 +103,14 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
         })
 
+        binding.loginIdDelIv.setOnClickListener {
+            binding.loginIdEt.text.clear()
+        }
+
+        binding.loginPwDelIv.setOnClickListener {
+            binding.loginPwEt.text.clear()
+        }
+
         binding.loginGoLoginTv.setOnClickListener {
             val email = binding.loginIdEt.text
             val pw = binding.loginPwEt.text
@@ -118,6 +133,23 @@ class LoginActivity: AppCompatActivity(), LoginView {
         PrefApp.pref.putString("index", data.result?.id.toString())
         PrefApp.pref.putString("email", data.result?.email.toString())
         PrefApp.pref.putString("nic", data.result?.nickname.toString())
+
+
+        PrefApp.pref.setPrefname("user")
+        if (autoLogin) {
+            PrefApp.pref.putString("autoLogin", "1")
+        }
+
+        else {
+            PrefApp.pref.putString("autoLogin", "0")
+        }
+
+        if (saveId) {
+            PrefApp.pref.putString("saveId", "1")
+        }
+        else {
+            PrefApp.pref.putString("saveId", "0")
+        }
 
 
         //get values

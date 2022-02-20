@@ -81,9 +81,6 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
 
             val cal = Calendar.getInstance()
 
-            val year = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH) + 1
-            val weekday = cal.get(Calendar.DAY_OF_WEEK)
             PrefApp.pref.setPrefname("user")
             PrefApp.pref.getString("email")
             var req = ReqFriendsRank(
@@ -282,27 +279,27 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
             binding.friendRank2RateTv.text = "4.0"
             binding.friendRank3RateTv.text = "3.0"
 
-
-            var a = ArrayList<Friend>()
-            a.add(Friend("mytest", "mytest@naver.com", "2.5"))
-            a.add(Friend("mytest1", "mytest1@naver.com", "2.4"))
-            a.add(Friend("mytest2", "mytest2@naver.com", "2.3"))
-            a.add(Friend("mytest3", "mytest3@naver.com", "2.2"))
-            a.add(Friend("mytest4", "mytest4@naver.com", "2.1"))
-            a.add(Friend("mytest5", "mytest5@naver.com", "2.0"))
-            a.add(Friend("mytest6", "mytest6@naver.com", "1.9"))
-            a.add(Friend("mytest7", "mytest7@naver.com", "1.8"))
-            a.add(Friend("mytest8", "mytest8@naver.com", "1.7"))
-            a.add(Friend("mytest9", "mytest9@naver.com", "1.6"))
-            for (i in a) {
-                db.friendDao().ins(i)
-            }
-
-//            PrefApp.pref.setPrefname("user")
-//            for (i in friendArr!!) {
-//                RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), i.friendEmail!!))
-//                db.friendDao().ins(Friend(tempMail!!, tempNic!!, i.score.toString()))
+//
+//            var a = ArrayList<Friend>()
+//            a.add(Friend("mytest", "mytest@naver.com", "2.5"))
+//            a.add(Friend("mytest1", "mytest1@naver.com", "2.4"))
+//            a.add(Friend("mytest2", "mytest2@naver.com", "2.3"))
+//            a.add(Friend("mytest3", "mytest3@naver.com", "2.2"))
+//            a.add(Friend("mytest4", "mytest4@naver.com", "2.1"))
+//            a.add(Friend("mytest5", "mytest5@naver.com", "2.0"))
+//            a.add(Friend("mytest6", "mytest6@naver.com", "1.9"))
+//            a.add(Friend("mytest7", "mytest7@naver.com", "1.8"))
+//            a.add(Friend("mytest8", "mytest8@naver.com", "1.7"))
+//            a.add(Friend("mytest9", "mytest9@naver.com", "1.6"))
+//            for (i in a) {
+//                db.friendDao().ins(i)
 //            }
+
+            PrefApp.pref.setPrefname("user")
+            for (i in friendArr!!) {
+                RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), i.friendEmail!!))
+                db.friendDao().ins(Friend(tempMail!!, tempNic!!, i.score.toString()))
+            }
             val adpater = FriendRankRVAdapter(mainContext, binding)
             binding.friendRankOtherRv.adapter = adpater
 

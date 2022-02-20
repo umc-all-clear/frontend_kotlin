@@ -13,6 +13,7 @@ import com.umc.clear.data.entities.ReqSignup
 import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.ActivitySignupBinding
 import com.umc.clear.ui.MainActivity
+import com.umc.clear.ui.login.LoginActivity
 import retrofit2.Response
 
 class SignupActivity: AppCompatActivity(), SignupView {
@@ -33,7 +34,7 @@ class SignupActivity: AppCompatActivity(), SignupView {
 
     override fun onLoginGetSuccess(data: GetSignup) {
         //데이터 가져오기
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 
