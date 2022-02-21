@@ -1,18 +1,16 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
-import android.util.Log
+import android.graphics.Typeface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.umc.clear.R
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.utils.PrefApp
-import kotlin.concurrent.thread
 
-class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
+class CalendarDateRVAdapter(val data: ArrayList<Int>, val mainCont: Context, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
 
     interface onclickListener {
         fun onClick(date: Int)
@@ -37,6 +35,7 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context, val 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setting(position)
         holder.itemView.setOnClickListener {
+            PrefApp.glob.setDate(holder.binding)
             if (data[0] == 0) {
             if (data[1] + position <= data[3]) {
                 clickListener.onClick(data[1] + position)
@@ -63,7 +62,7 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context, val 
                 }
                 else {
                     binding.itemCalDateTv.text = ""
-                    binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                    binding.itemCalDateIv.visibility = View.GONE
                 }
             }
             else {
@@ -87,38 +86,38 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val context: Context, val 
                 1 -> {
                     if (position < 6) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
 
                 2 -> {
                     if (position < 5) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
                 3 -> {
                     if (position < 4) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
                 4 -> {
                     if (position < 3) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
                 5 -> {
                     if (position < 2) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
                 6 -> {
                     if (position < 1) {
                         binding.itemCalDateTv.text = ""
-                        binding.itemCalDateIv.setImageResource(R.drawable.item_calendar_circle_disable)
+                        binding.itemCalDateIv.visibility = View.GONE
                     }
                 }
             }

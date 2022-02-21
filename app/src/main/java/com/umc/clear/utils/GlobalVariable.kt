@@ -2,6 +2,8 @@ package com.umc.clear.utils
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Typeface
+import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 
 class GlobalVariable() : Application() {
     private var calHeight = 0
@@ -13,6 +15,8 @@ class GlobalVariable() : Application() {
     private var flContentHeight = 0
 
     private var isDelete = true
+
+    var selectedDate: ItemHomeCalendarDateBinding? = null
 //
 //    private var firstContentFrameCall = true
 //    private var firstEmptyFrameCall = true
@@ -78,6 +82,21 @@ class GlobalVariable() : Application() {
     fun setDel(data: Boolean) {
         isDelete = data
     }
+
+    fun setDate(binding: ItemHomeCalendarDateBinding) {
+        if (selectedDate != null) {
+            selectedDate!!.itemCalDateTv.typeface = Typeface.DEFAULT
+        }
+        selectedDate = binding
+        selectedDate!!.itemCalDateTv.typeface = Typeface.DEFAULT_BOLD
+    }
+
+    fun closeDate() {
+        if (selectedDate != null) {
+            selectedDate!!.itemCalDateTv.typeface = Typeface.DEFAULT
+        }
+    }
+
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
     fun pxTodp(px: Double, dpi: Float): Int = (px / dpi).toInt()
 }

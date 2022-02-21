@@ -11,6 +11,7 @@ import com.umc.clear.databinding.FragmentHomeCalendarDesBinding
 import com.umc.clear.ui.home.adapter.DescriptionCommRVAdapter
 import com.umc.clear.ui.home.adapter.DescriptionImgRVAdapter
 import com.umc.clear.ui.home.adapter.HomeRVAdapter
+import com.umc.clear.utils.PrefApp
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -117,6 +118,7 @@ class CalendarDescriptionFragment(val date: ArrayList<Int>, val parFrag: HomeRVA
 
         binding.calendarDesCloseIv.setOnClickListener {
             binding.root.visibility = View.GONE
+            PrefApp.glob.closeDate()
             parFrag.liveChange()
         }
     }

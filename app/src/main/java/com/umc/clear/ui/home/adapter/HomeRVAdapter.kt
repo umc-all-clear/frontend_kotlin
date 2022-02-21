@@ -33,8 +33,7 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
     val liveCvChange = MutableLiveData<Boolean>()
     var firstCall = true
     var vpButtonCall = false
-    var tempNic = ""
-    var tempScore = ""
+    var tmpRank = ""
 
     override fun getItemViewType(position: Int): Int {
         return dataList[position]
@@ -165,6 +164,8 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
 
                             binding.apply {
 
+                                PrefApp.glob.closeDate()
+
                                 val cal = Calendar.getInstance()
                                 if (position < 1000) {
                                     cal.add(Calendar.MONTH, -(1000 - position))
@@ -249,6 +250,7 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
 
             if (friendArr?.size != 0) {
 
+                tmpRank = friendArr?.get(0)?.score.toString()
                 val conn = RetroService
                 conn.setfcData(this)
 
@@ -268,6 +270,7 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
         override fun onConnGetSuccess(data: GetConn) {
             binding.homeFriendNameTv.text = data.result?.get(0)?.friendNickname
             binding.homeFriendMailTv.text = data.result?.get(0)?.friendEmail
+            binding.homeFriendRateTv.text = tmpRank
         }
 
         override fun onConnGetFailure(code: String) {

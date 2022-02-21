@@ -1,11 +1,9 @@
 package com.umc.clear.ui.home.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.clear.databinding.ItemHomeCalendarBinding
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
@@ -18,7 +16,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
+class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     var flHeight = 0
     var firstCall = true
     var firstContentFrameCall = true
@@ -218,20 +216,20 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         binding.itemCalDes4Cv.visibility = View.GONE
         binding.itemCalDes5Cv.visibility = View.GONE
         binding.itemCalDes6Cv.visibility = View.GONE
-
     }
+
     fun setRVAdapter(pos: Int, binding: ItemHomeCalendarBinding) {
-        binding.itemCalDate1Rv.layoutManager = CustomLinearLayout(context)
+        binding.itemCalDate1Rv.layoutManager = CustomLinearLayout(mainCont)
         binding.itemCalDate1Rv.setHasFixedSize(true)
-        binding.itemCalDate2Rv.layoutManager = CustomLinearLayout(context)
+        binding.itemCalDate2Rv.layoutManager = CustomLinearLayout(mainCont)
         binding.itemCalDate2Rv.setHasFixedSize(true)
-        binding.itemCalDate3Rv.layoutManager = CustomLinearLayout(context)
+        binding.itemCalDate3Rv.layoutManager = CustomLinearLayout(mainCont)
         binding.itemCalDate3Rv.setHasFixedSize(true)
-        binding.itemCalDate4Rv.layoutManager = CustomLinearLayout(context)
+        binding.itemCalDate4Rv.layoutManager = CustomLinearLayout(mainCont)
         binding.itemCalDate4Rv.setHasFixedSize(true)
         if (calList[pos][4] > 4) {
             binding.itemCalDate5Rv.visibility = View.VISIBLE
-            binding.itemCalDate5Rv.layoutManager = CustomLinearLayout(context)
+            binding.itemCalDate5Rv.layoutManager = CustomLinearLayout(mainCont)
             binding.itemCalDate5Rv.setHasFixedSize(true)
         }
         else {
@@ -239,7 +237,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         }
         if (calList[pos][4] > 5) {
             binding.itemCalDate6Rv.visibility = View.VISIBLE
-            binding.itemCalDate6Rv.layoutManager = CustomLinearLayout(context)
+            binding.itemCalDate6Rv.layoutManager = CustomLinearLayout(mainCont)
             binding.itemCalDate6Rv.setHasFixedSize(true)
         }
         else {
@@ -254,7 +252,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         val rvList = getRVList(pos)
 
         binding.itemCalDate1Rv.addItemDecoration(CustomItem(siz))
-        val adapter1 = CalendarDateRVAdapter(rvList[0], context, parBinding)
+        val adapter1 = CalendarDateRVAdapter(rvList[0], mainCont, parBinding)
         adapter1.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -285,7 +283,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
 
 
         binding.itemCalDate2Rv.addItemDecoration(CustomItem(siz))
-        val adapter2 = CalendarDateRVAdapter(rvList[1], context, parBinding)
+        val adapter2 = CalendarDateRVAdapter(rvList[1], mainCont, parBinding)
         adapter2.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -316,7 +314,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         binding.itemCalDate2Rv.adapter = adapter2
 
         binding.itemCalDate3Rv.addItemDecoration(CustomItem(siz))
-        val adapter3 = CalendarDateRVAdapter(rvList[2], context, parBinding)
+        val adapter3 = CalendarDateRVAdapter(rvList[2], mainCont, parBinding)
         adapter3.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -347,7 +345,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         binding.itemCalDate3Rv.adapter = adapter3
 
         binding.itemCalDate4Rv.addItemDecoration(CustomItem(siz))
-        val adapter4 = CalendarDateRVAdapter(rvList[3], context, parBinding)
+        val adapter4 = CalendarDateRVAdapter(rvList[3], mainCont, parBinding)
         adapter4.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -379,7 +377,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
 
         if (calList[pos][4] > 4) {
             binding.itemCalDate5Rv.addItemDecoration(CustomItem(siz))
-            val adapter5 = CalendarDateRVAdapter(rvList[4], context, parBinding)
+            val adapter5 = CalendarDateRVAdapter(rvList[4], mainCont, parBinding)
             adapter5.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
@@ -412,7 +410,7 @@ class CalendarRVAdapter(val context: Context, val par: HomeRVAdapter, val parBin
         }
         if (calList[pos][4] > 5) {
             binding.itemCalDate6Rv.addItemDecoration(CustomItem(siz))
-            val adapter6 = CalendarDateRVAdapter(rvList[5], context, parBinding)
+            val adapter6 = CalendarDateRVAdapter(rvList[5], mainCont, parBinding)
             adapter6.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
