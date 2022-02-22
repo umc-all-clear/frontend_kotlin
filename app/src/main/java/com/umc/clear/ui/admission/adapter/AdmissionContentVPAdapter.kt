@@ -87,27 +87,19 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
                 itemListener.onClick(binding)
             }
         }
-//
-//            binding.itemAdmisBeforeIv.
-//        }
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = MediaStore.Images.Media.CONTENT_TYPE
-//        intent.type = "image/*"
-//        getResult.launch(intent)
-//
-        }
+    }
 
 
-        inner class WaitingHolder(val binding: ItemAdmissionWaitingPageBinding) :
-            RecyclerView.ViewHolder(binding.root) {
-            fun init() {
-                val a = ArrayList<Int>()
-                a.add(2)
-                a.add(1)
-                a.add(1)
-                a.add(2)
-                a.add(1)
-                binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(a)
-            }
+    inner class WaitingHolder(val binding: ItemAdmissionWaitingPageBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun init() {
+            val a = ArrayList<Int>()
+            a.add(2)
+            a.add(1)
+            a.add(1)
+            a.add(2)
+            a.add(1)
+            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(a)
         }
     }
+}

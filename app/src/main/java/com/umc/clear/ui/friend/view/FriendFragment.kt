@@ -25,8 +25,7 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
     lateinit var binding: FragmentFriendBinding
     lateinit var mainContext: Context
     lateinit var rvAdapter: FriendRankRVAdapter
-    var tempMail:String? = ""
-    var tempNic:String? = ""
+    var tempScore:String? = ""
     var top3Checked = ArrayList<Pair2>()
     var otherChecked = ArrayList<Pair2>()
     var isSelectMode = false
@@ -225,25 +224,24 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
                 db.friendDao().delAll()
                 PrefApp.pref.setPrefname("user")
 
-                        RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), friendArr[0].friendEmail!!))
-                        db.friendDao().ins(Friend(tempMail!!, tempNic!!, friendArr[0].score.toString()))
-                        binding.friendRank1MailTv.text = tempMail
-                        binding.friendRank1NameTv.text = tempNic
-                        binding.friendRank1RateTv.text = friendArr[0].score.toString()
+                tempScore = friendArr[0].score.toString()
+                RetroService.reqConn(
+                    ReqConn(
+                        PrefApp.pref.getString("email"),
+                        friendArr[0].friendEmail!!
+                    ), tempScore + "/fir"
+                )
 
                 if (friendArr?.size!! >= 2) {
-                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), friendArr[1].friendEmail!!))
-                    db.friendDao().ins(Friend(tempMail!!, tempNic!!, friendArr[1].score.toString()))
-                    binding.friendRank2MailTv.text = tempMail
-                    binding.friendRank2NameTv.text = tempNic
-                    binding.friendRank2RateTv.text = friendArr[1].score.toString()
+                    tempScore = friendArr[1].score.toString()
+                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), friendArr[1].friendEmail!!), tempScore + "/sec")
                     }
+                else {
+
+                }
                 if (friendArr?.size!! == 3) {
-                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), friendArr[2].friendEmail!!))
-                    db.friendDao().ins(Friend(tempMail!!, tempNic!!, friendArr[2].score.toString()))
-                    binding.friendRank3MailTv.text = tempMail
-                    binding.friendRank3NameTv.text = tempNic
-                    binding.friendRank3RateTv.text = friendArr[2].score.toString()
+                    tempScore = friendArr[2].score.toString()
+                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), friendArr[2].friendEmail!!), tempScore + "/third")
                 }
 
 
@@ -256,8 +254,7 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
                 db.friendDao().delAll()
                 PrefApp.pref.setPrefname("user")
                 for (i in friendArr!!) {
-                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), i.friendEmail!!))
-                    db.friendDao().ins(Friend(tempMail!!, tempNic!!, i.score.toString()))
+                    RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), i.friendEmail!!), tempScore + "/other")
                 }
                 val adpater = FriendRankRVAdapter(mainContext, binding)
                 binding.friendRankOtherRv.adapter = adpater
@@ -265,59 +262,46 @@ class FriendFragment(): Fragment(), FriendView, AddFriendView {
                 binding.friendRankOtherRv.adapter!!.notifyDataSetChanged()
             }
         }
-        else {
-            binding.friendTopCl.visibility = View.VISIBLE
-            binding.friendRankOtherRv.visibility = View.VISIBLE
-
-            binding.friendRank1NameTv.text = "my111"
-            binding.friendRank2NameTv.text = "my222"
-            binding.friendRank3NameTv.text = "my333"
-            binding.friendRank1MailTv.text = "my11@naver.com"
-            binding.friendRank2MailTv.text = "my22@naver.com"
-            binding.friendRank3MailTv.text = "my33@naver.com"
-            binding.friendRank1RateTv.text = "5.0"
-            binding.friendRank2RateTv.text = "4.0"
-            binding.friendRank3RateTv.text = "3.0"
-
-//
-//            var a = ArrayList<Friend>()
-//            a.add(Friend("mytest", "mytest@naver.com", "2.5"))
-//            a.add(Friend("mytest1", "mytest1@naver.com", "2.4"))
-//            a.add(Friend("mytest2", "mytest2@naver.com", "2.3"))
-//            a.add(Friend("mytest3", "mytest3@naver.com", "2.2"))
-//            a.add(Friend("mytest4", "mytest4@naver.com", "2.1"))
-//            a.add(Friend("mytest5", "mytest5@naver.com", "2.0"))
-//            a.add(Friend("mytest6", "mytest6@naver.com", "1.9"))
-//            a.add(Friend("mytest7", "mytest7@naver.com", "1.8"))
-//            a.add(Friend("mytest8", "mytest8@naver.com", "1.7"))
-//            a.add(Friend("mytest9", "mytest9@naver.com", "1.6"))
-//            for (i in a) {
-//                db.friendDao().ins(i)
-//            }
-
-            PrefApp.pref.setPrefname("user")
-            for (i in friendArr!!) {
-                RetroService.reqConn(ReqConn(PrefApp.pref.getString("email"), i.friendEmail!!))
-                db.friendDao().ins(Friend(tempMail!!, tempNic!!, i.score.toString()))
-            }
-            val adpater = FriendRankRVAdapter(mainContext, binding)
-            binding.friendRankOtherRv.adapter = adpater
-
-            binding.friendRankOtherRv.adapter!!.notifyDataSetChanged()
-
-
-//            binding.friendTopCl.visibility = View.GONE
-//            binding.friendRankOtherRv.visibility = View.GONE
-//            db.friendDao().delAll()
+        else {//Size == 0
+            binding.friendTopCl.visibility = View.GONE
+            binding.friendRankOtherRv.visibility = View.GONE
+            db.friendDao().delAll()
         }
     }
 
     override fun onRankGetFailure(code: String) {
     }
 
-    override fun onConnGetSuccess(data: GetConn) {
-        tempMail = data.result?.get(0)?.friendEmail
-        tempNic = data.result?.get(0)?.friendNickname
+    override fun onConnGetSuccess(data: GetConn, score: String?) {
+        val db = FriendDatabase.getInstance(mainContext)!!
+
+        val tempMail = data.result?.get(0)?.friendEmail
+        val tempNic = data.result?.get(0)?.friendNickname
+        val scoreArr = score!!.split("/")
+
+        db.friendDao().ins(Friend(tempMail!!, tempNic!!, scoreArr[0]))
+
+        if (scoreArr[1] == "fir") {
+            binding.friendRank1MailTv.text = tempMail
+            binding.friendRank1NameTv.text = tempNic
+            binding.friendRank1RateTv.text = scoreArr[0]
+            binding.friendRank2NameTv.text = "---"
+            binding.friendRank3NameTv.text = "---"
+        }
+        else if (scoreArr[1] == "sec") {
+            binding.friendRank2MailTv.text = tempMail
+            binding.friendRank2NameTv.text = tempNic
+            binding.friendRank2RateTv.text = scoreArr[0]
+            binding.friendRank3NameTv.text = "---"
+        }
+        else if (scoreArr[1] == "third") {
+            binding.friendRank3MailTv.text = tempMail
+            binding.friendRank3NameTv.text = tempNic
+            binding.friendRank3RateTv.text = scoreArr[0]
+        }
+        else {
+
+        }
     }
 
     override fun onConnGetFailure(code: String) {

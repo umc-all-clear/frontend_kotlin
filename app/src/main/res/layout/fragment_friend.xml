@@ -17,7 +17,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/friend_more_iv"
             app:layout_constraintBottom_toTopOf="@id/friend_top_cl"
-            android:text="내이름"
+            android:text="name"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="30dp">
         </TextView>
         <ImageView
@@ -47,10 +48,9 @@
                 android:layout_height="wrap_content"
                 android:text="친구삭제"
                 android:textSize="12dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:fontFamily="@font/notosanskr_regular"
                 android:background="#f8f8fa">
             </TextView>
         </androidx.cardview.widget.CardView>
@@ -73,6 +73,8 @@
             app:layout_constraintBottom_toTopOf="@id/friend_rank_other_cv"
             android:layout_marginBottom="25dp"
             android:layout_marginTop="10dp">
+
+
             <TextView
                 android:id="@+id/friend_rank_2_tv"
                 android:layout_width="wrap_content"
@@ -81,6 +83,7 @@
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_1_img_cv"
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_crown_iv"
                 android:text="2"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="23dp">
             </TextView>
             <ImageView
@@ -128,7 +131,7 @@
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_mail_tv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_1_img_cv"
-                android:text="name"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="23dp">
             </TextView>
             <TextView
@@ -139,7 +142,7 @@
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_rate_tv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_1_img_cv"
-                android:text="email@email.com"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="12dp">
             </TextView>
             <TextView
@@ -150,8 +153,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_2_rate_iv"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="rate"
                 android:textSize="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginRight="10dp"
                 app:layout_constraintHorizontal_chainStyle="packed">
             </TextView>
             <ImageView
@@ -177,6 +181,7 @@
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_2_img_cv"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_3_img_cv"
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_1_crown_iv"
+                android:fontFamily="@font/roboto_regular"
                 android:text="1"
                 android:textSize="23dp">
             </TextView>
@@ -225,6 +230,7 @@
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_2_img_cv"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_3_img_cv"
                 android:text="name"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="23dp">
             </TextView>
             <TextView
@@ -236,6 +242,7 @@
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_2_img_cv"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_3_img_cv"
                 android:text="email@email.com"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="12dp">
             </TextView>
             <TextView
@@ -247,7 +254,9 @@
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_1_rate_iv"
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_2_img_cv"
                 android:text="rate"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="20dp"
+                android:layout_marginRight="10dp"
                 app:layout_constraintHorizontal_chainStyle="packed">
             </TextView>
             <ImageView
@@ -273,6 +282,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_3_crown_iv"
                 android:text="3"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="23dp">
             </TextView>
             <ImageView
@@ -321,7 +331,7 @@
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_mail_tv"
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_1_img_cv"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="name"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="23dp">
             </TextView>
             <TextView
@@ -332,7 +342,7 @@
                 app:layout_constraintBottom_toTopOf="@id/friend_rank_2_rate_tv"
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_1_img_cv"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="email@email.com"
+                android:fontFamily="@font/roboto_regular"
                 android:textSize="12dp">
             </TextView>
             <TextView
@@ -343,8 +353,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/friend_rank_3_rate_iv"
                 app:layout_constraintLeft_toRightOf="@id/friend_rank_1_img_cv"
-                android:text="rate"
                 android:textSize="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginRight="10dp"
                 app:layout_constraintHorizontal_chainStyle="packed">
             </TextView>
             <ImageView

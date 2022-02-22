@@ -259,7 +259,7 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
                     ReqConn(
                         PrefApp.pref.getString("email"),
                         friendArr?.get(0)?.friendEmail!!
-                    )
+                    ), ""
                 )
             }
             else {
@@ -267,7 +267,7 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
             }
         }
 
-        override fun onConnGetSuccess(data: GetConn) {
+        override fun onConnGetSuccess(data: GetConn, score: String?) {
             binding.homeFriendNameTv.text = data.result?.get(0)?.friendNickname
             binding.homeFriendMailTv.text = data.result?.get(0)?.friendEmail
             binding.homeFriendRateTv.text = tmpRank

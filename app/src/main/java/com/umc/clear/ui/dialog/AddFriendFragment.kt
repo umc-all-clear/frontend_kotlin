@@ -71,7 +71,7 @@ class AddFriendFragment(val mainCont: Context): Fragment(), AddFriendView, SetFr
 
         binding.dialogAddFriendMailSearchIv.setOnClickListener {
             PrefApp.pref.setPrefname("user")
-            RetroService.reqConn(ReqConn(binding.dialogAddFriendMailEt.text.toString(), PrefApp.pref.getString("email")))
+            RetroService.reqConn(ReqConn(binding.dialogAddFriendMailEt.text.toString(), PrefApp.pref.getString("email")), "")
 
             thread(start = true) {
                 while (binding.dialogAddFriendPb.visibility != View.GONE) {
@@ -135,7 +135,7 @@ class AddFriendFragment(val mainCont: Context): Fragment(), AddFriendView, SetFr
         }
     }
 
-    override fun onConnGetSuccess(data: GetConn) {
+    override fun onConnGetSuccess(data: GetConn, score: String?) {
         if (data?.result?.get(0)?.state == 0) {
             isFriend = false
             tempMail = data?.result?.get(0)?.friendEmail!!
@@ -147,6 +147,7 @@ class AddFriendFragment(val mainCont: Context): Fragment(), AddFriendView, SetFr
         }
         binding.dialogAddFriendPb.visibility = View.GONE
     }
+
 
     override fun onConnGetFailure(code: String) {
         noUser = true

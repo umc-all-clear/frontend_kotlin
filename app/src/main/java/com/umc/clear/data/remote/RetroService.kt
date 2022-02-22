@@ -122,7 +122,7 @@ object RetroService {
         connData = data
     }
 
-    fun reqConn(req: ReqConn) {
+    fun reqConn(req: ReqConn, score: String?) {
         val retro = makeRetrofit()
         val service = retro.create(RetroServiceInterface::class.java)
 
@@ -134,7 +134,7 @@ object RetroService {
             override fun onResponse(call: Call<GetConn>, response: Response<GetConn>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.code == 200) {
-                        connData.onConnGetSuccess(response.body()!!)
+                        connData.onConnGetSuccess(response.body()!!, score)
                     }
                     else
                     {
