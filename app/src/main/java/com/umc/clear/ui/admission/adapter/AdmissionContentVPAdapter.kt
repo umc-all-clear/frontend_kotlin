@@ -85,6 +85,9 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
 
             binding.itemAdmisBeforeDesIv.setOnClickListener {
                 itemListener.onClick(binding)
+                val int = Intent(Intent.ACTION_PICK)
+                int.type = MediaStore.Images.Media.CONTENT_TYPE
+                int.type = "image/*"
             }
         }
     }

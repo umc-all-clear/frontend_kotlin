@@ -1,10 +1,12 @@
 package com.umc.clear.ui.admission.view
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
@@ -90,6 +92,13 @@ class AdmissionFragment: Fragment() {
 
         binding.admisMoreIv.setOnClickListener {
             SetupDialog(this, mainCont).show(this.childFragmentManager.beginTransaction(), "SetupDialog")
+        }
+    }
+
+    fun getPhoto() {
+        val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            output: ActivityResult-> binding.admisMoreIv.setImageURI(output.data?.data)
+
         }
     }
 }

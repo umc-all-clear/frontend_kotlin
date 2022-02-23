@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         PrefApp.pref.setPrefname("user")
         if (PrefApp.pref.getString("autoLogin") == "0" || PrefApp.pref.getString("saveId") == "0") {
             PrefApp.pref.delUserInfo()
