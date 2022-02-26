@@ -1,11 +1,10 @@
 package com.umc.clear.data.remote
 
 import com.umc.clear.data.entities.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RetroServiceInterface {
     @POST("users/sign-up")
@@ -29,4 +28,12 @@ interface RetroServiceInterface {
 
     @POST("/friends/create")
     fun addFriend(@Body req: ReqFriendConn): Call<GetFriendConn>
+
+    @Multipart
+    @POST("/noticeboard/offering")
+    fun admission(
+        @Part beforePic: MultipartBody.Part,
+        @Part afterPic: MultipartBody.Part,
+        @Part("jsonRequest") jsonRequest: jsonReq,
+        @Part("jsonRequestContent") jsonRequestContent: jsonReqCont): Call<GetAdmission>
 }

@@ -1,13 +1,15 @@
 package com.umc.clear.data.remote
 
 import android.util.Log
+import com.amitshekhar.server.RequestHandler
 import com.umc.clear.data.entities.*
+import com.umc.clear.ui.admission.view.AdmissionView
 import com.umc.clear.ui.dialog.AddFriendView
 import com.umc.clear.ui.dialog.SetFriendView
 import com.umc.clear.ui.friend.view.FriendView
 import com.umc.clear.ui.login.LoginView
 import com.umc.clear.ui.signup.SignupView
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
@@ -21,6 +23,7 @@ object RetroService {
     lateinit var rankData: FriendView
     lateinit var connData: AddFriendView
     lateinit var friendData: SetFriendView
+    lateinit var admissionData: AdmissionView
 
     fun makeRetrofit(): Retrofit {
         val clientBuilder = OkHttpClient.Builder()
@@ -172,4 +175,31 @@ object RetroService {
 
         })
     }
+
+    fun setAdData(data: AdmissionView) {
+        admissionData = data
+    }
+
+    fun reqAddmission(req: ReqAdmission) {
+        val retro = makeRetrofit()
+        val service = retro.create(RetroServiceInterface::class.java)
+
+        val call = service.admission(req.beforePic, req.afterPic, req.jsonRequest, req.jsonRequestContent)
+
+        call.enqueue(object : retrofit2.Callback<GetAdmission> {
+            override fun onResponse(call: Call<GetAdmission>, response: Response<GetAdmission>) {
+                if (response.isSuccessful) {
+                    admissionData.onAdmissionGetSuccess(response.body()!!)
+                } else {
+                    admissionData.onAdmissionGetFailure(response.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<GetAdmission>, t: Throwable) {
+                Log.d("retroFail", "err")
+            }
+
+        })
+    }
+
 }

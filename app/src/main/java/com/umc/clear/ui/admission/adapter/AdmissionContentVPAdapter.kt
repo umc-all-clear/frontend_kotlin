@@ -1,32 +1,33 @@
 package com.umc.clear.ui.admission.adapter
 
 import android.Manifest
-import android.app.Activity
-import android.app.Instrumentation
-import android.app.RemoteInput
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.provider.MediaStore
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Gallery
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.clear.data.entities.ReqAdmission
+import com.umc.clear.data.entities.jsonReq
+import com.umc.clear.data.entities.jsonReqCont
+import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.ItemAdmissionAdmisPageBinding
 import com.umc.clear.databinding.ItemAdmissionWaitingPageBinding
-import com.umc.clear.ui.MainActivity
 import com.umc.clear.ui.admission.view.AdmissionFragment
+import com.umc.clear.utils.PrefApp
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context, val frag: AdmissionFragment): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface listener {
-        fun onClick(binding: ItemAdmissionAdmisPageBinding)
+        fun onClick(binding: ItemAdmissionAdmisPageBinding, isBefore: Boolean)
     }
 
     lateinit var itemListener: listener
@@ -82,13 +83,85 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
     inner class AdmissionHolder(val binding: ItemAdmissionAdmisPageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun init() {
-
             binding.itemAdmisBeforeDesIv.setOnClickListener {
-                itemListener.onClick(binding)
-                val int = Intent(Intent.ACTION_PICK)
-                int.type = MediaStore.Images.Media.CONTENT_TYPE
-                int.type = "image/*"
+                itemListener.onClick(binding, true)
             }
+            binding.itemAdmisBeforeIv.setOnClickListener {
+                itemListener.onClick(binding, true)
+            }
+            binding.itemAdmisAfterDesIv.setOnClickListener {
+                itemListener.onClick(binding, false)
+            }
+            binding.itemAdmisAfterIv.setOnClickListener {
+                itemListener.onClick(binding, false)
+            }
+
+            binding.itemAdmisAdmissionIv.setOnClickListener {
+                if (binding.itemAdmisBeforeIv.tag == "true" && binding.itemAdmisAfterIv.tag == "true") {
+                    if (binding.itemAdmisCommEt.text.isNotEmpty()) {
+                        var conn = RetroService
+                        conn.setAdData(frag)
+
+                        var before: MultipartBody.Part? = null
+                        var after: MultipartBody.Part? = null
+
+                        val email = jsonReq(PrefApp.pref.getString("email"))
+                        val comm = jsonReqCont(binding.itemAdmisCommEt.text.toString())
+                        before = MultipartBody.Part.createFormData(
+                            "beforePic",
+                            getFile(frag.beforeUri)!!.getName() + ".jpeg",
+                            RequestBody.create(MediaType.parse("image/*"), getFile(frag.beforeUri)!!)
+                        ) //sample image file that you want to upload
+
+                        after = MultipartBody.Part.createFormData(
+                            "afterPic",
+                            getFile(frag.afterUri)!!.getName() + ".jpeg",
+                            RequestBody.create(MediaType.parse("image/*"), getFile(frag.afterUri)!!)
+                        ) //sample image file that you want to upload
+
+//                        val before = makeImageMultipart("beforePic", getFile(frag.beforeUri)!!)
+//                        val after = makeImageMultipart("afterPic", getFile(frag.afterUri)!!)
+//
+//                        PrefApp.pref.setPrefname("user")
+//                        val email = makeStringMultipart("clientID", PrefApp.pref.getString("email"))
+//                        val comm = makeStringMultipart("content", binding.itemAdmisCommEt.text.toString())
+                        conn.reqAddmission(ReqAdmission(before, after, email, comm))
+
+                    }
+                }
+            }
+        }
+
+        fun makeStringMultipart(key: String, str: String): MultipartBody.Part {
+            val body = MultipartBody.Part.createFormData(key, str)
+            return body
+        }
+
+        fun makeImageMultipart(key: String, file: File):MultipartBody.Part {
+            val requestFile: RequestBody =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val body =
+                MultipartBody.Part.createFormData(key, file.name + ".jpg", requestFile)
+
+            return body
+        }
+
+        fun getFile(uri: Uri): File? {
+            val context = mainCont.applicationContext
+            val contentResolver = context.contentResolver ?: return null
+
+            val filePath = (context.applicationInfo.dataDir + File.separator
+                    + System.currentTimeMillis())
+            val file = File(filePath)
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val outputStream: OutputStream = FileOutputStream(file)
+            val buf = ByteArray(1024)
+            var len: Int
+            while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
+            outputStream.close()
+            inputStream.close()
+
+            return file
         }
     }
 
