@@ -4,11 +4,13 @@ import android.util.Log
 import com.amitshekhar.server.RequestHandler
 import com.umc.clear.data.entities.*
 import com.umc.clear.ui.admission.view.AdmissionView
+import com.umc.clear.ui.admission.view.DataView
 import com.umc.clear.ui.dialog.AddFriendView
 import com.umc.clear.ui.dialog.SetFriendView
 import com.umc.clear.ui.friend.view.FriendView
 import com.umc.clear.ui.login.LoginView
 import com.umc.clear.ui.signup.SignupView
+import com.umc.clear.utils.PrefApp
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -24,6 +26,7 @@ object RetroService {
     lateinit var connData: AddFriendView
     lateinit var friendData: SetFriendView
     lateinit var admissionData: AdmissionView
+    lateinit var getData: DataView
 
     fun makeRetrofit(): Retrofit {
         val clientBuilder = OkHttpClient.Builder()
@@ -196,6 +199,33 @@ object RetroService {
             }
 
             override fun onFailure(call: Call<GetAdmission>, t: Throwable) {
+                Log.d("retroFail", "err")
+            }
+
+        })
+    }
+
+
+    fun setData(data: DataView) {
+        getData = data
+    }
+
+    fun reqData(email: String, req: ReqData) {
+        val retro = makeRetrofit()
+        val service = retro.create(RetroServiceInterface::class.java)
+
+        val call = service.getData(email, req)
+
+        call.enqueue(object : retrofit2.Callback<GetData> {
+            override fun onResponse(call: Call<GetData>, response: Response<GetData>) {
+                if (response.isSuccessful) {
+                    getData.onDataGetSuccess(response.body()!!)
+                } else {
+                    getData.onDataGetFailure(response.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<GetData>, t: Throwable) {
                 Log.d("retroFail", "err")
             }
 

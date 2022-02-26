@@ -1,8 +1,8 @@
 package com.umc.clear.utils
 
 import android.app.Application
-import android.content.Context
 import android.graphics.Typeface
+import com.umc.clear.data.entities.dataResult
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 
 class GlobalVariable() : Application() {
@@ -15,6 +15,8 @@ class GlobalVariable() : Application() {
     private var flContentHeight = 0
 
     private var isDelete = true
+
+    private var dataArr = ArrayList<dataResult>()
 
     var selectedDate: ItemHomeCalendarDateBinding? = null
 //
@@ -95,6 +97,15 @@ class GlobalVariable() : Application() {
         if (selectedDate != null) {
             selectedDate!!.itemCalDateTv.typeface = Typeface.DEFAULT
         }
+    }
+
+    fun setDataArr(dataArr: ArrayList<dataResult>) {
+        dataArr.reverse()
+        this.dataArr = dataArr
+    }
+
+    fun getDataArr(): ArrayList<dataResult> {
+        return this.dataArr
     }
 
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()

@@ -1,16 +1,27 @@
 package com.umc.clear.ui.admission.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.clear.data.entities.dataResult
 import com.umc.clear.databinding.ItemAdmissionWaitingPageContentBinding
 import com.umc.clear.databinding.ItemAdmissionWaitingPageDateBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AdmissionWaitingRVAdapter(val data: ArrayList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdmissionWaitingRVAdapter(val data: ArrayList<dataResult>, val seq: ArrayList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    var date = ""
     override fun getItemViewType(position: Int): Int {
-        return data[position]
+        return if (seq[position].length == 19) {
+            0
+        }
+        else {
+            1
+        }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -28,28 +39,71 @@ class AdmissionWaitingRVAdapter(val data: ArrayList<Int>): RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(data[position]) {
-            1-> {
-                (holder as AdmissionWaitingRVAdapter.ContentHolder).init(position)
+        when(seq[position].length) {
+            19-> {
+                (holder as AdmissionWaitingRVAdapter.DateHolder).init(position)
             }
             else-> {
-                (holder as AdmissionWaitingRVAdapter.DateHolder).init(position)
+                (holder as AdmissionWaitingRVAdapter.ContentHolder).init(position)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return seq.size
     }
 
     inner class ContentHolder(val binding: ItemAdmissionWaitingPageContentBinding): RecyclerView.ViewHolder(binding.root) {
         fun init(pos: Int) {
+            val contData = data[seq[pos].toInt()]
+            val timeArr = contData.cleanedAt!!.split(" ")[1].split(":")
+            binding.itemWaitingContentTimeDesTv.text = timeArr[0] + ":" + timeArr[1] + "에 신청한 사진"
+        }
+
+        fun initListener() {
+            binding.itemWaitingContentCl.setOnClickListener {
+
+            }
         }
     }
 
     inner class DateHolder(val binding: ItemAdmissionWaitingPageDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun init(pos: Int) {
+            val dateArr = seq[pos].split(" ")[0].split("-")
+            var cal = Calendar.getInstance()
+            cal.set(dateArr[0].toInt(), dateArr[1].toInt() - 1, dateArr[2].toInt())
+            val day = getDay(cal.get(Calendar.DAY_OF_WEEK))
 
+            binding.admisWaitingDateTv.text = cal.get(Calendar.YEAR).toString() + "년 " +
+                    (cal.get(Calendar.MONTH) + 1).toString() + "월 " +
+                    cal.get(Calendar.DATE).toString() + "일 (" +
+                    day + ")"
+        }
+
+        fun getDay(day: Int): String {
+            return when (day) {
+                1-> {
+                    "일"
+                }
+                2-> {
+                    "월"
+                }
+                3-> {
+                    "화"
+                }
+                4-> {
+                    "수"
+                }
+                5-> {
+                    "목"
+                }
+                6-> {
+                    "금"
+                }
+                else-> {
+                    "토"
+                }
+            }
         }
     }
 }

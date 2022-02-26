@@ -16,6 +16,7 @@
         android:elevation="10dp"
         android:layout_margin="5dp">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_waiting_content_cl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp">

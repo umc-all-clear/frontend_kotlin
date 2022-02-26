@@ -9,25 +9,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import com.umc.clear.R
 import com.umc.clear.data.entities.GetAdmission
+import com.umc.clear.data.entities.GetData
+import com.umc.clear.data.entities.ReqData
+import com.umc.clear.data.entities.dataResult
+import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.FragmentAdmissionBinding
 import com.umc.clear.databinding.ItemAdmissionAdmisPageBinding
 import com.umc.clear.ui.MainActivity
 import com.umc.clear.ui.admission.adapter.AdmissionContentVPAdapter
 import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.utils.PrefApp
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
-class AdmissionFragment: Fragment(), AdmissionView {
+class AdmissionFragment: Fragment(), AdmissionView, DataView {
     lateinit var binding: FragmentAdmissionBinding
     lateinit var contentBinding: ItemAdmissionAdmisPageBinding
+    lateinit var adapter: AdmissionContentVPAdapter
     lateinit var mainCont: Context
     lateinit var beforeUri: Uri
     lateinit var afterUri: Uri
@@ -61,7 +65,7 @@ class AdmissionFragment: Fragment(), AdmissionView {
         val a = ArrayList<Int>()
         a.add(1)
         a.add(2)
-        val adapter = AdmissionContentVPAdapter(a, mainCont, this)
+        adapter = AdmissionContentVPAdapter(a, mainCont, this)
         adapter.setListener(object : AdmissionContentVPAdapter.listener {
             override fun onClick(binding: ItemAdmissionAdmisPageBinding, isBefore: Boolean) {
                 getPhoto(binding, isBefore)
@@ -82,6 +86,16 @@ class AdmissionFragment: Fragment(), AdmissionView {
 
                 binding.admisContentVp.currentItem = 1
             }
+
+            val conn = RetroService
+            conn.setData(this)
+
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH) + 1
+
+            PrefApp.pref.setPrefname("user")
+            conn.reqData(PrefApp.pref.getString("email"), ReqData(year, month))
         }
 
         binding.admisAdmissionCv.setOnClickListener {
@@ -140,9 +154,33 @@ class AdmissionFragment: Fragment(), AdmissionView {
     }
 
     override fun onAdmissionGetSuccess(data: GetAdmission) {
+        contentBinding.itemAdmisAfterDesIv.visibility = View.VISIBLE
+        contentBinding.itemAdmisAfterDesTv.visibility = View.VISIBLE
+        contentBinding.itemAdmisBeforeDesIv.visibility = View.VISIBLE
+        contentBinding.itemAdmisBeforeDesTv.visibility = View.VISIBLE
+        contentBinding.itemAdmisBeforeIv.tag = "false"
+        contentBinding.itemAdmisAfterIv.tag = "false"
+        contentBinding.itemAdmisBeforeDesCl.setPadding(0, 80, 0, 70)
+        contentBinding.itemAdmisAfterDesCl.setPadding(0, 80, 0, 70)
+        contentBinding.itemAdmisBeforeIv.setImageDrawable(null)
+        contentBinding.itemAdmisAfterIv.setImageDrawable(null)
+        contentBinding.itemAdmisCommEt.text.clear()
+
+
+        Toast.makeText(mainCont, "신청완료!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onAdmissionGetFailure(code: String) {
         Log.d("retroFail", code)
+    }
+
+    override fun onDataGetSuccess(data: GetData) {
+        PrefApp.glob.setDataArr(data.result as ArrayList<dataResult>)
+
+        adapter.notifyItemChanged(1)
+
+    }
+
+    override fun onDataGetFailure(code: String) {
     }
 }

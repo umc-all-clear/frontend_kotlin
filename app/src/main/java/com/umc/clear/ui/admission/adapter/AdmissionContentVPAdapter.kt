@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.umc.clear.data.entities.ReqAdmission
-import com.umc.clear.data.entities.jsonReq
-import com.umc.clear.data.entities.jsonReqCont
+import com.umc.clear.data.entities.*
 import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.ItemAdmissionAdmisPageBinding
 import com.umc.clear.databinding.ItemAdmissionWaitingPageBinding
@@ -107,43 +105,23 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
 
                         val email = jsonReq(PrefApp.pref.getString("email"))
                         val comm = jsonReqCont(binding.itemAdmisCommEt.text.toString())
+
                         before = MultipartBody.Part.createFormData(
                             "beforePic",
                             getFile(frag.beforeUri)!!.getName() + ".jpeg",
                             RequestBody.create(MediaType.parse("image/*"), getFile(frag.beforeUri)!!)
-                        ) //sample image file that you want to upload
+                        )
 
                         after = MultipartBody.Part.createFormData(
                             "afterPic",
                             getFile(frag.afterUri)!!.getName() + ".jpeg",
                             RequestBody.create(MediaType.parse("image/*"), getFile(frag.afterUri)!!)
-                        ) //sample image file that you want to upload
-
-//                        val before = makeImageMultipart("beforePic", getFile(frag.beforeUri)!!)
-//                        val after = makeImageMultipart("afterPic", getFile(frag.afterUri)!!)
-//
-//                        PrefApp.pref.setPrefname("user")
-//                        val email = makeStringMultipart("clientID", PrefApp.pref.getString("email"))
-//                        val comm = makeStringMultipart("content", binding.itemAdmisCommEt.text.toString())
+                        )
                         conn.reqAddmission(ReqAdmission(before, after, email, comm))
 
                     }
                 }
             }
-        }
-
-        fun makeStringMultipart(key: String, str: String): MultipartBody.Part {
-            val body = MultipartBody.Part.createFormData(key, str)
-            return body
-        }
-
-        fun makeImageMultipart(key: String, file: File):MultipartBody.Part {
-            val requestFile: RequestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val body =
-                MultipartBody.Part.createFormData(key, file.name + ".jpg", requestFile)
-
-            return body
         }
 
         fun getFile(uri: Uri): File? {
@@ -169,13 +147,29 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
     inner class WaitingHolder(val binding: ItemAdmissionWaitingPageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun init() {
-            val a = ArrayList<Int>()
-            a.add(2)
-            a.add(1)
-            a.add(1)
-            a.add(2)
-            a.add(1)
-            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(a)
+            val originDataArr = PrefApp.glob.getDataArr()
+            var filteredDataArr = ArrayList<dataResult>()
+            for (i in originDataArr) {
+                if (!i.waited!!) {
+                    filteredDataArr.add(i)
+                }
+            }
+
+            var date = ""
+            var seqArr = ArrayList<String>()
+            var arrCount = -1
+            for (i in filteredDataArr) {
+                arrCount++
+                val strArr = i.cleanedAt!!.split(" ")
+                if (date != strArr[0] || date == "") {
+                    date = strArr[0]
+                    seqArr.add(i.cleanedAt!!)
+                }
+                seqArr.add(arrCount.toString())
+
+            }
+
+            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(filteredDataArr, seqArr)
         }
     }
 }

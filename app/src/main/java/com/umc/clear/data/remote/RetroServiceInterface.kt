@@ -1,6 +1,7 @@
 package com.umc.clear.data.remote
 
 import com.umc.clear.data.entities.*
+import com.umc.clear.utils.PrefApp
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -36,4 +37,10 @@ interface RetroServiceInterface {
         @Part afterPic: MultipartBody.Part,
         @Part("jsonRequest") jsonRequest: jsonReq,
         @Part("jsonRequestContent") jsonRequestContent: jsonReqCont): Call<GetAdmission>
+
+    @POST("/noticeboard/user?")
+    fun getData (
+        @Query("email") email: String,
+        @Body req: ReqData
+    ): Call<GetData>
 }
