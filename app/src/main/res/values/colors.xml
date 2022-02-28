@@ -12,4 +12,5 @@
     <color name="calendar_date_no_unselected">#DBDBDB</color>
     <color name="calendar_date_selected">#007AFF</color>
     <color name="calendar_date_yes_unselected">#7FB0F7</color>
+    <color name="blur">#80000000</color>
 </resources>

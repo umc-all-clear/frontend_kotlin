@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.umc.clear.R
 import com.umc.clear.data.entities.GetAdmission
 import com.umc.clear.data.entities.GetData
@@ -120,6 +121,22 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
         binding.admisMoreIv.setOnClickListener {
             SetupDialog(this, mainCont).show(this.childFragmentManager.beginTransaction(), "SetupDialog")
         }
+
+        binding.itemAdmisDialCloseIv.setOnClickListener {
+            binding.itemAdmisDialCl.visibility = View.GONE
+            binding.admisBlurTv.visibility = View.GONE
+        }
+
+
+        binding.itemWaitingContentCl.setOnClickListener {
+            binding.itemAdmisDialTitleTv.text = timeArr[0] + ":" + timeArr[1] + "에 신청한 사진"
+
+            Glide.with(frag.requireContext()).load(data.beforePicUrl).into(binding.itemAdmisDialBeforeIv)
+            Glide.with(frag.requireContext()).load(data.afterPicUrl).into(binding.itemAdmisDialAfterIv)
+            binding.itemAdmisDialCommTv.text = data.contents
+
+            binding.itemAdmisDialCl.visibility = View.VISIBLE
+            binding.admisBlurTv.visibility = View.VISIBLE
     }
 
     fun getPhoto(cBinding: ItemAdmissionAdmisPageBinding, isBefore: Boolean) {
