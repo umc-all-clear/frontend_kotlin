@@ -148,7 +148,7 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
     inner class WaitingHolder(val binding: ItemAdmissionWaitingPageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun init() {
-            val originDataArr = PrefApp.glob.getDataArr()
+            val originDataArr = PrefApp.glob.getWaitingDataArr()
             var filteredDataArr = ArrayList<dataResult>()
             for (i in originDataArr) {
                 if (!i.waited!!) {
@@ -170,7 +170,7 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
 
             }
 
-            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(filteredDataArr, seqArr, binding, frag)
+            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(filteredDataArr, seqArr, frag.binding, frag)
 
             initListener()
         }

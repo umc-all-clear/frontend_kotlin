@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
 import com.umc.clear.R
 import com.umc.clear.data.entities.GetAdmission
 import com.umc.clear.data.entities.GetData
@@ -27,7 +28,7 @@ import com.umc.clear.ui.admission.adapter.AdmissionContentVPAdapter
 import com.umc.clear.ui.dialog.SetupDialog
 import com.umc.clear.utils.PrefApp
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class AdmissionFragment: Fragment(), AdmissionView, DataView {
     lateinit var binding: FragmentAdmissionBinding
@@ -92,11 +93,19 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
             conn.setData(this)
 
             val cal = Calendar.getInstance()
-            val year = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH) + 1
+            var year = cal.get(Calendar.YEAR)
+            var month = cal.get(Calendar.MONTH) + 1
 
             PrefApp.pref.setPrefname("user")
-            conn.reqData(PrefApp.pref.getString("email"), ReqData(year, month))
+            conn.reqData(PrefApp.pref.getString("email"), ReqData(year, month), 1)
+            if (month == 1) {
+                month = 12
+                year -= 1
+            }
+            else {
+             month -= 1
+            }
+            conn.reqData(PrefApp.pref.getString("email"), ReqData(year, month), 0)
         }
 
         binding.admisAdmissionCv.setOnClickListener {
@@ -125,19 +134,15 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
         binding.itemAdmisDialCloseIv.setOnClickListener {
             binding.itemAdmisDialCl.visibility = View.GONE
             binding.admisBlurTv.visibility = View.GONE
+
+            binding.admisPageCl.setOnTouchListener( {view, event ->
+                true
+
+            })
         }
 
-
-        binding.itemWaitingContentCl.setOnClickListener {
-            binding.itemAdmisDialTitleTv.text = timeArr[0] + ":" + timeArr[1] + "에 신청한 사진"
-
-            Glide.with(frag.requireContext()).load(data.beforePicUrl).into(binding.itemAdmisDialBeforeIv)
-            Glide.with(frag.requireContext()).load(data.afterPicUrl).into(binding.itemAdmisDialAfterIv)
-            binding.itemAdmisDialCommTv.text = data.contents
-
-            binding.itemAdmisDialCl.visibility = View.VISIBLE
-            binding.admisBlurTv.visibility = View.VISIBLE
     }
+
 
     fun getPhoto(cBinding: ItemAdmissionAdmisPageBinding, isBefore: Boolean) {
         val int = Intent(Intent.ACTION_PICK)
@@ -191,8 +196,8 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
         Log.d("retroFail", code)
     }
 
-    override fun onDataGetSuccess(data: GetData) {
-        PrefApp.glob.setDataArr(data.result as ArrayList<dataResult>)
+    override fun onDataGetSuccess(data: GetData, order: Int) {
+        PrefApp.glob.setWaitingDataArr(data.result as ArrayList<dataResult>, order)
 
         adapter.notifyItemChanged(1)
 

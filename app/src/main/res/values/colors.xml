@@ -13,4 +13,5 @@
     <color name="calendar_date_selected">#007AFF</color>
     <color name="calendar_date_yes_unselected">#7FB0F7</color>
     <color name="blur">#80000000</color>
+    <color name="red">#ff3120</color>
 </resources>

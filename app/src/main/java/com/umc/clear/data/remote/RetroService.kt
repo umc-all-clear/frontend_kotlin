@@ -210,7 +210,7 @@ object RetroService {
         getData = data
     }
 
-    fun reqData(email: String, req: ReqData) {
+    fun reqData(email: String, req: ReqData, order: Int) {
         val retro = makeRetrofit()
         val service = retro.create(RetroServiceInterface::class.java)
 
@@ -219,7 +219,7 @@ object RetroService {
         call.enqueue(object : retrofit2.Callback<GetData> {
             override fun onResponse(call: Call<GetData>, response: Response<GetData>) {
                 if (response.isSuccessful) {
-                    getData.onDataGetSuccess(response.body()!!)
+                    getData.onDataGetSuccess(response.body()!!, order)
                 } else {
                     getData.onDataGetFailure(response.toString())
                 }

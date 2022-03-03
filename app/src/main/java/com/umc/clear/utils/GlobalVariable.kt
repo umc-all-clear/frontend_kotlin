@@ -16,7 +16,8 @@ class GlobalVariable() : Application() {
 
     private var isDelete = true
 
-    private var dataArr = ArrayList<dataResult>()
+    private var waitingDataArr0 = ArrayList<dataResult>()
+    private var waitingDataArr1 = ArrayList<dataResult>()
 
     var selectedDate: ItemHomeCalendarDateBinding? = null
 //
@@ -99,13 +100,21 @@ class GlobalVariable() : Application() {
         }
     }
 
-    fun setDataArr(dataArr: ArrayList<dataResult>) {
+    fun setWaitingDataArr(dataArr: ArrayList<dataResult>, order: Int) {
         dataArr.reverse()
-        this.dataArr = dataArr
+        if (order == 1) {
+            this.waitingDataArr1 = dataArr
+        }
+        else {
+            this.waitingDataArr0 = dataArr
+        }
     }
 
-    fun getDataArr(): ArrayList<dataResult> {
-        return this.dataArr
+    fun getWaitingDataArr(): ArrayList<dataResult> {
+        var joinAll = ArrayList<dataResult>()
+        joinAll.addAll(this.waitingDataArr0)
+        joinAll.addAll(this.waitingDataArr1)
+        return joinAll
     }
 
     fun dpTopx(dp: Int, dpi: Float) : Int = (dp * dpi).toInt()
