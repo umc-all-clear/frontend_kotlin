@@ -69,6 +69,7 @@ class AdmissionWaitingRVAdapter(val data: ArrayList<dataResult>, val seq: ArrayL
 
         fun initListener(timeArr: List<String>, data: dataResult) {
             binding.itemWaitingContentCl.setOnClickListener {
+                frag.parentFragmentManager.beginTransaction().add(frag.).commit()
                 dialBinding.itemAdmisDialTitleTv.text = timeArr[0] + ":" + timeArr[1] + "에 신청한 사진"
 
                 Glide.with(frag.requireContext()).load(data.beforePicUrl).into(dialBinding.itemAdmisDialBeforeIv)

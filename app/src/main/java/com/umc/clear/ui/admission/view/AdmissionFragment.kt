@@ -6,11 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnTouchListener
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,6 +18,7 @@ import com.umc.clear.data.entities.GetData
 import com.umc.clear.data.entities.ReqData
 import com.umc.clear.data.entities.dataResult
 import com.umc.clear.data.remote.RetroService
+import com.umc.clear.databinding.ActivityMainBinding
 import com.umc.clear.databinding.FragmentAdmissionBinding
 import com.umc.clear.databinding.ItemAdmissionAdmisPageBinding
 import com.umc.clear.ui.MainActivity
@@ -35,6 +33,7 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
     lateinit var contentBinding: ItemAdmissionAdmisPageBinding
     lateinit var adapter: AdmissionContentVPAdapter
     lateinit var mainCont: Context
+    lateinit var mainBinding: ActivityMainBinding
     lateinit var beforeUri: Uri
     lateinit var afterUri: Uri
 
@@ -54,13 +53,14 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
         initListener()
 
         PrefApp.pref.setPrefname("user")
-        binding.admisNameTv.text = PrefApp.pref.getString("nic")
+
         return binding.root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainCont = context as MainActivity
+        mainBinding = context.binding
     }
 
     fun initListener() {
@@ -131,16 +131,12 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
             SetupDialog(this, mainCont).show(this.childFragmentManager.beginTransaction(), "SetupDialog")
         }
 
-        binding.itemAdmisDialCloseIv.setOnClickListener {
-            binding.itemAdmisDialCl.visibility = View.GONE
-            binding.admisBlurTv.visibility = View.GONE
 
-            binding.admisPageCl.setOnTouchListener( {view, event ->
-                true
+    }
 
-            })
-        }
-
+    fun popup() {
+        val pop = AdmissionWaitingFragment()
+        parentFragmentManager.beginTransaction().add(mainBinding.mainFl.id, pop).commit()
     }
 
 
