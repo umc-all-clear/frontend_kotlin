@@ -82,6 +82,13 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
     inner class AdmissionHolder(val binding: ItemAdmissionAdmisPageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun init() {
+            val cal = Calendar.getInstance()
+            val y = cal.get(Calendar.YEAR).toString()
+            val m = cal.get(Calendar.MONTH).toString()
+            val d = cal.get(Calendar.DATE).toString()
+            val dow = getDay(cal.get(Calendar.DAY_OF_WEEK))
+            binding.itemAdmisDateTv.text = y + "년 " + m + "월 " + d + "일 (" + dow + ")"
+
             binding.itemAdmisBeforeDesIv.setOnClickListener {
                 itemListener.onClick(binding, true)
             }
@@ -142,6 +149,32 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
 
             return file
         }
+
+        fun getDay(day: Int): String {
+            return when (day) {
+                1-> {
+                    "일"
+                }
+                2-> {
+                    "월"
+                }
+                3-> {
+                    "화"
+                }
+                4-> {
+                    "수"
+                }
+                5-> {
+                    "목"
+                }
+                6-> {
+                    "금"
+                }
+                else-> {
+                    "토"
+                }
+            }
+        }
     }
 
 
@@ -170,12 +203,9 @@ class AdmissionContentVPAdapter(val data: ArrayList<Int>, val mainCont: Context,
 
             }
 
-            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(filteredDataArr, seqArr, frag.binding, frag)
+            binding.itemAdmisWaitingRv.adapter = AdmissionWaitingRVAdapter(filteredDataArr, seqArr, frag)
 
-            initListener()
         }
 
-        fun initListener() {
-        }
     }
 }

@@ -34,13 +34,15 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
     lateinit var adapter: AdmissionContentVPAdapter
     lateinit var mainCont: Context
     lateinit var mainBinding: ActivityMainBinding
+    lateinit var popupFragment: AdmissionWaitingFragment
+    lateinit var contain: ViewGroup
     lateinit var beforeUri: Uri
     lateinit var afterUri: Uri
 
+    var popupFirst = true
     var isBefore = true
     val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             output: ActivityResult-> setPhoto(output)
-
     }
 
     override fun onCreateView(
@@ -52,6 +54,7 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
 
         initListener()
 
+        contain = container!!
         PrefApp.pref.setPrefname("user")
 
         return binding.root
@@ -134,10 +137,25 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
 
     }
 
-    fun popup() {
-        val pop = AdmissionWaitingFragment()
-        parentFragmentManager.beginTransaction().add(mainBinding.mainFl.id, pop).commit()
+    fun popup(timeArr: List<String>, data: dataResult) {
+        val trans = parentFragmentManager.beginTransaction()
+        if (popupFirst) {
+            popupFirst = false
+            popupFragment = AdmissionWaitingFragment(timeArr, data, this)
+            trans.add(mainBinding.mainFl.id, popupFragment).commit()
+            trans.show(popupFragment)
+        }
+        else {
+            popupFragment.timeArr = timeArr
+            popupFragment.data = data
+            trans.show(popupFragment).commit()
+        }
     }
+
+    fun popHide() {
+        parentFragmentManager.beginTransaction().hide(popupFragment).commit()
+    }
+
 
 
     fun getPhoto(cBinding: ItemAdmissionAdmisPageBinding, isBefore: Boolean) {
@@ -151,6 +169,9 @@ class AdmissionFragment: Fragment(), AdmissionView, DataView {
     }
 
     fun setPhoto(output: ActivityResult) {
+        if (output.data == null) {
+            return
+        }
         if (isBefore) {
             contentBinding.itemAdmisBeforeDesCl.setPadding(0, 0, 0, 0)
             contentBinding.itemAdmisBeforeDesIv.visibility = View.GONE
