@@ -12,7 +12,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/item_calendar_circle_enable_no"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:visibility="gone">
     </ImageView>
     <TextView
         android:id="@+id/item_cal_date_tv"

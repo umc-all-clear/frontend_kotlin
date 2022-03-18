@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.clear.data.entities.dataResult
 import com.umc.clear.databinding.ItemHomeCalendarDateBinding
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.utils.PrefApp
 
-class CalendarDateRVAdapter(val data: ArrayList<Int>, val mainCont: Context, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
+class CalendarDateRVAdapter(val data: ArrayList<Int>, val info: ArrayList<Int>, val mainCont: Context, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarDateRVAdapter.ViewHolder>() {
 
     interface onclickListener {
         fun onClick(date: Int)
@@ -36,14 +37,14 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val mainCont: Context, val
         holder.setting(position)
         holder.itemView.setOnClickListener {
             PrefApp.glob.setDate(holder.binding)
-            if (data[0] == 0) {
-            if (data[1] + position <= data[3]) {
-                clickListener.onClick(data[1] + position)
+            if (info[0] == 0) {//첫째주인 경우
+            if (info[1] + position <= info[3]) {
+                clickListener.onClick(info[1] + position)
             }
         }
         else {
-            if (position >= 7 - data[0]) {
-                clickListener.onClick(position - 6 + data[0])
+            if (position >= 7 - info[0]) {
+                clickListener.onClick(position - 6 + info[0])
             }
         }
         }
@@ -56,19 +57,25 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val mainCont: Context, val
     inner class ViewHolder(val binding: ItemHomeCalendarDateBinding): RecyclerView.ViewHolder(binding.root) {
         fun setting(position: Int) {
 
-            if (data[0] == 0) {
-                if (data[1] + position <= data[3]) {
-                    binding.itemCalDateTv.text = (data[1] + position).toString()
+            if (info[0] == 0) {
+                if (info[1] + position <= info[3]) {
+                    binding.itemCalDateTv.text = (info[1] + position).toString()
                 }
                 else {
                     binding.itemCalDateTv.text = ""
                     binding.itemCalDateIv.visibility = View.GONE
                 }
             }
-            else {
+            else {//첫째주인 경우
                 setGoneFirst(position)
-                if (position >= 7 - data[0]) {
-                    binding.itemCalDateTv.text = (position - 6 + data[0]).toString()
+                if (position >= 7 - info[0]) {
+                    binding.itemCalDateTv.text = (position - 6 + info[0]).toString()
+                    for(i in data) {
+                        if (i == position - 6 + info[0]) {
+                            binding.itemCalDateIv.visibility = View.VISIBLE
+                            break
+                        }
+                    }
                 }
             }
             var pos = IntArray(2)
@@ -82,7 +89,7 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val mainCont: Context, val
         }
 
         private fun setGoneFirst(position: Int) {
-            when (data[0]) {
+            when (info[0]) {
                 1 -> {
                     if (position < 6) {
                         binding.itemCalDateTv.text = ""

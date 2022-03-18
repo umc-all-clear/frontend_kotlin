@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.clear.data.entities.dataResult
 import com.umc.clear.databinding.ItemHomeCalendarBinding
 import com.umc.clear.databinding.ItemHomeCalendarFrameBinding
 import com.umc.clear.ui.home.view.CalendarDescriptionFragment
@@ -16,7 +17,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBinding: ItemHomeCalendarFrameBinding): RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
+class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBinding: ItemHomeCalendarFrameBinding)
+    : RecyclerView.Adapter<CalendarRVAdapter.ViewHolder>() {
     var flHeight = 0
     var firstCall = true
     var firstContentFrameCall = true
@@ -26,6 +28,8 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
     var calData = ArrayList<ArrayList<ArrayList<Int>>>()
     lateinit var desFragmentItem: CalendarDescriptionFragment
     lateinit var desEmptyFragmentItem: CalendarEmptyFragment
+
+    var onlineData = ArrayList<dataResult>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -251,10 +255,18 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
 
         val rvList = getRVList(pos)
 
+        par.fragment.getData(calList[pos][0], calList[pos][1], this)
+
+        while (onlineData.isEmpty()) {
+        }
+
+        val onlineSliceData0 = getData(rvList[0])
+
         binding.itemCalDate1Rv.addItemDecoration(CustomItem(siz))
-        val adapter1 = CalendarDateRVAdapter(rvList[0], mainCont, parBinding)
+        val adapter1 = CalendarDateRVAdapter(onlineSliceData0.second, rvList[0], mainCont, parBinding)
         adapter1.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
+
                 ////해당월 기반 데이터 서버호출
                 var data = true
                 closeAllCv(binding)
@@ -605,5 +617,40 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         }
 
         return total
+    }
+
+    fun getData(rvList: ArrayList<Int>): Pair<List<dataResult>, ArrayList<Int>> {
+        val loop = onlineData.size
+        var start = 0
+        var end = 0
+        var dateArr = ArrayList<Int>()
+        if (rvList[0] != 0) {
+            for (i in 0 until loop) {
+                var tmpArr = onlineData[i].cleanedAt!!.split(" ")
+                tmpArr = tmpArr[0].split("-")
+                if (start + rvList[0] == tmpArr[2].toInt()) {
+                    end = i
+                    break
+                }
+            }
+        }
+        else {
+            for (i in 0 until loop) {
+                var tmpArr = onlineData[i].cleanedAt!!.split(" ")
+                tmpArr = tmpArr[0].split("-")
+                if (start != 0) {
+                    dateArr.add(i)
+                }
+                if (rvList[1].toString() == tmpArr[2]) {
+                    start = i
+                }
+                if (start != 0 && start + 7 == tmpArr[2].toInt()) {
+                    end = i - 1
+                    dateArr.remove(dateArr.size - 1)
+                    break
+                }
+            }
+        }
+        return Pair(onlineData.slice(start..end), dateArr)
     }
 }
