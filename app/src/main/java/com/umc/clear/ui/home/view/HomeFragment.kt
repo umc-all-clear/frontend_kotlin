@@ -14,13 +14,16 @@ import com.umc.clear.ui.admission.view.DataView
 import com.umc.clear.ui.home.adapter.CalendarRVAdapter
 import com.umc.clear.ui.home.adapter.HomeRVAdapter
 import com.umc.clear.utils.PrefApp
+import io.reactivex.disposables.Disposable
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class HomeFragment: Fragment(), DataView {
     lateinit var mainCont: MainActivity
     lateinit var binding: FragmentHomeBinding
     lateinit var rvAdapter: CalendarRVAdapter
+    var disposable: Disposable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +56,11 @@ class HomeFragment: Fragment(), DataView {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable?.let{disposable!!.dispose()}
+    }
+
     fun goTrans(id: Int, frag: Fragment) {
         val trans = this.childFragmentManager.beginTransaction()
         trans.add(id, frag)
@@ -63,16 +71,21 @@ class HomeFragment: Fragment(), DataView {
         mainCont.setFragment(2)
     }
 
-    fun getData(year: Int, month: Int, adapter: CalendarRVAdapter) {
+
+    fun setAdapter(adapter: CalendarRVAdapter) {
         rvAdapter = adapter
+
+    }
+
+    fun getData(year: Int, month: Int) {
 
         val retro = RetroService
         retro.setData(this)
 
         PrefApp.pref.setPrefname("user")
         val mail = PrefApp.pref.getString("email")
-        retro.reqData(mail, ReqData(year, month), 0)
 
+        retro.reqData(mail, ReqData(year, month), -1)
     }
 
     override fun onDataGetSuccess(data: GetData, order: Int) {

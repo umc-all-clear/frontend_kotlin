@@ -11,11 +11,14 @@ import com.umc.clear.ui.friend.view.FriendView
 import com.umc.clear.ui.login.LoginView
 import com.umc.clear.ui.signup.SignupView
 import com.umc.clear.utils.PrefApp
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -211,25 +214,27 @@ object RetroService {
     }
 
     fun reqData(email: String, req: ReqData, order: Int) {
-        val retro = makeRetrofit()
+        val retro = Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://3.35.26.181/")
+            .build()
         val service = retro.create(RetroServiceInterface::class.java)
 
-        val call = service.getData(email, req)
-
-        call.enqueue(object : retrofit2.Callback<GetData> {
-            override fun onResponse(call: Call<GetData>, response: Response<GetData>) {
-                if (response.isSuccessful) {
-                    getData.onDataGetSuccess(response.body()!!, order)
+        service.getData(email, req)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it.code == 200) {
+                    getData.onDataGetSuccess(it!!, order)
                 } else {
-                    getData.onDataGetFailure(response.toString())
+                    getData.onDataGetFailure(it.toString())
                 }
-            }
 
-            override fun onFailure(call: Call<GetData>, t: Throwable) {
-                Log.d("retroFail", "err")
-            }
+            },
+                {
 
-        })
+                })
     }
 
 }

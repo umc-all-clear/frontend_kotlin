@@ -60,6 +60,11 @@ class CalendarDateRVAdapter(val data: ArrayList<Int>, val info: ArrayList<Int>, 
             if (info[0] == 0) {
                 if (info[1] + position <= info[3]) {
                     binding.itemCalDateTv.text = (info[1] + position).toString()
+                    for (i in data) {
+                        if (i == info[1] + position) {
+                            binding.itemCalDateIv.visibility = View.VISIBLE
+                        }
+                    }
                 }
                 else {
                     binding.itemCalDateTv.text = ""

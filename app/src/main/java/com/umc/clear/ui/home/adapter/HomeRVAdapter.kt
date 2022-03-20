@@ -121,6 +121,8 @@ class HomeRVAdapter(val mainCont: Context, val dataList: ArrayList<Int>, val fra
                 val adapter = CalendarRVAdapter(mainCont, this@HomeRVAdapter, binding)
                 binding.homeCalVp.adapter = adapter
 
+                fragment.setAdapter(adapter)
+
 
                 thread (start = true) {
                     while (binding.homeCalMonTv.width == 0) {

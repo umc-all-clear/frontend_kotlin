@@ -1,7 +1,9 @@
 package com.umc.clear.data.remote
 
+import android.database.Observable
 import com.umc.clear.data.entities.*
 import com.umc.clear.utils.PrefApp
+import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -42,5 +44,5 @@ interface RetroServiceInterface {
     fun getData (
         @Query("email") email: String,
         @Body req: ReqData
-    ): Call<GetData>
+    ): Single<GetData>
 }

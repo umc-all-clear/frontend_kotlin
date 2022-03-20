@@ -14,9 +14,9 @@ class CustomItem(var space: Int): RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val pos = parent.getChildViewHolder(view).adapterPosition
-        val count = state.itemCount
-        val dpi = PrefApp.pref.getString("dpi").toFloat()
+//        val pos = parent.getChildViewHolder(view).adapterPosition
+//        val count = state.itemCount
+//        val dpi = PrefApp.pref.getString("dpi").toFloat()
 //        if (space < dpTopx(65, dpi)) {
 //            view.setPadding((space - dpTopx(20, dpi))/2 -1, dpTopx(10, dpi), (space - dpTopx(20, dpi))/2, dpTopx(10, dpi))
 //        }

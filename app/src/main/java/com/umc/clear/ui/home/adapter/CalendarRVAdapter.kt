@@ -255,10 +255,8 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
 
         val rvList = getRVList(pos)
 
-        par.fragment.getData(calList[pos][0], calList[pos][1], this)
+        par.fragment.getData(calList[pos][0], calList[pos][1])
 
-        while (onlineData.isEmpty()) {
-        }
 
         val onlineSliceData0 = getData(rvList[0])
 
@@ -294,8 +292,10 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         binding.itemCalDate1Rv.adapter = adapter1
 
 
+        val onlineSliceData1 = getData(rvList[1])
+
         binding.itemCalDate2Rv.addItemDecoration(CustomItem(siz))
-        val adapter2 = CalendarDateRVAdapter(rvList[1], mainCont, parBinding)
+        val adapter2 = CalendarDateRVAdapter(onlineSliceData1.second, rvList[1], mainCont, parBinding)
         adapter2.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -325,8 +325,11 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         })
         binding.itemCalDate2Rv.adapter = adapter2
 
+
+        val onlineSliceData2 = getData(rvList[2])
+
         binding.itemCalDate3Rv.addItemDecoration(CustomItem(siz))
-        val adapter3 = CalendarDateRVAdapter(rvList[2], mainCont, parBinding)
+        val adapter3 = CalendarDateRVAdapter(onlineSliceData2.second, rvList[2], mainCont, parBinding)
         adapter3.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -356,8 +359,10 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         })
         binding.itemCalDate3Rv.adapter = adapter3
 
+        val onlineSliceData3 = getData(rvList[3])
+
         binding.itemCalDate4Rv.addItemDecoration(CustomItem(siz))
-        val adapter4 = CalendarDateRVAdapter(rvList[3], mainCont, parBinding)
+        val adapter4 = CalendarDateRVAdapter(onlineSliceData3.second, rvList[3], mainCont, parBinding)
         adapter4.setListener(object : CalendarDateRVAdapter.onclickListener {
             override fun onClick(date: Int) {
                 ////해당월 기반 데이터 서버호출
@@ -388,8 +393,10 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         binding.itemCalDate4Rv.adapter = adapter4
 
         if (calList[pos][4] > 4) {
+            val onlineSliceData4 = getData(rvList[4])
+
             binding.itemCalDate5Rv.addItemDecoration(CustomItem(siz))
-            val adapter5 = CalendarDateRVAdapter(rvList[4], mainCont, parBinding)
+            val adapter5 = CalendarDateRVAdapter(onlineSliceData4.second, rvList[4], mainCont, parBinding)
             adapter5.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
@@ -421,8 +428,10 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
 
         }
         if (calList[pos][4] > 5) {
+            val onlineSliceData5 = getData(rvList[5])
+
             binding.itemCalDate6Rv.addItemDecoration(CustomItem(siz))
-            val adapter6 = CalendarDateRVAdapter(rvList[5], mainCont, parBinding)
+            val adapter6 = CalendarDateRVAdapter(onlineSliceData5.second, rvList[5], mainCont, parBinding)
             adapter6.setListener(object : CalendarDateRVAdapter.onclickListener {
                 override fun onClick(date: Int) {
                     ////해당월 기반 데이터 서버호출
@@ -624,6 +633,9 @@ class CalendarRVAdapter(val mainCont: Context, val par: HomeRVAdapter, val parBi
         var start = 0
         var end = 0
         var dateArr = ArrayList<Int>()
+        if (loop == 0) {
+            return Pair(onlineData, dateArr)
+        }
         if (rvList[0] != 0) {
             for (i in 0 until loop) {
                 var tmpArr = onlineData[i].cleanedAt!!.split(" ")
