@@ -214,27 +214,25 @@ object RetroService {
     }
 
     fun reqData(email: String, req: ReqData, order: Int) {
-        val retro = Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://3.35.26.181/")
-            .build()
+        val retro = makeRetrofit()
         val service = retro.create(RetroServiceInterface::class.java)
 
-        service.getData(email, req)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                if (it.code == 200) {
-                    getData.onDataGetSuccess(it!!, order)
+        val call = service.getData(email, req)
+
+        call.enqueue(object : retrofit2.Callback<GetData> {
+            override fun onResponse(call: Call<GetData>, response: Response<GetData>) {
+                if (response.isSuccessful) {
+                    getData.onDataGetSuccess(response.body()!!, order)
                 } else {
-                    getData.onDataGetFailure(it.toString())
+                    getData.onDataGetFailure(response.toString())
                 }
+            }
 
-            },
-                {
+            override fun onFailure(call: Call<GetData>, t: Throwable) {
+                Log.d("retroFail", "err")
+            }
 
-                })
+        })
     }
 
 }

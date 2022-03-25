@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.loader.content.AsyncTaskLoader
 import com.umc.clear.data.entities.*
 import com.umc.clear.data.remote.RetroService
 import com.umc.clear.databinding.FragmentHomeBinding
@@ -23,7 +24,8 @@ class HomeFragment: Fragment(), DataView {
     lateinit var mainCont: MainActivity
     lateinit var binding: FragmentHomeBinding
     lateinit var rvAdapter: CalendarRVAdapter
-    var disposable: Disposable? = null
+
+    var calData = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +60,6 @@ class HomeFragment: Fragment(), DataView {
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable?.let{disposable!!.dispose()}
     }
 
     fun goTrans(id: Int, frag: Fragment) {
@@ -91,6 +92,7 @@ class HomeFragment: Fragment(), DataView {
     override fun onDataGetSuccess(data: GetData, order: Int) {
         val dataArr = data.result!!
         rvAdapter.onlineData = dataArr
+        calData = true
     }
 
     override fun onDataGetFailure(code: String) {

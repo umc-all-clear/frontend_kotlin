@@ -44,5 +44,5 @@ interface RetroServiceInterface {
     fun getData (
         @Query("email") email: String,
         @Body req: ReqData
-    ): Single<GetData>
+    ): Call<GetData>
 }

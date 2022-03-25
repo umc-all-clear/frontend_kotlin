@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/calendar_background.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/custom_edittext.xml" value="0.179" />
+        <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/ic_launcher_background.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_blue_boarder.xml" value="0.179" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_calendar_circle.xml" value="0.25555555555555554" />
         <entry key="..\:/Desktop/activate/Android/clear/app/src/main/res/drawable/item_calendar_circle_disable.xml" value="0.179" />
